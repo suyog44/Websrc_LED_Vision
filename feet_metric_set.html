@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+</head>
+<body style="windth:100%; height:100%; overflow:hidden; "  bgcolor="white">
+
+<canvas id="myCanvas" 
+style="border:0px solid #0003c3; ">
+Your browser does not support the canvas element.
+</canvas>
+<script type='text/javascript' src="scriptFile.js"></script>
+<script type='text/javascript'>
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+var page=0;
+
+debugger;
+
+var u1 = getUnitFlag();
+var f1 = getFeetFlag();
+var d1 = getDecimalFlag();
+
+
+var dec=false;
+var unit=false;
+var feet=false;
+var p=1;
+var q=1;
+var r=1;
+
+if(d1 == 1)
+ { dec = true;  p=2;}
+
+if(f1 == 1)
+ { feet = true;  q=2;}
+
+if(u1 == 1)
+ {  unit = true; r=2;}
+
+
+
+ctx.canvas.width=window.innerWidth;
+
+ctx.canvas.height=window.innerHeight;
+
+ var x=(window.innerWidth)/2;
+ var y=(window.innerHeight)/2;
+
+
+function mark()
+{
+                ctx.fillStyle = "#000000";
+                ctx.font="50px Arial";
+                ctx.fillText("UNITS",    (x+x/2)-80,y+90);
+}
+
+
+function left(color)
+{
+
+                ctx.beginPath();
+                ctx.arc(x/2, y, 20, 0, 2 * Math.PI, false);
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath();
+                
+
+
+}
+
+function middle(color)
+{
+                  ctx.beginPath();
+                ctx.arc(x, y, 20, 0, 2 * Math.PI, false);
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath();
+                
+}
+
+function right(color)
+{
+              ctx.beginPath();
+                ctx.arc(x+x/2, y, 20, 0, 2 * Math.PI, false);
+                ctx.fillStyle = color;
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath();
+            
+}
+
+
+function fill()
+{
+                if(dec==false)
+                { left("#000000"); }
+               if(dec==true)
+                   {
+                     left("#00FF00");
+                   }
+
+                if(feet==true)
+                {middle("#00FF00"); }
+
+                 else if(feet==false)
+                {middle("#000000"); }
+
+
+                 if(unit==false)
+                {right("#000000");}
+                else if(unit==true)
+                {right("#00FF00");}
+
+}
+
+function back_click()
+        {
+              window.history.back();
+        }
+
+ function clr()
+        {
+                 ctx.fillStyle = "#FFFFFF";
+                ctx.font="50px Arial";
+                ctx.fillText("DECIMAL",    (x/2)-100,y+90);
+
+
+                  ctx.fillStyle = "#FFFFFF";
+                ctx.font="50px Arial";
+                ctx.fillText("FEET",    x-60,y+90);
+
+                     ctx.fillStyle = "#FFFFFF";
+                ctx.font="50px Arial";
+                ctx.fillText("UNITS",    (x+x/2)-80,y+90);
+        }
+
+function line()
+{
+     debugger;
+
+      if(page==3){page=0;}
+ if(page==-1){page=2;}
+
+    switch(page)
+    {
+      case 0:{   //alert(feet);
+                 fill();  clr();
+
+                ctx.fillStyle = "#FF0000";
+                ctx.font="50px Arial";
+                ctx.fillText("DECIMAL",    (x/2)-100,y+90);
+
+
+                  ctx.fillStyle = "#000000";
+                ctx.font="50px Arial";
+                ctx.fillText("FEET",    x-60,y+90);
+
+                     ctx.fillStyle = "#000000";
+                ctx.font="50px Arial";
+                ctx.fillText("UNITS",    (x+x/2)-80,y+90);
+
+              
+
+                 
+              //alert("d")
+
+              }break;
+
+        case 1:{
+
+                  clr();
+                 ctx.fillStyle = "#000000";
+                ctx.font="50px Arial";
+                ctx.fillText("DECIMAL",(x/2)-100,y+90);
+
+                ctx.fillStyle = "#FF0000";
+                ctx.font="50px Arial";
+                ctx.fillText("FEET",    x-60,y+90);
+
+                     ctx.fillStyle = "#000000";
+                ctx.font="50px Arial";
+                ctx.fillText("UNITS",    (x+x/2)-80,y+90);
+                   
+                  fill();
+               }break;
+
+        case 2:{
+                clr();
+                ctx.fillStyle = "#000000";
+                ctx.font="50px Arial";
+                ctx.fillText("DECIMAL",(x/2)-100,y+90);
+
+
+                  ctx.fillStyle = "#000000";
+                ctx.font="50px Arial";
+                ctx.fillText("FEET",    x-60,y+90);
+
+                     ctx.fillStyle = "#FF0000";
+                ctx.font="50px Arial";
+                ctx.fillText("UNITS",    (x+x/2)-80,y+90);
+                  
+            fill();
+                } break;     
+
+
+            
+              
+        }
+}
+
+
+ line();
+
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  //giveSound();            debugger;
+            //alert(event.keyCode);
+// $.ajax({
+//          url: "test1.php",
+//          type: "POST",         
+//          cache: false,
+//          success: function (response) {
+             
+//          }
+//      });
+giveSound();
+            switch(event.keyCode)
+            {
+              case 39:  page++; line();   break;  //move right
+              case 37:   page--;  line();  break;  // move left
+
+              case 13:  // alert(page);
+              debugger;
+                          if(page==0)
+                         {  p=p+1;
+                          //alert(p);
+                           if((p%2)==0)
+                           {
+                            dec=true;
+                            setDecimalFlag(1);
+                            
+                           }else
+                           {
+                             dec=false;
+                             setDecimalFlag(0);
+                           }  
+
+                           //alert("dec="+dec);
+                            page=0;
+                            line(); 
+
+                          }  
+                                
+
+                        if(page==1)
+                         {  q++;
+                           if((q%2)==0)
+                           {
+                            feet=true; 
+                            setFeetFlag(1); 
+                           }else
+                           {
+                             feet=false;  setFeetFlag(0); 
+                           }  
+                           //alert("feet="+feet);
+                           page=1;
+                            line(); 
+                          } 
+
+
+                        if(page==2)
+                         {  r++;
+                           if((r%2)==0)
+                           {
+                            unit=true;  
+                            setUnitFlag(1); 
+                           }else
+                           {
+                             unit=false;
+                             setUnitFlag(0); 
+                           }  
+                          // alert("unit="+unit);
+                           page=2;
+                            line(); 
+
+                          } 
+
+
+
+                          break;
+
+                           case 8:
+                      window.location="settingsmain.html"
+                      break; 
+			
+default:
+			remote(event.keyCode);
+			break;
+
+            }
+//alert(page);
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+</script>
+
+</body>
+</html>
+
+<script>
+
+
+</script>

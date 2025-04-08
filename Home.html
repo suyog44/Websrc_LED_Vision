@@ -1,0 +1,499 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script type="text/javascript">
+        var flag_key = true;
+
+        function myFunction() {
+            // Get the snackbar DIV
+            var aa = document.getElementById('snackbar');
+            if (parseInt(getSoundFlag()) == 1) {
+                aa.innerHTML = "UnMuted...";
+            } else {
+                aa.innerHTML = "Muted...";
+            }
+            // Add the "show" class to DIV
+            aa.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () {
+                aa.className = aa.className.replace("show", "");
+            }, 3000);
+
+        }
+    </script>
+    <script src="remote.js"></script>
+    <style type="text/css">
+        #snackbar {
+            visibility: hidden; /* Hidden by default. Visible on click */
+            min-width: 250px; /* Set a default minimum width */
+            margin-left: -125px; /* Divide value of min-width by 2 */
+            background-color: #333; /* Black background color */
+            color: #fff; /* White text color */
+            text-align: center; /* Centered text */
+            border-radius: 2px; /* Rounded borders */
+            padding: 16px; /* Padding */
+            position: fixed; /* Sit on top of the screen */
+            z-index: 1; /* Add a z-index if needed */
+            left: 50%; /* Center the snackbar */
+            bottom: 30px; /* 30px from the bottom */
+        }
+
+        /* Show the snackbar when clicking on a button (class added with JavaScript) */
+        #snackbar.show {
+            visibility: visible; /* Show the snackbar */
+
+            /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+            However, delay the fade out process for 2.5 seconds */
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        /* Animations to fade the snackbar in and out */
+        @-webkit-keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+
+        div {
+            background-color: black;
+        }
+    </style>
+    <script type='text/javascript' src="scriptFile.js"></script>
+    <script type="text/javascript">
+        var on = 1;
+        var col = 6;
+        var total = 24;
+        var gif = ['C.gif', 'E.gif', 'ENGLISH.gif', 'NUM.gif', 'TAMIL.gif', 'HINDI.gif', 'TELUGU.gif', 'ped.gif', 'snell.gif', 'logmar.gif', 'ILLITRATE DOTS.gif', 'constrast.gif', 'SPEEDMETER.gif', 'DOT_NUM.gif', 'ANATOMY.gif', 'LINE.gif', 'ROUND_DOT.gif', 'DUROCHROME.gif', 'H-MASK.gif', 'box.gif', 'LANGUAGES.gif', '12.gif', 'DIRECT_MODE.gif', 'SETTINGS.gif'];
+        var gif_img = ['landolt', 'TUMBLING_E', 'ENGLISH ALPHABETS', 'NUMBERS', 'TAMIL', 'HINDI', 'TELUGU', 'PEDIATRIC', 'SNELL CHART', 'LOGMART', 'ILLETERATE',
+            'CONTRAST', 'yellow image', 'dotnumber', 'eye', 'LINE', 'COLOR_DOTS', 'DURO_IMG', 'H-MASK', 'pointing', 'LANGUAGE', 'feet or mode', 'MODE', 'SETTINGS'];
+        var count = 1;
+
+        debugger;
+        var var1;
+
+        function $_GET() {
+            try {
+                var s = window.location.search;
+                var re = s.split('?')[1];
+                var var1 = re.split('=')[1];
+            } catch (x) {
+                var1 = 1
+            }
+
+            return var1;
+        }
+
+        var1 = $_GET();
+        count = parseInt(var1);
+
+
+        function right_click() {
+            debugger;
+            var temp = count;
+            if (count % col == 0) {
+                count = parseInt(count / col);
+                count = parseInt((((count - 1) * col) + 1));
+            } else
+                count = count + 1;
+            if (count > total) {
+                var r1 = parseInt(count / col);
+                if (count % col == 0)
+                    r1 = r1 - 1;
+                count = parseInt(((r1 * col) + 1));
+            }
+            if (temp != count) {
+                debugger;
+                var name = "i" + temp;
+                var name2 = "i" + count;
+                var img = document.getElementById(name);
+                var img2 = document.getElementById(name2);
+                img2.src = "./main_gifs/" + gif[count - 1];
+                img.src = "./main_image/" + gif_img[temp - 1] + ".png";
+            }
+
+        }
+
+        function left_click() {
+            var temp = count;
+            count = count - 1;
+            if (count % col == 0) {
+                count = parseInt((count / col));
+                count = parseInt(((count + 1) * col));
+            }
+            if (count > total) {
+                count = total;
+            }
+            if (temp != count) {
+                var name = "i" + temp;
+                var name2 = "i" + count;
+                var img = document.getElementById(name);
+                var img2 = document.getElementById(name2);
+                img2.src = "./main_gifs/" + gif[count - 1];
+                img.src = "./main_image/" + gif_img[temp - 1] + ".png";
+            }
+        }
+
+        function up_click() {
+            var temp = count;
+            var temp1 = count - col;
+            if (temp1 < 1) {
+                if (total % col == 0) {
+                    count = total + temp1;
+                } else {
+                    var temp2 = parseInt((total / col) + 1);
+                    var temp3 = parseInt((temp2 * col) + temp1);
+                    if (temp3 > total) {
+                        count = temp3 - col;
+                    } else {
+                        count = temp3;
+                    }
+                }
+            } else {
+                count = temp1;
+            }
+            if (temp != count) {
+                debugger;
+                var name = "i" + temp;
+                var name2 = "i" + count;
+                var img = document.getElementById(name);
+                var img2 = document.getElementById(name2);
+                img2.src = "./main_gifs/" + gif[count - 1];
+                img.src = "./main_image/" + gif_img[temp - 1] + ".png";
+            }
+
+        }
+
+        function down_click() {
+            var temp = count;
+            var temp1 = count + col;
+            if (temp1 > total) {
+                temp2 = count % col;
+                if (count % col == 0) {
+                    count = col;
+                } else {
+                    count = temp2;
+                }
+            } else {
+                count = temp1;
+            }
+            if (temp != count) {
+                debugger;
+                var name = "i" + temp;
+                var name2 = "i" + count;
+                var img = document.getElementById(name);
+                var img2 = document.getElementById(name2);
+                img2.src = "./main_gifs/" + gif[count - 1];
+                img.src = "./main_image/" + gif_img[temp - 1] + ".png";
+            }
+        }
+
+        function enter_click() {
+            debugger;
+            switch (count) {
+                case 1:
+                    window.location = "textpage_new.html?page=" + (count - 1);
+                    break;
+                case 2:
+                    window.location = "textpage_new.html?page=" + (count - 1);
+                    break;
+                case 3:
+                    window.location = "textpage_new.html?page=" + (count - 1);
+                    break;
+                case 4:
+                    window.location = "textpage_new.html?page=" + (count - 1);
+                    break;
+                case 5:
+                    window.location = "textpage_new.html?page=" + (count - 1);
+                    break;
+                case 6:
+                    window.location = "textpage_new.html?page=" + (count - 1);
+                    break;
+                case 7:
+                    window.location = "textpage_new.html?page=" + (count - 1);
+                    break;
+                case 8://periodic
+                    window.location = "ped.html";
+                    break;
+                case 9:
+                    window.location = "canva.html";
+                    break;
+                case 10:
+                    window.location = "log.html";
+                    break;
+
+                case 11:
+                    window.location = "illitrate dots.html";
+                    break;
+                case 12:
+                    window.location = "COLOR_CONTRAST.html";
+                    break;
+                case 13:
+                    window.location = "speedometer.html";
+                    break;
+                case 14:
+                    window.location = "dotimg.php.html";
+                    break;
+                case 15:
+                    window.location = "anatomy_front.html";
+                    break;
+                case 16:
+                    debugger;
+                    var tempFeet = parseInt(getFeet());
+                    if (tempFeet == 7 || tempFeet == 6) {
+                        //alert("This Version do not support for feet numbers 7 and 6");
+                        window.location = "support.html";
+                    } else
+                        window.location = "line_move.html";
+                    break;
+                case 17:
+                    window.location = "color_dots.html";
+                    break;
+                case 18:
+                    window.location = "duo_chrome.html";
+                    break;
+                case 19:
+                    window.location = "hv.html?page=";
+                    break;
+
+                case 20:
+                    window.location = "grid.html?id=0";
+                    break;
+                case    21:
+                    window.location = "lang_set.php.html";
+                    break;
+                case 22:
+                    window.location = "feetSet.html";
+                    break;
+                case 23:
+                    window.location = "direct.html";
+                    break;
+                case 24:
+                    // window.location="feet_metric_set.html";
+                    window.location = "settingsmain.html";
+                    break;
+
+            }
+        }
+
+        var key_p = 0;
+        var key_pp = 0;
+        document.addEventListener('keydown', function (event) {
+
+
+            if (key_pp == 0) {
+                key_pp = 1;
+                giveSound();
+                switch (event.keyCode) {
+
+
+                    case 39:
+                        right_click();
+                        break;
+                    case 37:
+                        left_click();
+                        break;
+                    case 38:
+                        up_click();
+                        break;
+                    case 40:
+                        down_click();
+                        break;
+                    case 13:
+                        enter_click();
+                        break;
+                    default:
+                        remote(event.keyCode);
+                        break;
+
+                }
+            }
+        }, true);
+
+        document.addEventListener('keyup', function (event) {
+            key_pp = 0;
+        }, true);
+
+        addEventListener("touchstart", function (event) {
+            var id = event.srcElement.id;
+            count = parseInt(id.replace("i",""));
+            enter_click();
+        }, true);
+    </script>
+
+</head>
+<body style="overflow:hidden;">
+<div class="container" style="margin:0px;width:100%;height: 100%">
+
+
+    <div class="row" style="margin:15px;height: 25%">
+        <div class="col-sm-2">
+            <img src="./main_image/landolt.png" id="i1" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/TUMBLING_E.png" id="i2" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/ENGLISH ALPHABETS.png" id="i3" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/NUMBERS.png" id="i4" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/TAMIL.png" id="i5" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/HINDI.png" id="i6" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <!-- </div>
+        <div class="row" style="margin:15px;height: 25%" > -->
+        <div class="col-sm-2">
+            <img src="./main_image/TELUGU.png" id="i7" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/PEDIATRIC.png" id="i8" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/SNELL CHART.png" id="i9" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/LOGMART.png" id="i10" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/ILLETERATE.png" id="i11" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/CONTRAST.png" id="i12" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <!--  </div>
+          <div class="row" style="margin:15px;height: 25%" > -->
+        <div class="col-sm-2">
+            <img src="./main_image/yellow image.png" id="i13" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/dotnumber.png" id="i14" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/eye.png" id="i15" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/LINE.png" id="i16" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/COLOR_DOTS.png" id="i17" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/DURO_IMG.png" id="i18" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <!--   </div>
+          <div class="row" style="margin:15px;height: 18%" > -->
+        <div class="col-sm-2">
+            <img src="./main_image/H-MASK.png" id="i19" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/pointing.png" id="i20" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/LANGUAGE.png" id="i21" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/feet or mode.png" id="i22" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/MODE.png" id="i23" style='width:100%;' border="0" alt="Null"/>
+        </div>
+        <div class="col-sm-2">
+            <img src="./main_image/SETTINGS.png" id="i24" style='width:100%;' border="0" alt="Null"/>
+        </div>
+    </div>
+
+</div>
+<div id="snackbar">...</div>
+<p id="initial">t</p>
+<script type="text/javascript">
+
+
+    var data = getFeet();
+    var d1 = getLanguage1();
+    var d2 = getLanguage2();
+    var d3 = getLanguage3();
+    gif_img[21] = data;
+    gif[21] = data + ".gif";
+    debugger;
+    gif_img[4] = d1;
+    gif[4] = d1 + ".gif";
+    gif_img[5] = d2;
+    gif[5] = d2 + ".gif";
+    gif_img[6] = d3;
+    gif[6] = d3 + ".gif";
+
+    document.getElementById('i22').src = "main_image/" + data + ".png";
+
+    document.getElementById('i5').src = "main_image/" + d1 + ".png";
+    document.getElementById('i6').src = "main_image/" + d2 + ".png";
+    document.getElementById('i7').src = "main_image/" + d3 + ".png";
+    debugger;
+
+    var ch = document.getElementById('i' + var1);
+    ch.src = "./main_gifs/" + gif[var1 - 1];
+
+    var test = document.getElementById("initial");
+    var font_test = ['Bamini', 'ArabicNaskhSSK', 'BRH Bengali', 'Gopika', 'AmrHindi', 'BRH Kannada', 'BRH Malayalam', 'BRH Oriya', 'Prototype', 'BRH Gurumukhi RN',
+        'SLOAN',
+        'BRH Telugu',
+        'Urdu',
+        'AMAA NETWORK CONSULTANT',
+        'FreeSans'
+    ];
+    debugger;
+    for (i = 0; i < font_test.length; i++)
+        test.style.fontFamily = font_test[i];
+
+
+</script>
+</body>
+</html>

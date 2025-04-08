@@ -1,0 +1,360 @@
+<html>
+<head>
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+  <style type="text/css">
+
+    #snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible; /* Show the snackbar */
+
+/* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+  </style>
+
+
+</head>
+<body>
+<div style="height: 15%;"></div>
+<div id="snackbar">Duochrome Color Updated...</div>
+<center><h1><font style="font-size: 50px;">DuoChrome Colors</font></h1></center>
+<table width="100%">
+
+<tr>
+<td><center><table width='25%'>
+
+<tr><td><center><h6><font style="font-size: 30px;">LEFT</font></h6></center></td>
+
+<tr>
+<td id="td1"><b >RED &emsp;</b><center  ><progress id="pg1" value="0" max="255" style="width='100';"></progress></center></td>
+<td><h3 id="val1">0</h3></td>
+</tr>
+<tr>
+<td id="td2"><b>GREEN</b><center><progress id="pg2" value="255" max="255"></progress></center></td>
+<td><h3 id="val2">0</h3></td>
+</tr>
+
+<tr>
+<td id="td3"><b>BLUE</b><center><progress id="pg3" value="0" max="255"></progress></center></td>
+<td><h3 id="val3">0</h3></td>
+</tr>
+<tr>
+	<td height="30">
+		
+	</td>
+</tr>
+
+<tr>
+<td id="td10"></progress></td>
+</tr>
+
+</table>
+</center></td>
+
+<td>
+
+
+<center><table width='25%'>
+
+<tr><td><center><h6><font style="font-size: 30px;">RIGHT</font></h6></center></td>
+</tr>
+<tr>
+
+<td id="td4"><b>RED</b><center><progress id="pg4" value="255" max="255"></progress></center></td>
+<td><h3 id="val4">0</h3></td>
+</tr>
+<tr>
+<td id="td5"><b>GREEN</b><center><progress id="pg5" value="0" max="255"></progress></center></td>
+<td><h3 id="val5">0</h3></td>
+</tr>
+<tr>
+<td id="td6"><b>BLUE</b><center><progress id="pg6" value="0" max="255"></progress></center></td>
+<td><h3 id="val6">0</h3></td>
+</tr>
+<tr>
+	<td height="30">
+		
+	</td>
+</tr>
+<tr>
+<td id="td11"></progress></td>
+</tr>
+
+</table>
+</center>
+
+</td>
+
+
+
+</table>
+<script type='text/javascript' src="scriptFile.js"></script>
+<script type="text/javascript">
+
+function myFunction1() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar")
+
+    x.innerHTML = "Duochrome Color Updated...";
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+
+var current  = 1;
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  //giveSound();       
+ // $.ajax({
+ //         url: "test1.php",
+ //         type: "POST",         
+ //         cache: false,
+ //         success: function (response) {
+             
+ //         }
+ //     });
+ giveSound();
+
+          switch(event.keyCode)
+          {
+              case 39:
+                      right_click();
+                      break;
+              case 37:
+                      left_click();
+                      break;
+              case 38:
+                      up_click();
+                      break;
+              case 40:
+                      down_click();
+                      break;
+              case 13:
+                      enter_click();
+                      break;
+              case 8:
+                      window.location="settingsmain.html";
+                      break;
+		
+default:
+			remote(event.keyCode);
+			break;
+          }
+        }
+        },true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+function back_click () {
+  // body...
+  window.history.back();
+}
+
+
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+
+
+
+function enter_click(){
+	debugger;
+	var data1 = document.getElementById("pg1").value;
+	var data2 = document.getElementById("pg2").value;
+	var data3 = document.getElementById("pg3").value;
+	var data4 = document.getElementById("pg4").value;
+	var data5 = document.getElementById("pg5").value;
+	var data6 = document.getElementById("pg6").value;
+
+	var lcolor = rgbToHex(data1 , data2 , data3);
+	var rcolor = rgbToHex(data4 , data5 , data6);
+
+	// alert(lcolor);
+	setRightColor(rcolor);
+	setLeftColor(lcolor);
+
+	myFunction1();
+
+	//store it into the database
+
+}
+
+
+
+
+document.getElementById("td1").style.background = 'grey';
+
+document.getElementById("td10").style.background = '#00ff00';
+document.getElementById("td10").style.height = '50';
+
+
+document.getElementById("td11").style.background = 'red';
+document.getElementById("td11").style.height = '50';
+function down_click () {
+	debugger;
+	temp = current;
+	if (current == 6){
+		current = 1;
+	}
+	else{
+	current++		
+	}
+
+str  = "td"+current;
+document.getElementById("td"+current).style.background = 'grey';
+
+document.getElementById("td"+temp).style.background = 'white';
+
+}
+
+
+function up_click() {
+temp = current;
+
+	if (current == 1){
+		current = 6
+	}else{
+
+	current--;		
+	}
+
+document.getElementById("td"+current).style.background = 'grey';
+
+document.getElementById("td"+temp).style.background = 'white';
+
+
+}
+
+
+
+
+
+function right_click () {
+
+	var d = document.getElementById("pg"+current);
+	d.value = d.value+5;
+	document.getElementById("val"+current).innerHTML=d.value;
+
+setvalue();
+
+}
+
+function left_click () {
+	// body...
+
+	var d = document.getElementById("pg"+current);
+	d.value = d.value-5;
+	document.getElementById("val"+current).innerHTML=d.value;
+
+	setvalue();
+
+}
+function setvalue () {
+	// body...
+	debugger;
+var data1 = document.getElementById("pg1").value;
+	var data2 = document.getElementById("pg2").value;
+	var data3 = document.getElementById("pg3").value;
+	var data4 = document.getElementById("pg4").value;
+	var data5 = document.getElementById("pg5").value;
+	var data6 = document.getElementById("pg6").value;
+
+
+
+	var lcolor = rgbToHex(data1 , data2 , data3);
+	var rcolor = rgbToHex(data4 , data5 , data6);
+document.getElementById("td10").style.background = lcolor;
+
+
+document.getElementById("td11").style.background = rcolor;
+
+
+}
+debugger;
+document.getElementById("val2").innerHTML="255";
+document.getElementById("val4").innerHTML="255";
+
+
+function myFunction() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+     aa = x;
+
+if(parseInt(getSoundFlag()) == 1){
+  aa.innerHTML = "UnMuted...";
+}else{
+  aa.innerHTML = "Muted...";
+}
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+
+
+</script>
+
+	</body>
+</html>

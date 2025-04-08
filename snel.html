@@ -1,0 +1,88 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body style="overflow: hidden;margin: 0px;"> 
+
+<canvas id="canvas" style="background: blue;"></canvas>
+  <script type='text/javascript' src="scriptFile.js"></script>
+<script type="text/javascript">
+	var canvas = document.getElementById('canvas');
+
+var langDatas = {
+    '2' : 'ENGLISH',
+    '3' : 'NUMBERS',
+    '4': getLanguage1(),
+    '5' : getLanguage2(),
+    '6' : getLanguage3()
+};
+var sizeArray = {
+	8 : [36,22, 15,11,8,6,4]
+
+};
+
+var lenArray = {
+    8 : [32,25,17,11,10,8.5,0]
+};
+
+var letterS = {
+    'TAMIL':['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'TELUGU' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'HINDI' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'ARABIC' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'BENGALI':['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'PROTOTYPE' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'CHINESE' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'KOREAN' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'MALAYALAM': ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'ORIYA' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'PUNJABI' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'RUSSIAN' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'SPANISH' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'GUJARATHI' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'URDU' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'GREEK' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'KOREAN' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W'],
+    'NUMBERS' : ['1','2','3','4','5','6','7','8','9'],
+    'ENGLISH' : ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W']
+};
+var ctx = canvas.getContext('2d');
+var centerPoint = window.innerWidth/2;
+var angles = [1.57 , 3.14 , 0 , 4.71];
+ctx.canvas.width=window.innerWidth;
+ctx.canvas.height=window.innerHeight;
+var feetValue = 8;
+var initial = (sizeArray[feetValue][0] *3) ;
+
+
+var aSize = sizeArray[feetValue][0];
+ctx.font = "bold "+sizeArray[feetValue][0]+"mm Sloan" ;
+
+
+       ctx.save();
+    ctx.textAlign='center';
+    ctx.textBaseline = 'middle';
+    ctx.translate(centerPoint , initial);
+    ctx.rotate(angles[1]);
+    ctx.translate(-(aSize/2) , -(aSize/2));
+    ctx.fillText('C' , aSize/2 , aSize/2);
+    ctx.restore();
+
+    initial += (aSize*3) + lenArray[feetValue][0];
+    aSize = sizeArray[feetValue][1];
+ctx.font = "bold "+sizeArray[feetValue][1]+"mm Sloan" ;
+       ctx.save();
+    ctx.textAlign='center';
+    ctx.tne = 'middle';
+    ctx.translate((centerPoint - lenArray[feetValue][1] - sizeArray[feetValue][1]) , initial);
+    ctx.rotate(angles[1]);
+    ctx.translate(-(aSize/2) , -(aSize/2));
+    ctx.fillText('C' , aSize/2 , aSize/2);
+    ctx.restore();
+
+
+
+
+</script>
+</body>
+</html>

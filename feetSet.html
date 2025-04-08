@@ -1,0 +1,254 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script><style>
+div {
+  background-color: black;
+}
+</style>
+<script type='text/javascript' src="scriptFile.js"></script>
+<script type="text/javascript">
+
+       var count=1;
+        var col=6;
+        var total=15;
+
+        function right_click(){
+          debugger;
+          var temp=count;
+          if (count % col == 0){  
+              count = parseInt(count / col);
+              count=parseInt((((count-1)*col)+1));
+            }
+          else
+          count = count + 1;   
+          if (count > total){
+              var r1  = parseInt (count / col);
+              if(count % col ==0)
+                  r1=r1-1;
+              count=parseInt(((r1*col)+1));
+          }
+          if(temp!=count)
+          {
+            var name="i"+temp;
+            var name2="i"+count;
+            var img=document.getElementById(name);
+            var img2=document.getElementById(name2);
+            img2.src="feet_number/"+(count+5)+".gif";
+            img.src="feet_number/"+(temp+5)+".png";
+            // img2.src="./main_gifs/"+gif[count-1];
+            // img.src="./main_image/"+gif_img[temp-1]+".png";
+          }
+          
+        }
+        function left_click()
+        {
+          var temp=count;
+          count = count - 1;
+          if (count % col == 0) {
+            count=parseInt((count/col));
+            count=parseInt(((count+1)*col));
+          }
+          if (count > total){
+            count = total;
+          }
+          if(temp!=count)
+          {
+            var name="i"+temp;
+            var name2="i"+count;
+            var img=document.getElementById(name);
+            var img2=document.getElementById(name2);
+             img2.src="feet_number/"+(count+5)+".gif";
+            img.src="feet_number/"+(temp+5)+".png";
+            // img2.src="./main_gifs/"+gif[count-1];
+            // img.src="./main_image/"+gif_img[temp-1]+".png";
+          }
+        }
+        function up_click()
+        {
+          var temp=count;
+          var temp1=count-col;
+          if (temp1 < 1)
+          {
+            if (total % col==0)
+            {
+                count=total+temp1;
+            }          
+            else
+            {
+                var temp2=parseInt((total/col)+1);
+                var temp3=parseInt((temp2*col)+temp1);
+                if (temp3 > total){
+                    count=temp3-col;
+                }          
+                else{
+                    count=temp3;
+                }            
+            }        
+          }        
+          else
+          {
+            count=temp1;
+          }
+          if(temp!=count)
+          {
+            debugger;
+            var name="i"+temp;
+            var name2="i"+count;
+            var img=document.getElementById(name);
+            var img2=document.getElementById(name2);
+             img2.src="feet_number/"+(count+5)+".gif";
+            img.src="feet_number/"+(temp+5)+".png";
+          }
+        
+        }
+        function down_click()
+        {
+          debugger;
+          var temp=count;
+          var temp1 = count + col; 
+          if (temp1 > total)
+          {
+            temp2 = count % col;
+            if (count % col ==0){
+              count = col; 
+            }
+            else
+            {
+              count = temp2;
+            }       
+          }
+          else{
+            count = temp1;
+          }
+          if(temp!=count)
+          {
+            debugger;
+            var name="i"+temp;
+            var name2="i"+count;
+            var img=document.getElementById(name);
+            var img2=document.getElementById(name2);
+             img2.src="feet_number/"+(count+5)+".gif";
+            img.src="feet_number/"+(temp+5)+".png";
+          }         
+        }
+        function enter_click()
+        {
+          debugger;
+          setFeet(count+5);
+          // alert(getFeet()+'entered');
+          // window.location = "Home.html";
+          //window.history.back();
+        }
+        function back_click()
+        {
+
+              window.history.back();
+        }
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  //giveSound();       
+
+ // $.ajax({
+ //         url: "test1.php",
+ //         type: "POST",         
+ //         cache: false,
+ //         success: function (response) {
+             
+ //         }
+ //     });
+ giveSound();
+
+          switch(event.keyCode)
+          {
+              case 39:
+                      right_click();
+                      break;
+              case 37:
+                      left_click();
+                      break;
+              case 38:
+                      up_click();
+                      break;
+              case 40:
+                      down_click();
+                      break;
+              case 13:
+                      enter_click();
+                        window.location="Home.html?val=22";
+                      break;
+              case 8:
+                       window.location="Home.html?val=22";
+                      break;
+		default:
+			remote(event.keyCode);
+			break;
+          }
+        }
+        },true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+      var count=1;
+      //var total=13;
+      var current=0;
+      var row=13;
+
+
+
+      // function right1(){
+      //   debugger;
+
+      //   var name="i"+count;  
+      //   count=count+1;
+      //   var name2="i"+count;
+      //   var img=document.getElementById(name);
+      //   var img2=document.getElementById(name2);
+      //   img2.src=(count)+".gif";
+      //   img.src=(count-1)+".png";
+      
+      // }
+
+
+
+</script>
+</head>
+<body backgroundcolor='#000000' style="overflow:hidden;" >
+
+<table id="tableid" border= 0 style='background-color:black;' width = "100%" height="100%">
+
+</table>
+<script type="text/javascript">
+var table = document.getElementById('tableid');
+var imageNames =1;
+var init= 6;
+totalAmt = 15;
+debugger;
+for ( i = 0; i < 3; i++){
+    var row = table.insertRow(i);
+    row.style.background = 'black';
+    for (j = 0; j < 6 && imageNames <= totalAmt ; j++){
+      var cell = row.insertCell(j);
+      cell.innerHTML = "<center style='background-color:black;'><img id=i"+imageNames+" width=200 src=feet_number/"+init+".png /></center>";
+      imageNames++;
+      init++;
+    }
+}
+document.getElementById("i1").src = "feet_number/6.gif";
+
+</script>
+
+</body>
+</html>

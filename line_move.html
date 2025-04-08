@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script type="text/javascript">
+	var tempFeet = parseInt(getFeet());
+	
+</script>
+
+  <script src="jquery.min.js"></script>
+   <script src="bootstrap.min.js"></script>
+ <script src="remote.js"></script>
+   <script type='text/javascript' src="scriptFile.js"></script>
+   
+  <style type="text/css">
+.rotate180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+#container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#navi
+{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#infoi 
+{
+  width: 100%;
+  height: 5%;
+  position: absolute;
+  top:1%;
+  left: 0;
+}
+#infoi {
+  z-index: 10;
+}
+
+    .rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
+  </style>
+
+</head>
+<body style="windth:100%; height:100%;margin:0px; overflow:hidden;" id="bdy" >
+<div id="container">
+  <div id="navi">
+
+<canvas id="myCanvas" 
+style="border:0px solid #0003c3; " >
+Your browser does not support the canvas element.
+</canvas>
+</div>
+ <div id="infoi" style="padding-left: 1%;padding-right: 1%">
+<img id="rit" src="arr.png"  class="rotate180" width="50" height="50"/>
+
+<img id="left" src="arr.png" width="50" height="50"/>
+
+
+</div>
+</div>
+
+
+<script type='text/javascript'>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+
+
+ 
+         
+
+var feetval=parseInt(getFeet());
+var a=0;
+var b=0;
+var plus=0;
+var minus=0;
+var mul=1;
+var metric=0;
+var move= true;
+
+// feetval=f;
+
+var val={
+'8':[29.63],
+'9':[26.5],
+'10':[23.73],
+'11':[21.92],
+'12':[19.63],
+'13':[18.22],
+'14':[17.01],
+'15':[15.83],
+'16':[14.9],
+'17':[13.98],
+'18':[13.25],
+'19':[12.58],
+'20':[11.9],
+
+
+};
+
+
+
+var x_val=0;
+var y_val=0;
+
+ctx.canvas.width=window.innerWidth;
+
+ctx.canvas.height=window.innerHeight;
+
+ var x=((window.innerWidth)/2)-21;
+ var y=((window.innerHeight)/2)-21;
+
+//  var reverse=getMainFlag();
+// var b=document.getElementById('mybody');
+
+// if(reverse==1)
+// {
+  
+//   b.className='rev_dis';
+// }
+
+
+
+ line();
+ 
+
+function draw_txt()
+{    var p;         
+
+  if(metric<0)
+  {
+    
+    p=(-metric);
+   
+  }
+  else
+  {
+    p=metric;
+  }
+                ctx.beginPath();
+                 ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(window.innerWidth-250,window.innerHeight-100,250,105);
+                ctx.closePath();
+                ctx.font = "33px TimesNewroman ";  ctx.fillStyle = "gray";
+
+                ctx.fillText(p+" "+"SoA",window.innerWidth-200,window.innerHeight-13); // change in this 
+}
+
+
+
+function line()
+{
+  debugger;
+  draw_txt();
+ctx.fillStyle = "#000000";
+ctx.fillRect(x,0,42,y);
+ctx.fillRect(x,y,42,y*2);
+ctx.fill();
+}
+
+
+function right()
+{
+  debugger;
+  if(plus==50){return;}
+  plus++;
+  if(plus<=50&&plus>=(-50))
+  {
+  metric=metric-val[feetval][0]; 
+  metric=parseFloat((metric).toFixed(2));
+  //alert(metric);
+
+  
+  // alert(plus);
+  if((plus%2)==0)
+  {    
+
+       
+       draw_txt();
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(x-a+4,0,44,y);
+    a=a+1.65;
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(x-a,0,42,y);
+  }
+  else{
+
+      draw_txt();
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(x+b-4,y,44,y*2);
+    b=b+1.65;
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(x+b,y,42,y*2);
+  }
+  }
+arrow();
+}
+//_______________________________________________
+
+function left()
+{
+  debugger;
+  if(plus==(-50)){return;}
+  plus--;
+ if(plus<=50&&plus>=(-50))
+  {
+ metric=metric+val[feetval][0]; 
+ metric=parseFloat((metric).toFixed(2));
+ 
+    // alert(plus);
+
+  if((plus%2)==0)
+  {
+
+    draw_txt();
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(x-a-4,0,44,y);
+    a=a-1.65;
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(x-a,0,42,y);
+    //alert("1");
+  }
+  else{
+      
+      draw_txt();
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(x+b+4,y,44,y*2);
+    b=b-1.65;
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(x+b,y,42,y*2);
+    //alert("2");
+  }
+}
+arrow();
+}
+
+
+
+
+function back_click()
+{
+  window.history.back();
+}
+
+
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  //giveSound();            debugger;
+            //alert(event.keyCode);
+     //        $.ajax({
+     //     url: "test1.php",
+     //     type: "POST",         
+     //     cache: false,
+     //     success: function (response) {
+             
+     //     }
+     // });
+     giveSound();
+
+            switch(event.keyCode)
+            {
+              case 39: left();  break;  //move right
+              case 37: right();   break; 
+              case 8:    window.location="Home.html?val=16";   break;  // move left
+
+
+default:
+      remote(event.keyCode);
+      break;
+            }
+
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+
+var stat = getMainFlag();
+
+if(stat == 1){
+  var d = document.getElementById('bdy');
+  d.className = 'rev_dis';
+}
+var lef=document.getElementById("left");
+var rit=document.getElementById("rit");
+arrow();
+function arrow()
+{
+	if(plus>-50)
+		lef.style.display="inline";
+	else
+		lef.style.display="none";
+	if(plus<50)
+		rit.style.display="inline";
+	else
+		rit.style.display="none";
+
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<html>
+<body>
+<center>
+<button id="a" style="background: cadetblue;">
+<font style="font-size: 30px;padding: 20px;">Import Data from Usb!</font>
+</button>
+</center>
+<br />
+<br />
+<center>
+<button id="b" style="background: gray;">
+<font style="font-size: 30px;padding: 20px;">Go With the Existing Datas!</font>
+</button>
+</center>
+
+
+
+<script type="text/javascript">
+	
+var count = 1;
+document.addEventListener('keyup',function(event){
+switch(event.keyCode){
+case 38:
+	debugger;
+	count = 2;
+	document.getElementById('a').style.background = "cadetblue";
+	document.getElementById('b').style.background = "gray";
+break;
+
+case 40:
+	debugger;
+	count = 3
+	document.getElementById('b').style.background = "cadetblue";
+	document.getElementById('a').style.background = "gray";
+break;
+
+case 13:
+if(count == 2)
+	window.location = "poll.php";
+else if(count == 3)
+	window.location = "videoorimage.php";
+break;
+case 8:
+	window.location = "settingsmain.html";
+break;
+}
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,2486 @@
+<html>
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+  <script type='text/javascript' src="scriptFile.js"></script>
+  <style>
+ @font-face
+{
+    font-family: Bamini;
+    src: url(Bamini.ttf);
+     
+}
+ @font-face
+{
+    font-family: coolvetica;
+    src: url(coolvetica.ttf);
+     
+}
+.container1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+                                                                                                                               
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
+  marginRight:5px;
+   
+}
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+  /*table{
+    background-color: #000000;
+  }
+  td{
+    background-color: #FFFFFF;
+  }*/
+  </style>
+  
+  <script type="text/javascript">
+  debugger;
+	var mul_val  = {
+    'Bamini' : 5.66,
+    'ArabicNaskhSSK' : 3.777,
+    'BRH Bengali': 4.166,        
+    'Gopika':4.777,
+    'AmrHindi':4.222,    
+    'BRH Kannada':5.666,    
+    'BRH Malayalam': 5.388,
+    'BRH Oriya': 4.444, 
+    'Prototype':3.333,
+    'BRH Gurumukhi RN':4.244,    
+    'SLOAN':2.47,
+    'BRH Telugu':5.277,        
+    'Urdu':5,
+	'Coolvetica':4.022
+};
+var mix = {
+    'TAMIL' : 'Bamini',
+    'ARABIC' : 'ArabicNaskhSSK',
+    'BENGALI':'BRH Bengali',    
+    'GUJARATHI':'Gopika',
+    'HINDI':'AmrHindi',    
+    'KANNADA':'BRH Kannada',    
+    'MALAYALAM': 'BRH Malayalam',
+    'ORIYA': 'BRH Oriya', 
+    'PROTOTYPE':'Prototype',
+    'PUNJABI':'BRH Gurumukhi RN',   
+    'SLOAN':'Sloan',    
+    'TELUGU':'BRH Telugu',
+    'ASSAMESE':'BRH Bengali',
+    'URDU':'Urdu'
+};
+	var blk_clr="#000000";
+	var wht_clr="#ffffff";
+        var page_count;
+ var lang_count=0;
+var blk=parseInt(getBWFlag());
+	//blk=1; 
+	if(blk==1)
+	{
+	   var te=blk_clr;
+	   blk_clr=wht_clr;
+	   wht_clr=te;
+	}
+function $_GET() {
+    try{
+debugger;
+	
+	
+    var s =  window.location.search;
+    var re = s.split('?')[1];
+    page_count=parseInt( re.split('=')[1]);
+    }catch(e){
+        page_count = 1;
+    }
+
+    return page_count;
+}
+$_GET();
+	
+        var feet_value=parseInt(getFeet());
+        var units=[60,36,24,18,12,9,6,5,4];
+        var mixed = {
+    '20' : [200, 120, 80, 60, 40, 30, 20, 16.6, 13.2],
+    '19' : [190, 114, 76, 57, 38, 28, 19, 15, 12.5 ],
+    '18' : [180, 108, 72, 54, 36, 27, 18, 14, 11.9 ],
+    '17' : [170, 102, 68, 51, 34, 25.5, 17, 14.1, 11.2 ],
+    '16' : [160, 96, 64, 48, 32, 24, 16, 13.3, 10.6 ],
+    '15' : [150, 90, 60, 45, 30, 22, 15, 12, 10 ],
+    '14' : [140, 84, 56, 42, 28, 21, 14, 11.6, 9.2 ],
+    '13' : [130, 78, 52, 39, 26, 19, 13, 10.8, 8.6 ],
+    '12' : [120, 74, 48, 36, 24, 18.5, 12, 10, 8 ],
+    '11' : [110, 66, 44, 33, 22, 16.6, 11, 9.1, 7.3 ],
+    '10' : [100, 60, 40, 30, 20, 15, 10, 8.3, 6.6 ],
+    '9' : [90, 54, 36, 27, 18, 13.5, 9, 7.5, 5.9 ],
+    '8' : [80, 48, 32, 24, 16, 12, 8, 6.6, 5.3 ]
+};
+        // var mminpt=2.4285714285;
+        var mminpt=2.47;
+        var feet=[8,9,10,11,12,13,14,15,16,17,18,19,20];
+        var feet_array=[[35,21,14,11,7,5,3.5,2.5,2],[40,24,16,12,8,6,4,3,2.5],[45,26,18,13,9,6.5,4.5,3.5,3],[50,30,20,4,15,10,7,5,4,3],[50,32,22,16,11,7.5,5,4,3],[55,34,23,17,12,8,5.5,4.5,3.5],[60,37,25,19,13,9,6,5,4],[65,40,27,20,13,10,7,5,4],[70,42,29,21,14,11,7,6,4],[75,45,30,23,15,11,7,6,5],[80,47,32,24,16,11.5,8,6,5],[85,50,34,25,17,12,9,7,6],[90,53,35,27,18,13,9,7,6]];
+        var single=false;
+        var horz=true;
+        var verti=false;
+        var h_mask=false;
+        var v_mask=false;
+        var h_mask_count=0;
+        var v_mask_count=0;
+        var prototype=['A','B','C','D','E','F','G','H','I'];
+        var eng=['A','D','L','T','N','P','J'];
+        var num=[1,2,3,6,7,8,4,5,9];
+        var othr=['r','r','r','r','r','r','r'];
+        var temp_random=0;        
+        var count=0;
+        var text_sizetext_size=[[90,21,14,11,7,5,3.5,2.5,2]];
+        var angle=[0,90,180,270];
+        var temp_single='e';
+        
+     
+
+        debugger;
+ var lang1=getLanguage1();
+
+ var lang2=getLanguage2();
+
+ var lang3=getLanguage3();
+
+
+        var languages=['SLOAN','SLOAN','SLOAN','Coolvetica','BAMINI','AmrHindi','BRH Telugu','Prototype'];
+
+        languages[4] = mix[lang1];
+        languages[5] = mix[lang2];
+        languages[6]= mix[lang3];
+
+        function up_single()
+        {
+          debugger;
+          if(count<9)
+          {
+            var index=feet.indexOf(feet_value);
+            update_units(count);
+            var table1 = document.getElementById("table1");
+            var row1=table1.rows[0];
+            var cell1;
+            if(row1.cells.length==0)
+            {
+                cell1 = row1.insertCell(count);
+		alert(mul_val[languages[lang_count]]);
+                cell1.innerHTML = "<span id='txt"+count+"' style='color:"+blk_clr+"; font-family:"+languages[lang_count]+" ;font-size:"+(feet_array[index][count]*mul_val[languages[lang_count]]).toFixed(0)+"pt;'>C</span>";
+            }
+            else
+            {
+                cell1=row1.cells[0];
+            }
+            var random=Math.floor(Math.random() * 4) ; 
+            var h=document.getElementById('txt0');
+            h.style.fontSize=(feet_array[index][count]*mul_val[languages[lang_count]]).toFixed(0)+'pt';            
+            switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>0)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else
+                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>0)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else
+                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      random=Math.floor(Math.random() * 7) ; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      random=Math.floor(Math.random() * 7) ; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      random=Math.floor(Math.random() * 8) ; 
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      random=Math.floor(Math.random() * 7) ; 
+                      h.innerHTML=othr[random];
+                      break;
+            }  
+            count=count+1;
+          }
+          // var table1 = document.getElementById("table1");
+          // var row1=table1.rows[0];
+
+        }
+        function down_single()
+        {
+          debugger;
+          if(count>1)
+          { 
+            var index=feet.indexOf(feet_value);
+            count=count-1;   
+            update_units(count-1);  
+            var random=Math.floor(Math.random() * 4) ; 
+            var h=document.getElementById('txt0');
+            h.style.fontSize=(feet_array[index][count-1]*mul_val[languages[lang_count]]).toFixed(0)+'pt';        
+            switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>2)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>2)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      random=Math.floor(Math.random() * 7) ; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      random=Math.floor(Math.random() * 7) ; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      random=Math.floor(Math.random() * 8) ; 
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      random=Math.floor(Math.random() * 7) ; 
+                      h.innerHTML=othr[random];
+                      break;
+            }              
+
+            
+          }
+         
+
+        }
+
+
+        function left_single()
+        {
+          debugger;
+          if(lang_count>0)
+          {
+		var index=feet.indexOf(feet_value);
+            lang_count=lang_count-1;                
+            var random=Math.floor(Math.random() * 4)  ; 
+            var h=document.getElementById('txt0');
+            h.style.fontFamily=languages[lang_count]; 
+	    alert( feet_array[index][count-1]);
+	    alert( mul_val[languages[lang_count]]);
+            h.style.fontSize=(feet_array[index][count-1]*mul_val[languages[lang_count]]).toFixed(0)+'pt';        
+            switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      random=Math.floor(Math.random() * 7) ; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      random=Math.floor(Math.random() * 7) ; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      random=Math.floor(Math.random() * 8) ; 
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      random=Math.floor(Math.random() * 7) ; 
+                      h.innerHTML=othr[random];
+                      break;
+            }           
+          }
+        }
+        function right_single()
+        {
+          debugger;
+          if(lang_count<7)
+          {
+		 var index=feet.indexOf(feet_value);
+            lang_count=lang_count+1;                
+            var random=Math.floor(Math.random() * 4)  ; 
+            var h=document.getElementById('txt0');
+            h.style.fontFamily=languages[lang_count];  
+ alert( feet_array[index][count-1]);
+	    alert( mul_val[languages[lang_count]]);
+          
+            h.style.fontSize=(feet_array[index][count-1]*mul_val[languages[lang_count]]).toFixed(0)+'pt';   
+             switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      do{
+                        random=Math.floor(Math.random() * 7) ; 
+                      }while(random==temp_random);
+                      temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      do{
+                        random=Math.floor(Math.random() * 7) ; 
+                      }while(random==temp_random);
+                      temp_random=random; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      do{
+                        random=Math.floor(Math.random() * 8) ; 
+                      }while(random==temp_random);
+                      temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      do{
+                        random=Math.floor(Math.random() * 7) ; 
+                      }while(random==temp_random);
+                      temp_random=random; 
+                      h.innerHTML=othr[random];
+                      h.style.fontFamily=languages[lang_count]; 
+                      break;
+            }  
+          }
+        }
+        function up_horz()
+        {
+          debugger;
+          var random;
+	  var temppp=[];
+		var flagg;
+          if(count<9)
+          {
+            var index=feet.indexOf(feet_value);
+		
+            update_units(count);
+            if(count<7)
+            {
+
+              var table1 = document.getElementById("table1");
+            var row1=table1.rows[0];
+            var cell1;
+            cell1 = row1.insertCell(count);
+            debugger;
+            cell1.innerHTML = "<center><b><h1 id='txt"+count+"' style='color:"+blk_clr+"; font-family:"+languages[lang_count]+" ;font-size:"+(feet_array[index][count]*mminpt).toFixed(0)+"pt;'>C</h1></b></center>";
+          } 
+            
+            for(i=0;i<=count&&i<7;i++)
+            {
+		flagg=true;
+              do{
+                random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random;
+              var h=document.getElementById('txt'+i);
+              h.style.fontSize=(feet_array[index][count]*mminpt).toFixed(0)+'pt';
+              switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                     if(count>0)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';                    
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>0)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                       do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+
+                      //temp_random=random;                      
+			h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+
+                      //temp_random=random;                     
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+
+                      //temp_random=random;                      
+			h.innerHTML=othr[random];
+                      break;
+            }  
+             
+            }
+            count=count+1;
+                
+            
+          }
+        }
+        function down_horz()
+        {
+          debugger;
+          var random;
+          if(count>1)
+          {
+            var index=feet.indexOf(feet_value);
+            var temppp=[];
+	    var flagg;
+            count =count-1;
+            update_units(count-1);
+            if(count<7)
+            {
+              var table1 = document.getElementById("table1");
+              var row1=table1.rows[0];
+              row1.deleteCell(count);
+            }  
+            for(i=0;i<count&&i<7;i++)
+            {
+		flagg=true;
+              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random;
+              var h=document.getElementById('txt'+i);
+              h.style.fontSize=(feet_array[index][count-1]*mminpt).toFixed(0)+'pt';
+              switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>2)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                     if(count>2)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+
+                      //temp_random=random;                      
+			h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                     do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+
+                      //temp_random=random; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      do{
+                        random=Math.floor(Math.random() * 8) ; 
+                      }while(random==temp_random);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      do
+                      {
+                          random=Math.floor(Math.random() * 7) ; 
+                      }while(random==temp_random);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      break;
+            }  
+             
+            }
+            
+                
+            
+          }
+        }
+        function right_horz()
+        {
+          debugger;
+          var random;
+          if(lang_count<7)
+          {
+		var temppp=[];
+		var flagg;
+
+            
+            lang_count=lang_count+1;
+            for(i=0;i<count&&i<7;i++)                
+            {
+		flagg=true;
+              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random; 
+               
+            var h=document.getElementById('txt'+i);
+            h.style.fontFamily=languages[lang_count];            
+            //h.style.fontSize=text_size[0][lang_count]+'pt';
+             switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                       do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                       do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+
+                     // temp_random=random;  
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                       do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                       do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      h.style.fontFamily=languages[lang_count]; 
+                      break;
+            } 
+            }
+            
+          }
+        }
+        function left_horz()
+        {
+          debugger;
+          var random;
+          if(lang_count>0)
+          {
+		var temppp=[];
+		var flagg;
+
+            lang_count=lang_count-1;
+            for(i=0;i<count&&i<7;i++)                
+            {
+		flagg=true;
+              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random; 
+               
+            var h=document.getElementById('txt'+i);
+            h.style.fontFamily=languages[lang_count];            
+            //h.style.fontSize=text_size[0][lang_count]+'pt';
+             switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      h.style.fontFamily=languages[lang_count]; 
+                      break;
+            } 
+            }
+            
+          }
+        }
+        function up_verti()
+        {
+          debugger;
+          var random;
+	  var temppp=[];
+var flagg;
+
+
+          if(count<9)
+          {
+            var index=feet.indexOf(feet_value);
+            update_units(count);
+            if(count<7)
+            {
+              var table1 = document.getElementById("table1");
+              var row1=table1.insertRow(count);
+              var cell1;
+              cell1 = row1.insertCell(0);
+              cell1.innerHTML = "<center><b><h1 id='txt"+count+"' style='color:"+blk_clr+"; font-family:"+languages[lang_count]+" ;font-size:"+(feet_array[index][count]*mminpt).toFixed(0)+"pt;'>C</h1></b></center>";
+          } 
+            
+            for(i=0;i<=count&&i<7;i++)
+            {
+		flagg=true;              do{
+                random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random;
+              var h=document.getElementById('txt'+i);
+              h.style.fontSize=(feet_array[index][count]*mminpt).toFixed(0)+'pt';
+              switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>0)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                     if(count>0)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;
+                      h.innerHTML=othr[random];
+                      break;
+            }  
+             
+            }
+            count=count+1;
+                
+            
+          }
+        }
+        function down_verti()
+        {
+          debugger;
+          var random;
+		var temppp=[];
+var flagg;
+
+
+          if(count>1)
+          {
+            var index=feet.indexOf(feet_value);
+            count =count-1;
+            update_units(count-1);
+            if(count<7)
+            {
+              var table1 = document.getElementById("table1");
+              table1.deleteRow(count);
+            }            
+
+            for(i=0;i<count&&i<7;i++)
+            {
+		flagg=true;              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random;
+              var h=document.getElementById('txt'+i);
+              h.style.fontSize=(feet_array[index][count-1]*mminpt).toFixed(0)+'pt';
+              switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>2)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>2)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                     
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      break;
+            }  
+             
+            }
+            
+                
+            
+          }
+        }
+        function left_verti()
+        {
+          debugger;
+          var random;
+	  var temppp=[];
+var flagg;
+
+
+          if(lang_count>0)
+          {
+            lang_count=lang_count-1;
+            for(i=0;i<count&&i<7;i++)                
+            {
+		flagg=true;              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random; 
+               
+            var h=document.getElementById('txt'+i);
+            h.style.fontFamily=languages[lang_count];            
+            //h.style.fontSize=text_size[0][lang_count]+'pt';
+             switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      h.style.fontFamily=languages[lang_count]; 
+                      break;
+            } 
+            }
+            
+          }
+        }
+        function right_verti()
+        {
+          debugger;
+          var random;
+	  var temppp=[];
+	  var flagg;
+
+
+          if(lang_count<7)
+          {
+            lang_count=lang_count+1;
+            for(i=0;i<count&&i<7;i++)                
+            {
+		flagg=true;              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random; 
+               
+            var h=document.getElementById('txt'+i);
+            h.style.fontFamily=languages[lang_count];            
+            //h.style.fontSize=text_size[0][lang_count]+'pt';
+             switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                     
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      h.style.fontFamily=languages[lang_count]; 
+                      break;
+            } 
+            }
+            
+          }
+        }
+        function up_h_mask()
+        {
+          debugger;
+          var random;
+          if(count<9)
+          {
+		var temppp=[];
+		var flagg;
+
+
+            var index=feet.indexOf(feet_value);
+            update_units(count);
+            if(count<7)
+            {
+              var table1 = document.getElementById("table1");
+           
+            var row1=table1.rows[h_mask_count];
+            var cell1;
+            cell1 = row1.insertCell(count);
+            cell1.innerHTML = "<center><b><h1 id='txt"+count+"' style='color:"+blk_clr+"; font-family:"+languages[lang_count]+" ;font-size:"+(feet_array[index][count]*mminpt).toFixed(0)+"pt;'>C</h1></b></center>";
+            } 
+            
+            for(i=0;i<=count&&i<7;i++)
+            {
+		flagg=true;              do{
+                random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random;
+              var h=document.getElementById('txt'+i);
+              h.style.fontSize=(feet_array[index][count]*mminpt).toFixed(0)+'pt';
+              switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>0)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>0)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;
+                      h.innerHTML=othr[random];
+                      break;
+            }  
+             
+            }
+            count=count+1;
+                
+            
+          }
+        }
+        function down_h_mask()
+        {
+          debugger;
+          var random;
+          if(count>1)
+          {
+		var temppp=[];
+		var flagg;
+
+
+            var index=feet.indexOf(feet_value);
+            count =count-1;
+            update_units(count-1);
+            if(count<7)
+            {
+              var table1 = document.getElementById("table1");
+              var row1=table1.rows[h_mask_count];
+              row1.deleteCell(count);
+            }            
+
+            for(i=0;i<count&&i<7;i++)
+            {
+		flagg=true;              do
+              {
+		
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random;
+              var h=document.getElementById('txt'+i);
+              h.style.fontSize=(feet_array[index][count-1]*mminpt).toFixed(0)+'pt';
+              switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>2)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>2)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      break;
+            }  
+             
+            }
+            
+                
+            
+          }
+        }
+        function left_h_mask()
+        {
+          debugger;
+          var random;
+          if(lang_count>0)
+          {
+		var temppp=[];
+		var flagg;
+
+            lang_count=lang_count-1;
+            for(i=0;i<count&&i<7;i++)                
+            {
+		flagg=true;              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random; 
+               
+            var h=document.getElementById('txt'+i);
+            h.style.fontFamily=languages[lang_count];            
+            //h.style.fontSize=text_size[0][lang_count]+'pt';
+             switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      h.style.fontFamily=languages[lang_count]; 
+                      break;
+            } 
+            }
+            
+          }
+        }
+        function right_h_mask()
+        {
+          debugger;
+          var random;
+          if(lang_count<6)
+          {
+		var temppp=[];
+var flagg;
+
+            lang_count=lang_count+1;
+            for(i=0;i<count&&i<7;i++)                
+            {
+		flagg=true;              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random; 
+               
+            var h=document.getElementById('txt'+i);
+            h.style.fontFamily=languages[lang_count];            
+            //h.style.fontSize=text_size[0][lang_count]+'pt';
+             switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                     
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                     
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      h.style.fontFamily=languages[lang_count]; 
+                      break;
+            } 
+            }
+            
+          }
+        }
+        function up_v_mask()
+        {
+          debugger;
+          var random;
+          if(count<9)
+          {
+		var temppp=[];
+var flagg;
+
+            var index=feet.indexOf(feet_value);
+            update_units(count);
+            var table1 = document.getElementById("table1");
+            var row1;
+            var cell1;
+            if(count==0)
+            {
+              row1=table1.rows[count];
+              cell1=row1.cells[v_mask_count];
+            }
+            else if(count>0&&count<7)
+            {              
+              row1=table1.insertRow(count);
+              for(i=row1.cells.length;i<=v_mask_count;i++)              
+              {
+                 cell1 = row1.insertCell(i);  
+              }
+                         
+            } 
+            cell1.style.backgroundColor="#FFFFFF";
+		cell1.style.width="10%";
+            cell1.innerHTML = "<span id='txt"+count+"' style='color:"+blk_clr+"; font-family:"+languages[lang_count]+" ;font-size:"+(feet_array[index][count]*mul_val[languages[lang_count]]).toFixed(0)+"pt;'>C</span>";
+            
+            for(i=0;i<=count&&i<7;i++)
+            {
+		flagg=true;              do{
+                random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random;
+              var h=document.getElementById('txt'+i);
+              h.style.fontSize=(feet_array[index][count]*mminpt).toFixed(0)+'pt';
+              switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                     if(count>0)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>0)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                     
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                     
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;
+                      h.innerHTML=othr[random];
+                      break;
+            }  
+             
+            }
+            count=count+1;
+                
+            
+          }
+        }
+        function left_v_mask()
+        {
+          debugger;
+          var random;
+          if(lang_count>0)
+          {
+		var temppp=[];
+var flagg;
+
+            lang_count=lang_count-1;
+            
+            for(i=0;i<count&&i<7;i++)                
+            {
+		flagg=true;              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random; 
+               
+            var h=document.getElementById('txt'+i);
+            h.style.fontFamily=languages[lang_count];            
+            //h.style.fontSize=text_size[0][lang_count]+'pt';
+             switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      h.style.fontFamily=languages[lang_count]; 
+                      break;
+            } 
+            }
+            
+          }
+        }
+        function right_v_mask()
+        {
+          debugger;
+		var temppp=[];
+		var flagg;
+          var random;
+          if(lang_count<6)
+          {
+		
+            lang_count=lang_count+1;
+            for(i=0;i<count&&i<7;i++)                
+            {
+		flagg=true;              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+
+              }while(random==temp_random);
+              temp_random=random; 
+               
+            var h=document.getElementById('txt'+i);
+            h.style.fontFamily=languages[lang_count];            
+            //h.style.fontSize=text_size[0][lang_count]+'pt';
+             switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>1)
+                          h.style.transform='rotate('+angle[random]+'deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                     
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      h.style.fontFamily=languages[lang_count]; 
+                      break;
+            } 
+            }
+            
+          }
+        }
+   function back_click()
+        {
+              window.history.back();
+        }
+    function clear()
+    {
+      debugger;
+      temp_random=0;
+      count=0;  
+      lang_count=0;
+      var table1 = document.getElementById("table1");      
+      var length=table1.rows.length;
+      for(i=length-1;i>=0;i--)
+      {       
+        table1.deleteRow(i);
+      }
+      
+    }
+    function add()
+    {
+      var table1 = document.getElementById("table1");
+      table1.style.backgroundColor="#FFFFFF";
+      var row1=table1.insertRow(0);
+    }
+    function add_h_mask()
+    {
+      debugger;
+      var table1 = document.getElementById("table1");
+      table1.style.backgroundColor=blk_clr;
+      var row1=table1.insertRow(0);      
+      var row2=table1.insertRow(1);
+      var row3=table1.insertRow(2);      
+      row1.style.width="100%";
+      row2.style.width="100%";
+      row3.style.width="100%";
+      row1.style.height="33%";
+      row2.style.height="33%";
+      row3.style.height="33%";
+      switch(h_mask_count)      
+      {
+        case 0:
+              row1.style.backgroundColor=wht_clr;
+              row2.style.backgroundColor=blk_clr;
+              row3.style.backgroundColor=blk_clr;
+              break;
+        case 1:
+              row2.style.backgroundColor=wht_clr;
+              row1.style.backgroundColor=blk_clr;
+              row3.style.backgroundColor=blk_clr;
+              break;
+        case 2:
+              row3.style.backgroundColor=wht_clr;
+              row1.style.backgroundColor=blk_clr;
+              row2.style.backgroundColor=blk_clr;
+              break;
+
+      }
+    }
+    function add_v_mask()
+    {
+      debugger;
+      var table1 = document.getElementById("table1");
+      table1.style.backgroundColor=blk_clr;
+      var row1=table1.insertRow(0);   
+      var cell1=row1.insertCell(0);
+      var cell2=row1.insertCell(1);
+      var cell3=row1.insertCell(2);
+      // row1.style.height="100%"  ;
+      // var row2=table1.insertRow(1);
+      // var row3=table1.insertRow(2);      
+      cell1.style.width="33%";
+      cell2.style.width="33%";
+      cell3.style.width="33%";
+      // cell1.style.height="100%";
+      // cell2.style.height="100%";
+      // cell3.style.height="100%"; 
+      switch(v_mask_count)      
+      {
+        case 0:
+              cell1.style.backgroundColor=wht_clr;
+              // row2.style.backgroundColor=blk_clr;
+              // row3.style.backgroundColor=blk_clr;
+              break;
+        case 1:
+              cell2.style.backgroundColor=wht_clr;
+              // row1.style.backgroundColor=blk_clr;
+              // row3.style.backgroundColor=blk_clr;
+              break;
+        case 2:
+              cell3.style.backgroundColor=wht_clr;
+              // row1.style.backgroundColor=blk_clr;
+              // row2.style.backgroundColor=blk_clr;
+              break;
+
+      }
+
+    }
+     function down_v_mask()
+        {
+          debugger;
+          var random;
+          if(count>1)
+          {
+var temppp=[];
+var flagg;
+
+            var index=feet.indexOf(feet_value);
+            count =count-1;
+            update_units(count-1);
+            if(count<7)
+            {
+              var table1 = document.getElementById("table1");
+              table1.deleteRow(count);
+            }            
+
+            for(i=0;i<count&&i<7;i++)
+            {
+		flagg=true;              do
+              {
+                  random=Math.floor(Math.random() * 4) ; 
+              }while(random==temp_random);
+              temp_random=random;
+              var h=document.getElementById('txt'+i);
+              h.style.fontSize=(feet_array[index][count-1]*mminpt).toFixed(0)+'pt';
+              switch(lang_count)
+            {
+                case 0:
+                      h.innerHTML='C';
+                      if(count>2)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 1:
+                      h.innerHTML='E';
+                      if(count>2)
+                        h.style.transform='rotate('+angle[random]+'deg)';
+                      else                          
+                        h.style.transform='rotate(0deg)';
+                      break;
+                case 2:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;
+                      h.innerHTML=eng[random];
+                      break;
+                case 3:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random; 
+                      h.innerHTML=num[random];
+                      break;
+                case 7:
+                      h.style.transform='rotate(0deg)';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;                       
+                      h.innerHTML=prototype[random];
+                      break;
+                default:
+                      h.style.transform='none';
+                      
+ do{
+                          random=Math.floor(Math.random() * 7) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+                      //temp_random=random;  
+                      h.innerHTML=othr[random];
+                      break;
+            }  
+             
+            }
+            
+                
+            
+          }
+        }
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+ // giveSound();
+// $.ajax({
+//          url: "test1.php",
+//          type: "POST",         
+//          cache: false,
+//          success: function (response) {
+             
+//          }
+//      });
+giveSound();
+    
+          switch(event.keyCode)
+          {
+              case 38:
+			if(single)
+                          down_single();
+                      else if(horz)
+                          down_horz();
+                      else if(verti)
+                          down_verti();
+                      else if(h_mask)
+                          down_h_mask();
+                      else if(v_mask)
+                          down_v_mask();
+                      break;
+                      
+              case 40:
+                      if(single)
+                          up_single();
+                      else if(horz)
+                          up_horz();
+                      else if(verti)                                                
+                          up_verti();
+                      else if(h_mask)
+                          up_h_mask();
+                      else if(v_mask)                      
+                          up_v_mask();
+                      break;
+		      
+              case 37:
+                      if(single)
+                          left_single();
+                      else if(horz)
+                          left_horz();
+                      else if(verti)
+                          left_verti();
+                      else if(h_mask)
+                          left_h_mask();
+                      else if(v_mask)
+                          left_v_mask();
+                      
+                      break;
+              case 39:
+                      if(single)
+                          right_single();
+                      else if(horz)
+                          right_horz();
+                      else if(verti)
+                          right_verti();    
+                      else if(h_mask)                  
+                          right_h_mask();
+                      else if(v_mask)
+                          right_v_mask();
+                      break;
+              case 57:
+                      single=true;
+			h_mask=false;
+		      v_mask=false;
+                      horz=false;
+                      verti=false;
+                      count=0;
+                      clear();
+                      add();
+                      up_single();
+                      break;
+              case 48:
+                      single=false;
+		      h_mask=false;
+		      v_mask=false;
+                      horz=false;
+                      verti=true;
+                      clear();
+                      up_verti();
+                      break;
+              case 51://h_mask
+                      debugger;
+			if(page_count==19)
+				page_count=18;
+
+                      if(h_mask)
+                      {
+			if( page_count==18 && h_mask_count>1)
+				h_mask_count=-1;
+                        h_mask_count=h_mask_count+1;
+                        if(h_mask_count>2)
+                        {
+
+			single=false;
+                          horz=false;
+                          verti=false;
+                          h_mask=true;
+                          h_mask_count=0;
+                          var my_body=document.getElementById('mybody');
+                          my_body.style.padding="2%";
+                          my_body.style.backgroundColor=blk_clr;
+
+
+
+
+                          //clear();
+                          //horz=true;
+                          //h_mask=false;
+                          //var my_body=document.getElementById('mybody');
+                          //my_body.style.padding="0%";
+                          //my_body.style.backgroundColor=wht_clr;                          
+                          //add();
+                          //up_horz();
+                          //break;
+                        }                       
+                      }
+                      else
+                      {
+                          single=false;
+                          horz=false;
+                          verti=false;
+                          h_mask=true;
+                          h_mask_count=0;
+                          var my_body=document.getElementById('mybody');
+                          my_body.style.padding="2%";
+                          my_body.style.backgroundColor=blk_clr;
+                      }                                                                  
+                      clear();
+                      add_h_mask();
+                      up_h_mask();
+                      break;
+              case 52://vmask
+                      debugger;
+			if(page_count==18)
+				page_count=19;
+                      if(v_mask)
+                      {
+			if( page_count==19 && v_mask_count>1)
+				v_mask_count=-1;
+
+                        v_mask_count=v_mask_count+1;
+                        if(v_mask_count>2)
+                        {
+
+			 
+                          single=false;
+                          horz=false;
+                          verti=false;
+                          h_mask=false;
+                          v_mask=true;
+                          var my_body=document.getElementById('mybody');
+                          my_body.style.padding="2%";
+                          my_body.style.backgroundColor=blk_clr;
+                          h_mask_count=0;
+                          v_mask_count=0;
+
+                          //clear();
+                          //horz=true;
+                          //v_mask=false; 
+                          //var my_body=document.getElementById('mybody');
+                          //my_body.style.padding="0%";
+                          //my_body.style.backgroundColor=wht_clr;                         
+                          //add();
+                          //up_horz();
+                          //break;
+                        }                       
+                      }
+                      else
+                      {
+                          single=false;
+                          horz=false;
+                          verti=false;
+                          h_mask=false;
+                          v_mask=true;
+                          var my_body=document.getElementById('mybody');
+                          my_body.style.padding="2%";
+                          my_body.style.backgroundColor=blk_clr;
+                          h_mask_count=0;
+                          v_mask_count=0;
+                      }                                                                  
+                      clear();
+                      add_v_mask();
+                      up_v_mask();
+                      break;
+              case 8:
+                      window.location="Home.html?val=17";                      break;
+		default:
+			remote(event.keyCode);
+			break;
+          }
+        }
+        },true);
+   
+          document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+  </script>
+</head>
+<body id="mybody" width="100%" height="100%" style="overflow:hidden;margin:0" >
+<div class="container1" style="margin-top:5px">
+<table width="100%"  id="table1" >
+    <tr id="row1" width=100% height=100% >
+ 
+    </tr>
+    </table>
+
+   
+</div>
+
+<div id="footer" >    <h2 id="b_left" style="display:inline;float:left;width:33%;color:grey;">&nbsp;test</h2>
+    <h2 id="b_center" style="display:inline;float:left;width:33%;text-align:center;color:grey;">test</h2>
+    <h2 id="b_right" style="display:inline;float:right;width:33%;text-align:right;color:grey">test&nbsp;</h2>
+</div>
+
+<script type="text/javascript">
+	debugger;
+    up_horz();    
+    function pageto(val)
+    {
+      debugger;
+	switch(val)
+	{
+		case 18:
+		 debugger;
+                                       
+                          single=false;
+                          horz=false;
+                          verti=false;
+                          h_mask=true;
+                          h_mask_count=0;
+                          var my_body=document.getElementById('mybody');
+                          my_body.style.padding="2%";
+                          my_body.style.backgroundColor=blk_clr;
+				var tab=document.getElementById('table1');
+			tab.style.backgroundColor=wht_clr;
+
+                                                                                  
+                      clear();
+                      add_h_mask();
+                      up_h_mask();
+			break;
+		case 19:
+			single=false;
+                          horz=false;
+                          verti=false;
+                          h_mask=false;
+                          v_mask=true;
+                          
+                          h_mask_count=0;
+                          v_mask_count=0;
+                                                                                        
+                      clear();
+                      add_v_mask();
+                      up_v_mask();
+			var my_body=document.getElementById('mybody');
+                          my_body.style.padding="2%";
+                          my_body.style.backgroundColor=blk_clr;
+			var tab=document.getElementById('table1');
+			tab.style.backgroundColor=wht_clr;
+
+                      break;
+		case 20:
+			single=true;
+			h_mask=false;
+		      v_mask=false;
+                      horz=false;
+                      verti=false;
+                      count=0;
+                      clear();
+                      add();
+                      up_single();
+			var b=document.getElementById('mybody');
+			b.style.backgroundColor=wht_clr;
+			var tab=document.getElementById('table1');
+			tab.style.backgroundColor=wht_clr;
+
+			break;
+		case 21:
+			single=false;
+		      h_mask=false;
+		      v_mask=false;
+                      horz=false;
+                      verti=true;
+                      clear();
+                      up_verti();
+			var b=document.getElementById('mybody');
+			b.style.backgroundColor=wht_clr;
+			var tab=document.getElementById('table1');
+			tab.style.backgroundColor=wht_clr;
+
+                      break;
+
+		default:
+			while(lang_count<val)
+      			{
+		        	right_horz();
+	      		}
+			var b=document.getElementById('mybody');
+			b.style.backgroundColor=wht_clr;
+			var tab=document.getElementById('table1');
+			tab.style.backgroundColor=wht_clr;
+			break;
+
+	}		
+
+		
+    }
+	debugger;
+    pageto(page_count);
+    function update_units(value)
+    {
+      debugger;
+      var lef=document.getElementById("b_left");
+      var cen=document.getElementById("b_center");
+      var rit=document.getElementById("b_right");
+      lef.innerHTML="6/"+units[value];
+      cen.innerHTML=(feet_value/mixed[feet_value][value]).toFixed(2);
+      rit.innerHTML=feet_value+"/"+mixed[feet_value][value];
+    }
+debugger;
+var reverse=getMainFlag();
+
+if(reverse==1)
+{
+	var b=document.getElementById('mybody');
+	b.className='rev_dis';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<html>
+<head>
+ <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+<style>
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
+
+</style>
+<script type="text/javascript">
+
+var blk_clr="#000000";
+var wht_clr="#ffffff";
+var current = 1
+var OUTER   = "./img4pack/";
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+	key_pp=1;
+ // giveSound();            debugger;
+		 // $.ajax({
+   //       url: "test1.php",
+   //       type: "POST",         
+   //       cache: false,
+   //       success: function (response) {
+             
+   //       }
+   //   });
+   giveSound();
+
+            switch(event.keyCode)
+            {
+              case 38: down();  break;  //move right
+              case 40: up();  break;  // move left
+              case 8: window.location="ped.html?";		default:
+			remote(event.keyCode);
+			break;
+            }
+}
+        
+    }, true);
+          document.addEventListener('keyup',function(event){
+          	key_pp=0;
+          //	setTimeout(function(){flag_key=true ; }, 100);
+          	},true);
+	 function back() {
+ 	// body...
+ 	window.history.back();
+ }
+
+function up() {
+	// body...
+
+	if (current == 30){
+		return;
+	}
+	current ++;
+	setImage();
+}
+
+function down() {
+	// body...
+
+	if (current == 1){
+		return;
+	}
+
+	current --;
+	setImage();
+}
+
+function setImage() {
+	// body...
+	document.getElementById('img').src = OUTER + current+".png"; 
+}
+
+</script>
+	<title></title>
+</head>
+<body id="mybody">
+<table width="100%" height="100%">
+	
+	<tr>
+		
+		<td><center>
+<img src="./img4pack/1.jpg" id="img" width="30%">
+</center></td>
+
+	</tr>
+
+</table>
+
+<script>
+
+var reverse=getMainFlag();
+var b=document.getElementById('mybody');
+b.style.backgroundColor=wht_clr;
+
+if(reverse==1)
+{
+	
+	b.className='rev_dis';
+}
+
+</script>
+</body>
+</html>

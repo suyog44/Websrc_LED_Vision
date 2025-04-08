@@ -1,0 +1,855 @@
+<html>
+<head>
+
+ <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+<style type="text/css">
+.rotate180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+#container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#navi
+{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#infoi 
+{
+  width: 100%;
+  height: 5%;
+  position: absolute;
+  top:1%;
+  left: 0;
+}
+#infoi {
+  z-index: 10;
+}
+
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
+
+
+</style>
+</head>
+
+<body id="mybody" style="windth:100%; height:100%; margin:0px; overflow:hidden; "  bgcolor="white">
+
+<div id="container">
+  <div id="navi"><canvas id="myCanvas" 
+style="border:0px solid #0003c3; ">
+Your browser does not support the canvas element.
+</canvas>
+</div>
+ <div id="infoi" style="padding-left: 1%;padding-right: 1%">
+<img id="left" src="arrup.png" width="50" height="50"/>
+<img id="rit" src="arrup.png" class="rotate180" width="50" height="50"/>
+
+
+</div>
+</div>
+<!-- <script type='text/javascript' src="scriptFile.js"></script> -->
+<script type='text/javascript'>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+ 
+        // var f=getFeet();
+        // var fet=getFeetFlag(); 
+
+
+        // var dec=getDecimalFlag();
+
+        // var unit=getUnitFlag()
+            
+
+
+var a=0;
+var b=0;
+var page=0;
+var minus=0;
+var m=3;
+var radius=42.25;
+var feetval=parseInt(getFeet());
+
+
+var feet=getFeetFlag();
+var decimal=getDecimalFlag();
+var units=getUnitFlag();
+
+
+
+
+
+var calibration=1.69230769;
+
+
+// feetval=f;
+
+// feet=fet;
+
+// decimal=dec;
+// units=unit;
+
+
+var array={
+
+
+'6' :[16,7.6,8.5,6.4,4.3,2.41,2],
+
+
+'7' :[18,9.75,9.55,7.45,5.35,3.25,2.2],
+
+'8' :[21   ,12.6 ,10.5,8.4,6.3,4.41,3.15],
+'9' :[24.15,15.75,11.55,9.45,7.35,5.25,4.2],
+'10':[27.3,16.8,12.6,10.5,8.4,6.3,4.2],
+'11':[29.4,18.9,14.7,11.55,9.45,7.35,5.25],
+'12':[31.5,21,16.8,12.6,10.5,8.4,6.3],
+'13':[35.7,23.1,16.8,13.65,10.5,8.4,7.35],
+'14':[39.9,25.2,18.9,14.7,12.6,10.5,8.4],
+'15':[42,25.2,18.9,14.7,12.6,10.5,8.4],
+'16':[44.1,27.3,21,16.8,14.7,10.5,8.4],
+'17':[46.2,29.4,23.1,18.9,14.7,10.5,8.4],
+'18':[50.4,31.5,23.1,18.9,16.8,12.6,10.5],
+'19':[52.5,33.6,25.2,21,16.8,12.6,10.5],
+'20':[54.6,35.7,25.2,21,18.9,14.7,10.5],
+};
+
+
+
+// var array={
+// '8' :[10   ,6 ,5,4,3,2,1.5],
+// '9' :[11.5,7.5,5.5,4.5,3.5,2.5,2],
+// '10':[13,8,6,5,4,3,2],
+// '11':[14,9,7,5.5,4.5,3.5,2.5],
+// '12':[15,10,8,6,5,4,3],
+// '13':[17,11,8,6.5,5,4,3.5],
+// '14':[19,12,9,7,6,5,4],
+// '15':[20,12,9,7,6,5,4],
+// '16':[21,13,10,8,7,5,4],
+// '17':[22,14,11,9,7,5,4],
+// '18':[24,15,11,9,8,6,4],
+// '19':[25,16,12,10,8,6,5],
+// '20':[26,17,12,10,9,7,5],
+// };
+
+
+var mixed = {
+    '20' : [200, 120, 80, 60, 40, 30, 20, 16.6, 13.2],
+    '19' : [190, 114, 76, 57, 38, 28, 19, 15, 12.5 ],
+    '18' : [180, 108, 72, 54, 36, 27, 18, 14, 11.9 ],
+    '17' : [170, 102, 68, 51, 34, 25.5, 17, 14.1, 11.2 ],
+    '16' : [160, 96, 64, 48, 32, 24, 16, 13.3, 10.6 ],
+    '15' : [150, 90, 60, 45, 30, 22, 15, 12, 10 ],
+    '14' : [140, 84, 56, 42, 28, 21, 14, 11.6, 9.2 ],
+    '13' : [130, 78, 52, 39, 26, 19, 13, 10.8, 8.6 ],
+    '12' : [120, 74, 48, 36, 24, 18.5, 12, 10, 8 ],
+    '11' : [110, 66, 44, 33, 22, 16.6, 11, 9.1, 7.3 ],
+    '10' : [100, 60, 40, 30, 20, 15, 10, 8.3, 6.6 ],
+    '9' : [90, 54, 36, 27, 18, 13.5, 9, 7.5, 5.9 ],
+    '8' : [80, 48, 32, 24, 16, 12, 8, 6.6, 5.3 ],
+    '7' : [90, 54, 36, 27, 18, 13.5, 9, 7.5, 5.9 ],
+    '6' : [80, 48, 32, 24, 16, 12, 8, 6.6, 5.3 ]
+
+};
+
+var add={
+'6':[0.6,2],
+'7':[0.8,2.5],
+'8':[1,3],
+'9':[2,4],
+'10':[3,5],
+'11':[4,6],
+'12':[5,7],
+'13':[6,8],
+'14':[7,9],
+'15':[8,10],
+'16':[9,11],
+'17':[10,12],
+'18':[11,15],
+'19':[12,16],
+'20':[13,22],
+
+
+};
+
+
+var metric=[60,36,24,18,12,9,6,5,4];
+
+
+ctx.canvas.width=window.innerWidth;
+
+ctx.canvas.height=window.innerHeight;
+
+var w=window.innerWidth;
+var h=window.innerHeight;
+
+ var x=(window.innerWidth)/2;
+ var y=(window.innerHeight)/2;
+
+ line();
+
+function clr()
+{
+      ctx.beginPath();     
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+    ctx.fill();
+    ctx.closePath();
+}
+
+
+
+function three(z,p,q)
+{
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p+7-(m+add[feetval][0]/2), q+42-(m+add[feetval][0]/2), (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-3-m-add[feetval][0], q+40+m+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+3+m+add[feetval][0], q+48+m+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+}
+
+function three1(z,p,q)
+{
+    //alert(array[feetval][z]);
+  //  alert((array[feetval][z])*0.761)
+
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p+20-(m+add[feetval][1]/2), q-10-(m+add[feetval][1]/2), ((array[feetval][z])*0.761), 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-45-m-add[feetval][1], q+40+m+add[feetval][0], ((array[feetval][z])*0.761), 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+25+m+add[feetval][1], q+65+m+add[feetval][1], ((array[feetval][z])*0.761), 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+}
+
+
+function three2(z,p,q)
+{
+                
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p+10-(m+add[feetval][0]/2), q+30-(m+add[feetval][0]/2), (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-4-m-add[feetval][0], q+40+m+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+5+m+add[feetval][0], q+48+m+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+}
+
+function two(z,p,q)
+{
+
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p-m-add[feetval][0], q+40+m+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+m+add[feetval][0], q+50+m+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+}
+
+function two1(z,p,q)
+{
+
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p-25-add[feetval][0], q+30+m+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+25+add[feetval][0], q+50+m+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+}
+
+function four(z,p,q)
+{
+
+   
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p+6+add[feetval][0], q+30-add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+6+add[feetval][0], q+42+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-5-add[feetval][0], q+40-add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-2-add[feetval][0], q+55+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+}
+
+function four1(z,p,q)
+{
+
+   
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p+10+add[feetval][1], q-add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+8+add[feetval][1], q+40+add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-25-add[feetval][1], q+40-add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-7-add[feetval][1], q+90+add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+}
+
+function six(z,p,q)
+{
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p-4-add[feetval][1], q+50+add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-10-add[feetval][1], q+33-add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+3+add[feetval][1], q+60+add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+45+add[feetval][1], q+40+add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+9+add[feetval][1], q+2-add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();   //
+                ctx.arc(p+7+add[feetval][1], q+50-add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+}
+
+function six1(z,p,q)
+{
+                ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p-15-add[feetval][1], q+55+add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-10-add[feetval][1], q+33-add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+add[feetval][1], q+79+add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+50+add[feetval][1], q+60+add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+9+add[feetval][1], q-10-add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();   //
+                ctx.arc(p+55+add[feetval][1], q+40-add[feetval][1], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+}
+
+function five(z,p,q)
+{   
+                 ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p+add[feetval][0], q+40-add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                 ctx.beginPath();
+                ctx.arc(p+14+add[feetval][0], q+42+3+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+
+                ctx.beginPath();
+                ctx.arc(p-14-add[feetval][0], q+35-add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-1-add[feetval][0], q+60+5-add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+10+5+add[feetval][0], q+17-10-add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+}
+
+function five1(z,p,q)
+{   
+                 ctx.strokeStyle = 'black';
+                ctx.beginPath();
+                ctx.arc(p-20+add[feetval][0], q+10-add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                 ctx.beginPath();
+                ctx.arc(p+20+add[feetval][0], q+48+3+add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+
+                ctx.beginPath();
+                ctx.arc(p-30-add[feetval][0], q+35-add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p-1-add[feetval][0], q+60+5-add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(p+15+5+add[feetval][0], q+25-5-add[feetval][0], (array[feetval][z])*0.761, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke(); ctx.closePath();
+}
+
+
+function rec()
+{
+                             
+
+                 ctx.beginPath();
+                ctx.moveTo(0,250);
+                ctx.lineTo(window.innerWidth,250);
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = 'gray';
+                ctx.stroke();      ctx.closePath();
+
+               ctx.beginPath();
+                ctx.moveTo(0,590);
+                ctx.lineTo(window.innerWidth,590);
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = 'gray';
+
+                ctx.stroke();      ctx.closePath();
+}
+
+function feet_txt()
+{
+                    if(feet==true)
+                {
+                ctx.font = "30px Arial";  ctx.fillStyle = "#808080";
+                ctx.fillText(feetval+"/"+(mixed[feetval][page]),window.innerWidth-120,window.innerHeight-13); 
+                //alert((mixed[feetval][page]));
+                }
+                //alert((mixed[feetval][page]));
+}
+
+function dec_txt()
+{
+    /*
+    var f= feetval/(mixed[feetval][page]);
+            
+
+
+                if(decimal==true)
+                {
+                ctx.font = "30px Arial";  ctx.fillStyle = "#808080";
+                ctx.fillText(f.toFixed(2),window.innerWidth/2,window.innerHeight-13); 
+                }
+                */
+}
+
+
+function metric_txt()
+{
+                   if(units==true)
+                {
+                    //alert(metric[page]);
+                ctx.font = "30px Arial";  ctx.fillStyle = "#808080";
+                ctx.fillText(("6/"+metric[page]),16,window.innerHeight-13); 
+                
+                }
+}
+
+
+function arrow(a,b,c,d) {
+    debugger;
+
+    var up=document.getElementById('A1');
+    var down=document.getElementById('A2');
+
+
+    var left=document.getElementById('A3');
+    var right=document.getElementById('A4');
+     
+     // if(a==1){up.src="arr.png"}else{up.src=""}
+     //     if(b==1){down.src="arr.png"}else{down.src=""}
+     //         if(c==1){left.src="arr.png"}else{left.src=""}
+     //             if(d==1){right.src="arr.png"}else{right.src=""}
+
+   
+   }
+
+function line()
+{
+     debugger;
+
+
+
+if(page>=6){page=6;}
+
+if(page<=0){page=0;}
+
+
+// if(page==6){ arrow(0,0,1,0);  } 
+// else 
+//     if(page==0)
+//         { arrow(0,0,0,1); } 
+     
+//          else{ arrow(0,0,1,1); } 
+
+    switch(page)
+    {
+      case 0:{           // 6/60      
+                three1(page,x,y);
+                rec();
+               // arrow(0,0,1,0);
+
+                dec_txt();
+                metric_txt();  
+                feet_txt();              
+
+              }break;
+
+    case 1:{            // 6/36
+                //arrow(0,0,1,1);
+                dec_txt();
+                metric_txt();  
+                feet_txt(); 
+
+
+                    feet_txt();
+                 two1(page,x+x/2,y);
+                 four1(page,x/2,y);
+                 rec();
+
+                ctx.beginPath();              ctx.moveTo((window.innerWidth/2),250);      ctx.lineTo((window.innerWidth/2),590);      ctx.stroke();  ctx.closePath(); 
+                }break;
+              
+
+              case 2:
+              {   // 6/24
+                //arrow(0,0,1,1);
+                   dec_txt();
+                metric_txt();  
+                feet_txt(); 
+
+                six1(page,x/4,y);  three1(page,x+x/2+x/4,y);               four1(page,x,y);               rec();
+
+                   ctx.beginPath();              ctx.moveTo((window.innerWidth/3),250);      ctx.lineTo((window.innerWidth/3),590);      ctx.stroke(); ctx.closePath(); 
+                   //alert(window.innerWidth/3);
+
+                ctx.beginPath();              ctx.moveTo((window.innerWidth/3)*2,250);      ctx.lineTo((window.innerWidth/3)*2,590);      ctx.stroke();ctx.closePath(); // alert((window.innerWidth/3)*2);
+             
+              }break;
+
+               case 3:
+              {              // 6/18
+                //arrow(0,0,1,1);
+                   dec_txt();
+                metric_txt();  
+                feet_txt(); 
+
+               
+
+
+                four1(page,x+x/2+x/4,y);              five1(page,x+x/2-150,y);        six1(page,x/2+150,y);   two1(page,x/4,y); 
+                          rec();
+   
+             ctx.beginPath();              ctx.moveTo((window.innerWidth/4),250);      ctx.lineTo((window.innerWidth/4),590);      ctx.stroke(); ctx.closePath(); 
+
+                ctx.beginPath();              ctx.moveTo((window.innerWidth/4)*2,250);      ctx.lineTo((window.innerWidth/4)*2,590);      ctx.stroke();ctx.closePath(); 
+                ctx.beginPath();              ctx.moveTo((window.innerWidth/4)*3,250);      ctx.lineTo((window.innerWidth/4)*3,590);      ctx.stroke();ctx.closePath(); 
+              
+              }break;
+ 
+              case 4:
+              {              // 6/12
+                arrow(0,0,1,1);
+                    dec_txt();
+                metric_txt();  
+                feet_txt(); 
+
+               
+
+                three2(page,x+x/2+x/4,y);              five1(page,x+x/2-150,y);        six1(page,x/2+150,y);   four1(page,x/4,y); 
+                          rec(); 
+
+                    ctx.beginPath();              ctx.moveTo((window.innerWidth/4),250);      ctx.lineTo((window.innerWidth/4),590);      ctx.stroke(); ctx.closePath(); 
+
+                ctx.beginPath();              ctx.moveTo((window.innerWidth/4)*2,250);      ctx.lineTo((window.innerWidth/4)*2,590);      ctx.stroke();ctx.closePath(); 
+                ctx.beginPath();              ctx.moveTo((window.innerWidth/4)*3,250);      ctx.lineTo((window.innerWidth/4)*3,590);      ctx.stroke();ctx.closePath(); 
+               
+
+              }break;
+
+
+
+            case 5:
+            {      // 6/9
+                //arrow(0,0,1,1);
+
+                dec_txt();
+                metric_txt();  
+                feet_txt(); 
+
+                
+
+                   five(page,(x+x/2+x/4)+30,y);   four(page,x/2+75,y);        three2(page,x,y);     two(page,x+300,y);   six(page,(x/4)-55,y);
+
+                rec();
+                 ctx.beginPath();              ctx.moveTo((window.innerWidth/5),250);      ctx.lineTo((window.innerWidth/5),590);      ctx.stroke(); ctx.closePath(); 
+
+                ctx.beginPath();              ctx.moveTo((window.innerWidth/5)*2,250);      ctx.lineTo((window.innerWidth/5)*2,590);      ctx.stroke();ctx.closePath(); 
+                ctx.beginPath();              ctx.moveTo((window.innerWidth/5)*3,250);      ctx.lineTo((window.innerWidth/5)*3,590);      ctx.stroke();ctx.closePath(); 
+               ctx.beginPath();              ctx.moveTo((window.innerWidth/5)*4,250);      ctx.lineTo((window.innerWidth/5)*4,590);      ctx.stroke();ctx.closePath(); 
+
+            }break;
+
+
+             case 6:
+            {   
+                 // 6/6
+                 //arrow(0,0,1,0);
+                    dec_txt();
+                metric_txt();  
+                feet_txt(); 
+
+                
+
+                   three(page,(x+x/2+x/4+40)+30,y);   four(page,x/2,y);        five(page,x+100,y);     two(page,x/2+250,y);   four(page,(x+x/2-40)+30,y);  two(page,x/4-80,y);
+
+                rec();
+                 ctx.beginPath();              ctx.moveTo((window.innerWidth/6),250);      ctx.lineTo((window.innerWidth/6),590);      ctx.stroke(); ctx.closePath(); 
+
+                ctx.beginPath();              ctx.moveTo((window.innerWidth/6)*2,250);      ctx.lineTo((window.innerWidth/6)*2,590);      ctx.stroke();ctx.closePath(); 
+                ctx.beginPath();              ctx.moveTo((window.innerWidth/6)*3,250);      ctx.lineTo((window.innerWidth/6)*3,590);      ctx.stroke();ctx.closePath(); 
+               ctx.beginPath();              ctx.moveTo((window.innerWidth/6)*4,250);      ctx.lineTo((window.innerWidth/6)*4,590);      ctx.stroke();ctx.closePath(); 
+                 ctx.beginPath();              ctx.moveTo((window.innerWidth/6)*5,250);      ctx.lineTo((window.innerWidth/6)*5,590);      ctx.stroke();ctx.closePath(); 
+
+
+
+
+            }break;
+
+
+}
+}
+
+function back_click()
+        {
+              window.history.back();
+        }
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+    key_pp=1;
+  //giveSound();            debugger;
+// $.ajax({
+//          url: "test1.php",
+//          type: "POST",         
+//          cache: false,
+//          success: function (response) {
+             
+//          }
+//      });
+giveSound();
+            //alert(event.keyCode);
+
+            switch(event.keyCode)
+            {
+              
+
+              case 40: page=page+1; clr(); line(); arrow(); break;  //move right
+              case 38: if(page!=0){page=page-1; clr(); line(); } arrow(); break;  // move left
+             // case 38: feetval=feetval+1; clr(); line();  break;  //move right
+             // case 40: feetval=feetval-1; clr(); line();  break;  // move left
+
+                 case 8:
+                       window.location="Home.html?val=11";
+                      break; 
+        default:
+            remote(event.keyCode);
+            break;
+              
+             
+            }
+//alert(page);
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //    setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+var reverse=getMainFlag();
+var b=document.getElementById('mybody');
+
+
+if(reverse==1)
+{
+    
+    b.className='rev_dis';
+}
+var lef=document.getElementById("left");
+var rit=document.getElementById("rit");
+arrow();
+function arrow()
+{
+	if(page>0)
+		lef.style.display="inline";
+	else
+		lef.style.display="none";
+	if(page<6)
+		rit.style.display="inline";
+	else
+		rit.style.display="none";
+
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<html>
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+ <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script><script type="text/javascript">
+var a= parseInt(getMainFlag ());
+var count= 1;
+
+function right_click()
+{
+debugger;
+	if(count==1)
+	{
+	var img1=document.getElementById('i'+count);
+	var img2=document.getElementById('i'+(count+1));
+	img1.src="./main_image/H.png";
+	img2.src="./main_gifs/V.gif";
+	count=2;
+	}
+	else
+	{
+	var img1=document.getElementById('i'+(count-1));
+	var img2=document.getElementById('i'+(count));
+	img1.src="./main_gifs/H.gif";
+	img2.src="./main_image/V.png";
+	count=1;
+
+	}
+
+
+}
+function left_click()
+{
+	debugger;
+if(count==2)
+	{
+	var img1=document.getElementById('i'+count);
+	var img2=document.getElementById('i'+(count-1));
+	img1.src="./main_image/V.png";
+	img2.src="./main_gifs/H.gif";
+	count=1;
+	}
+	else
+	{
+	var img1=document.getElementById('i'+count);
+	var img2=document.getElementById('i'+(count+1));
+	img1.src="./main_image/H.png";
+	img2.src="./main_gifs/V.gif";
+	count=2;
+
+	}
+}
+function back_click()
+        {
+              window.location="Home.html?page=19";
+        }
+
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+	key_pp=1;
+  //giveSound();            debugger;
+            //alert(event.keyCode);
+ // $.ajax({
+ //         url: "test1.php",
+ //         type: "POST",         
+ //         cache: false,
+ //         success: function (response) {
+             
+ //         }
+ //     });
+ giveSound();
+
+            switch(event.keyCode)
+            {
+              
+
+              case 39: 
+              			right_click();
+              			break;  //move right
+              case 37: 
+              			left_click();
+              			break;  // move left
+               case 8:
+                      window.location="Home.html?page=19";
+                      break; 
+               case 13:
+               		enter_click();
+               		break;
+		
+default:
+			remote(event.keyCode);
+			break;
+            }
+//alert(page);
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+          	key_pp=0;
+          //	setTimeout(function(){flag_key=true ; }, 100);
+          	},true);
+
+function enter_click(){
+	debugger;
+	if (count == 1){
+		window.location="textpage_new.html?page=18";
+	}else{
+		window.location="textpage_new.html?page=19";
+	}
+	
+}
+
+</script>
+</head>
+<body  style="width:100%; height:100%;background:black">
+<table  width="100%" height="100%">
+<tr style="width: 100%; height: 33%">
+
+</tr>
+<tr style="width: 100%; height: 33%">
+<td style="width: 50%; ">
+<center><img src="./main_gifs/H.gif" id="i1" style="width:30%"  border="0" /></center>
+</td >
+<td style="width: 50%;">
+<center><img src="./main_image/V.png" id="i2"  style="width:30%" border="0"/></center>
+</td>
+</tr>
+<tr style="width: 100%; height: 33%">
+<td>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+var p=document.getElementById("i1");
+var q=document.getElementById("i2");
+if(a==1)
+{
+
+q.src="./main_gifs/V.gif";
+p.src="./main_image/H.png";
+
+count = 2;
+}
+else
+{
+	count = 1;
+	p.src="./main_gifs/H.gif";
+	q.src="./main_image/V.png";
+}
+
+
+</script>
+</body>
+</html>

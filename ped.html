@@ -1,0 +1,156 @@
+<html>
+<head>
+ <script type='text/javascript' src="scriptFile.js"></script>
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ 
+<script type="text/javascript">
+var current = 1;	
+var temp = 1;
+
+
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+	key_pp=1;
+ // giveSound();	// $.ajax({
+ //         url: "test1.php?data="+getSoundFlag(),
+ //         type: "POST",         
+ //         cache: false,
+ //         success: function (response) {
+             
+ //         }
+ //     });
+ giveSound();
+            debugger;
+            switch(event.keyCode)
+            {
+              case 39: right();  break;  //move right
+              case 37: left();  break;  // move left
+              case 13: entered();  break;  // enter
+              case 8:   window.location="Home.html?val=8";	break;
+		default:
+			remote(event.keyCode);
+			break;
+            }
+
+    }    
+    }, true);
+                  document.addEventListener('keyup',function(event){
+          	key_pp=0;
+          //	setTimeout(function(){flag_key=true ; }, 100);
+          	},true);
+
+ function back() {
+ 	// body...
+ 	window.history.back();
+ }
+
+function right() {
+	// body...
+	temp = current;
+	current++; txt();
+	if (current > 3) {
+		current = 1
+	}
+	setVariable();
+}
+
+function left() {
+	// body...
+	temp = current;
+	current--;
+	txt();
+	if (current < 1){
+		current = 3
+	}
+	setVariable();
+}
+
+function setVariable() {
+	// body...
+	var1 = document.getElementById('img'+current);
+	var2 = document.getElementById('img'+temp);
+	var1.width = 300;
+	var1.height = 300;
+	var2.width
+	 = 160;
+	var2.height = 160;
+}
+
+function entered() {
+	// body...
+
+
+	switch(current){
+		case 2:
+			window.location="pedOutPage.html?data=hai";
+			
+			break;
+		case 1:
+			window.location="pedFonts.html?data=hai";
+			break;		
+		case 3:
+			window.location="pedFontsArrow.html?data=hai";
+			break;		
+	}
+
+}
+function txt()
+{
+	var a=document.getElementById('t1');
+
+if(current==1)
+{
+			a.innerHTML="ALLEN PRESCHOOL BOLD";
+}
+else if(current==2)
+{
+	a.innerHTML="IMAGES FOR CHILDREN";
+}
+else  if(current==3)
+{
+	a.innerHTML="ALLEN SYMBOLS";
+}
+}
+</script>
+	<title></title>
+</head>
+<body width = "100%" height = "100%" bgcolor="#000000" style="overflow:hidden">
+
+
+<div width="100%" height="10%" ><center><h1  style="color:cyan; font-size:50px;"><font id="t1"></font></h1></center> </div> 
+
+<script type="text/javascript">
+
+txt();
+</script>
+
+<div width="100%" height="50%">
+<table width="100%">	
+<tr height = "10%"></tr>
+<tr>
+	<td>
+		<img height="150" />
+	</td >
+
+</tr>
+
+	<tr width="100%">
+
+		<td align="center"><img id="img1" width="300"  height="300" src="./ped/0.png"></td>
+		<td align="center"><img id="img2" width="160"  height="160" src="./ped/1.png"></td>
+		<td align="center"><img id="img3" width="160"  height="160" src="./ped/2.png"></td>
+	    
+	</tr>
+
+</table>
+</div>
+
+</body>
+</html>

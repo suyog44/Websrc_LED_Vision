@@ -1,0 +1,461 @@
+
+<html>
+<head>
+
+ <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+<style>
+
+#canvas1{
+    position: absolute;
+    top: 601px;
+    left: 30px;
+}
+
+#table{
+    position: absolute;
+}
+
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+</style>
+    <title></title>
+</head>
+<body id="mybody" height="100%" width="100%">
+<canvas id="canvas1" style="background: blue;height: 3px;width: 570px;"> </canvas>
+
+<div style="height: 10%;"></div>
+<table id="table" style="table-layout: fixed;" width="100%" height = "70%">
+
+</table>
+<div style="height: 20%;"></div>
+
+<script type='text/javascript' src="scriptFile.js"></script>
+<script type="text/javascript">
+var blk_clr="#000000";
+var wht_clr="#ffffff";
+
+
+var canv = document.getElementById('canvas1');
+
+var ta = document.getElementById('table');
+ta.width = window.innerWidth;
+ta.height = (window.innerHeight / 3);
+
+var blk=parseInt(getBWFlag());
+    //blk=1; 
+    if(blk==1)
+    {
+       var te=blk_clr;
+       blk_clr=wht_clr;
+       wht_clr=te;
+    }
+
+ var currentPage = 1;
+         var mix = {
+    'TAMIL' : 'Bamini',
+    'ARABIC' : 'ArabicNaskhSSK',
+    'BENGALI':'BRH Bengali',
+    'CHINESE':'DFLiHeiMedium1B',
+    'GREEK':'Ismini',
+    'GUJARATHI':'Gopika',
+    'HINDI':'AmrHindi',
+    'HIRAGANA':'hiragana tfb',
+    'KANNADA':'BRH Kannada',
+    'KOREAN':'KoreanModernSSK',
+    'MALAYALAM': 'BRH Malayalam',
+    'ORIYA': 'BRH Oriya', 
+    'PROTOTYPE':'Prototype',
+    'PUNJABI':'BRH Gurumukhi RN',
+    'RUSSIAN':'Russian',
+    'SPANISH':'Bulgarian Italic',
+    'TELUGU':'BRH Telugu',
+    'URDU':'Urdu'
+};
+        debugger;
+ var lang1=getLanguage1();
+
+ var lang2=getLanguage2();
+
+ var lang3=getLanguage3();
+
+var languages=['Sloan','Sloan','Sloan','Times New Roman','Bamini','AmrHindi','BRH Telugu'];
+
+        languages[4] = mix[lang1];
+        languages[5] = mix[lang2];
+        languages[6]= mix[lang3];
+
+var codes ={ '#C0C0C0' ,     '#BEBEBE' ,   '#B8B8B8'  ,      '#B0B0B0',    '#A9A9A9' ,   '#A8A8A8',    '#A0A0A0' ,   '#989898'  ,      '#909090',        '#888888'}
+debugger;
+var da = getContrastValue();
+canv.background = da;
+var data ;
+function $_GET() {
+    try{
+    var s =  window.location.search;
+    var re = s.split('?')[1];
+    var data = re.split('=')[1];
+    }catch(e){
+        data = 1;
+    }
+
+    return data;
+}
+
+data = $_GET();
+
+if (data == null){
+    data = 1;
+}
+
+currentPage = data;
+
+    var feetvalue = getFeet();
+    function back() {
+    // body...
+    window.history.back();
+ }
+
+   
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+    key_pp=1;
+ // giveSound();     //    $.ajax({
+     //     url: "test1.php",
+     //     type: "POST",         
+     //     cache: false,
+     //     success: function (response) {
+
+             
+     //     }
+     // });
+     giveSound();
+
+            switch(event.keyCode)
+            {
+              case 39: right();  break;  //move right
+              case 37: left();  break;  // move left
+              case 8:back();
+        default:
+            remote(event.keyCode);
+            break;
+
+            }
+
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //    setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+ function right(){
+    if (currentPage >= 7){
+        return;
+    }    
+    currentPage ++;
+    setEmpty();
+
+ }
+
+ function left(){
+    if (currentPage <= 1){
+        return;
+    }    
+    currentPage --;
+    setEmpty();
+ }
+
+var angles = [90 , 270 , 180 , 360];
+
+
+var sizeArraylOG = {
+        '20' : [50, 48, 30, 22, 20, 18 ],
+        '19' : [48,38 , 27, 22, 18, 16 ],
+        '18' : [46, 44, 36, 27, 22, 18 ],
+        '17' : [48, 42, 33, 24, 20, 15 ],
+        '16' : [48, 41, 32, 22, 18, 16 ],
+        '15' : [44, 36, 30, 22, 18, 14 ],
+        '14' : [56, 42, 33, 27, 20, 16, 14 ],
+        '13' : [51, 40, 27, 24, 18, 16, 14 ],
+        '12' : [48, 36, 28, 22, 18, 13.5, 12 ],
+        '11' : [56, 44, 33, 28, 22, 16, 13.5, 11 ],
+        '10' : [46, 40, 28, 24, 20, 15, 13, 10 ],
+        '9':[44, 36, 24, 22, 18, 13.5, 12, 9 ],
+        '8':[38, 32, 22, 18, 16, 12, 9.1, 7.3 ]
+};
+
+
+var datas = {
+'8' : [35,21,14,11,7,5,3.5,2.5,2],
+'9' : [40,24,16,12,8,6,4,3,2], 
+'10' : [45,26,18,13,9,6.5,4.5,3.5,3],
+'11' : [50,30,20,15,10,7,5,4,3],
+'12' : [50,32,22,16,11,7.5,5,4,3],
+'13' : [55,34,23,17,12,8,5.5,4.5,3.5,],
+'14' : [60,37,25,19,13,9,6,5,4],
+'15' : [65,40,27,20,13,10,7,5,4],
+'16' : [70,42,29,21,14,11,7,6,4],
+'17' : [75,45,30,23,15,11,7,6,5],
+'18' : [80,47,32,24,16,11.5,8,6,5],
+'19' : [85,50,34,25,17,12,9,7,6],
+'20' : [90,53,35,27,18,13,9,7,6],
+
+};  
+
+
+var initArr = {
+    8 : [18,15,11,10,8,6,5,4],
+    9 : [20,17,13,11,9,7,6, 5,4],
+    10 : [23,19,14,12,10,7 , 7,5],
+    11 : [25, 20, 15, 13, 10, 8, 7],
+    12 : [22 , 16 , 14, 12, 9, 7, 6],
+    13 : [24,18 , 15, 13, 10, 8 , 7],
+    14 : [26, 19 , 17, 13, 10 , 9 , 7],
+    15 : [20 , 18 , 14, 11 , 9 , 8],
+    16 : [22, 19 , 15, 11.5, 10 , 8],
+    17 : [23 , 20, 16,12,10,8],
+    18 : [25,21,16,13,11,8.5],
+    19 : [21,17,14,11,9,8.5],
+    20 : [23,18,14,12,10,9]
+};
+
+    var start = 0
+    var end = 0
+    var arr = [ '-0.1' , '0.0', '0.1' , '0.2', '0.3', '0.4', '0.5', '0.6', '0.7']
+    if ((feetvalue >= 8) && (feetvalue <= 11)){
+
+        start= 1
+        end = 8 
+    }
+    else if ((feetvalue >= 12) && (feetvalue <= 14)){
+        end = 7
+        start = 1
+    }
+    else if ((feetvalue >= 15) && (feetvalue <= 18))
+{        start = 1
+        end = 6
+        looper = 6
+    }
+    else{
+        start  = 0
+        end = 5
+}
+ var table1 = document.getElementById("table");
+ var percentArrays = [8, 7,6,5,4,3,2,1]
+ count = 0;
+ fontCount = 0
+ var letterArray = ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W']
+
+var fontName = 'Sloan';
+fontName = languages[currentPage-1];
+
+
+function setEmpty(){
+
+   var start = 0
+    var end = 0
+    var arr = [ '-0.1' , '0.0', '0.1' , '0.2', '0.3', '0.4', '0.5', '0.6', '0.7']
+    if ((feetvalue >= 8) && (feetvalue <= 11)){
+
+        start= 1
+        end = 8 
+    }
+    else if ((feetvalue >= 12) && (feetvalue <= 14)){
+        end = 7
+        start = 1
+    }
+    else if ((feetvalue >= 15) && (feetvalue <= 18))
+{        start = 1
+        end = 6
+        looper = 6
+    }
+    else{
+        start  = 0
+        end = 5
+}
+ var table1 = document.getElementById("table");
+ var percentArrays = [8, 7,6,5,4,3,2,1]
+ count = 0;
+ fontCount = 0
+ data = "";
+var fontName = 'Sloan';
+fontName = languages[currentPage-1];
+
+debugger;
+
+    table1.innerHTML = "";
+    percent = 8
+    var xx = end;
+for (i = start ; i <= end ; i++){
+    var row1 =  table1.insertRow(count);
+                var  cell0 = row1.insertCell(0);
+                var cell1 = row1.insertCell(1);
+                var cell2= row1.insertCell(2);
+                cell0.width= '10%' ;
+                cell0.style.padding = 0;
+                cell1.width= '80%'  ;
+                cell2.width = '10%' ;
+        cell0.style.color=blk_clr;
+                cell0.innerHTML = arr[xx];
+                xx--;
+                data  = "<center>"; 
+    for (j = 0 ; j < 5; j++){
+       debugger;
+        fontCount ++;       
+        var data1 = Math.floor((Math.random() * 15) + 1);
+        var character = letterArray[data1];
+        if (currentPage == 1){
+            character = 'C';
+            // fontName = languages[0];
+        }else if (currentPage == 2){
+            character = 'E';
+            // fontName = languages[1];
+        }
+        else if(currentPage == 4){
+            character = Math.floor((Math.random() * 9) + 1);
+            // fontName = languages[3];
+        }else{
+            // fontName = languages[currentPage-1];
+        }
+                        if (j == 0 || j == 1){
+                data +=     "<h1 id='txt"+fontCount+"' style='font-family: "+fontName+" ;margin-left: "+percent+"%;  display: inline-block;font-size: "+sizeArraylOG[feetvalue][count]+"pt;'>"+character+"</h1>";
+                // cell1.innerHTML = data+"<center><h1 id='txt"+fontCount+"' style='font-family: sloan;font-size: "+sizeArraylOG[feetvalue][count]+"mm;'>C</h1></center>";
+                    // v = document.getElementById('txt'+fontCount);
+                    }
+                    else if (j== 3 || j == 4) {
+                        data += "<h1 id='txt"+fontCount+"' style='font-family: "+fontName+" ;margin-right: "+percent+"%; display: inline-block;font-size: "+sizeArraylOG[feetvalue][count]+"pt;'>"+character+"</h1>";
+                    //     cell1.innerHTML = "<center><h1 id='txt"+fontCount+"' style='font-family: sloan;font-size: "+sizeArraylOG[feetvalue][count]+"mm;'>C</h1></center>";
+                    // v = document.getElementById('txt'+fontCount);
+         
+                    }
+                    else 
+                    {
+                        data += "<h1 id='txt"+fontCount+"' style='font-family: "+fontName+";margin-right:"+percent+"%; margin-left: "+percent+"%; display:  inline-block;font-size: "+sizeArraylOG[feetvalue][count]+"pt; '>"+character+"</h1>";
+                // cell1.innerHTML = "<center><h1 id='txt1' style='font-family: sloan;font-size: "+sizeArraylOG[feetvalue][count]+"mm; '>C</h1></center>";                  }
+
+
+
+            }
+
+    
+
+    }
+    percent--;
+    data+="</center>";
+    cell1.innerHTML = data;
+    cell1.style.color=blk_clr;
+    count++;
+
+}
+c = 1;
+if (currentPage == 1 || currentPage == 2){
+
+
+for (i = start ; i < end ; i++){
+    for (j = 0 ; j < 5; j++){
+         debugger;
+        var d= document.getElementById('txt'+c);
+        va  = Math.floor((Math.random() * 3) + 1);
+        d.style.transform =  'rotate('+angles[va-1]+'deg)';
+    d.style.color=blk_clr;
+        c++;
+    }
+
+}
+
+}
+
+}
+
+var fontName = 'Sloan';
+fontName = languages[currentPage-1];
+percent = 8;
+ab = end;
+var lens = [130 , 100 , 10, 10 , 10 , 10 , 10 , 10 , 10 , 10 , 10, 10]
+var lenCount = 0;
+for (i = start ; i <= end ; i++){
+    var row1 =  table1.insertRow(count);
+                var  cell0 = row1.insertCell(0);
+                var cell1 = row1.insertCell(1);
+                var cell2= row1.insertCell(2);
+                cell0.width= '10%' ;
+                cell0.height = lens[count]+'px';
+                cell0.style.padding = 0;
+                cell1.width= '80%'  ;
+                cell2.width = '10%' ;
+                cell0.innerHTML = arr[ab];
+        cell0.style.color=blk_clr;
+                ab--;
+                data  = "<center>"; 
+    for (j = 0 ; j < 5; j++){
+        fontCount ++;       
+                        if (j == 0 || j == 1){
+                data +=     "<h1 id='txt"+fontCount+"' style='font-family: "+fontName+" ;margin-left: "+percent+"%;  display: inline-block;font-size: "+sizeArraylOG[feetvalue][count]+"pt;'>C</h1>";
+                // cell1.innerHTML = data+"<center><h1 id='txt"+fontCount+"' style='font-family: sloan;font-size: "+sizeArraylOG[feetvalue][count]+"mm;'>C</h1>";
+                    // v = document.getElementById('txt'+fontCount);
+                    }
+                    else if (j== 3 || j == 4) {
+                        data += "<h1 id='txt"+fontCount+"' style='font-family: "+fontName+" ;margin-right: "+percent+"%; display: inline-block;font-size: "+sizeArraylOG[feetvalue][count]+"pt;'>C</h1>";
+                    //     cell1.innerHTML = "<center><h1 id='txt"+fontCount+"' style='font-family: sloan;font-size: "+sizeArraylOG[feetvalue][count]+"mm;'>C</h1></center>";
+                    // v = document.getElementById('txt'+fontCount);
+                    }
+                    else 
+                    {
+                        data += "<h1 id='txt"+fontCount+"' style='font-family: "+fontName+";margin-right:"+percent+"%; margin-left: "+percent+"%; display:  inline-block;font-size: "+sizeArraylOG[feetvalue][count]+"pt; '>C</h1>";
+                // cell1.innerHTML = "<center><h1 id='txt1' style='font-family: sloan;font-size: "+sizeArraylOG[feetvalue][count]+"mm; '>C</h1></center>";                  }
+            }
+    }
+    percent--;
+    data+="</center>";
+    cell1.innerHTML = data;
+    cell1.style.color=blk_clr;
+    count++;
+    lenCount;
+}
+
+if (currentPage == 1 || currentPage == 2){
+c = 1;
+
+for (i = start ; i < end ; i++){
+    for (j = 0 ; j < 5; j++){
+        var d= document.getElementById('txt'+c);
+        va  = Math.floor((Math.random() * 3) + 1);
+        d.style.transform =  'rotate('+angles[va-1]+'deg)';
+    d.style.color=blk_clr;
+        c++;
+    }
+
+}
+
+}
+var reverse=getMainFlag();
+var b=document.getElementById('mybody');
+b.style.backgroundColor=wht_clr;
+
+if(reverse==1)
+{
+    
+    b.className='rev_dis';
+}
+
+</script>
+</body>
+</html>

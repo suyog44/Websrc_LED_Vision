@@ -1,0 +1,211 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+ <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+  <style>
+  html{
+  overflow: hidden;
+}
+  div {
+    background-color: black;
+  }
+
+
+  </style>
+<script type='text/javascript' src="scriptFile.js"></script>
+  <script type="text/javascript">
+
+ // var str=' <?php require_once('con2.php'); print json_encode(getAllDatas($con));  ?>';
+
+ //        var variable=' <?php echo getAllDatas($con); ?>';
+
+
+ //        var l1=JSON.parse(variable)["lang1"]; 
+
+
+ //        var l2=JSON.parse(variable)["lang2"];  
+ //        var l3=JSON.parse(variable)["lang3"]; 
+            
+debugger;
+ var lang1=getLanguage1();
+
+ var lang2=getLanguage2();
+
+ var lang3=getLanguage3();
+ 
+
+var array={
+
+'TAMIL'     : [11],
+'HINDI'     : [5],
+'TELUGU'    : [12],
+'ORIYA'     : [9 ],
+'NEPALI'    : [8],
+'PUNJABI'   : [10],
+'MALAYALAM' : [7],
+'URDU'      : [13],
+'KANNADA'   : [6],
+'BENGALI'   : [3],
+'GUJARATHI' : [4],
+'ARABIC'    : [1],
+'ASSAMESE'  : [2],
+
+};
+
+
+var txt=[array[lang1][0],array[lang2][0],array[lang3][0]];
+
+    var number=1;;
+     var count=0;
+        function next(){
+          debugger;         
+
+          if(count<2)
+          {         
+                      count=count+1;
+          var img=document.getElementById("i"+count);
+          var img2=document.getElementById("i"+(count-1));
+
+          img2.src="./langs/"+txt[count-1]+".png";
+          img.src="./langs/"+txt[count]+".gif";
+        }
+        else{
+
+          var img=document.getElementById("i"+count);
+          
+          var img2=document.getElementById("i"+(0));
+           img2.src="./langs/"+txt[0]+".gif";
+          img.src="./langs/"+txt[count]+".png";
+          count=0;
+
+        }
+          
+        }
+
+        function next1()
+        {
+          debugger; 
+           if(count>0)
+          {         
+                      count=count-1;
+          var img=document.getElementById("i"+count);
+          var img2=document.getElementById("i"+(count+1));
+
+          img2.src="./langs/"+txt[count+1]+".png";
+          img.src="./langs/"+txt[count]+".gif";
+        }
+        else{
+
+          var img=document.getElementById("i"+count);
+          
+          var img2=document.getElementById("i"+(2));
+           img2.src="./langs/"+txt[2]+".gif";
+          img.src="./langs/"+txt[count]+".png";
+          count=2;
+
+        }
+
+        }
+
+
+
+
+
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  //giveSound();            debugger;
+            //alert(event.keyCode);
+
+
+ // $.ajax({
+ //         url: "test1.php",
+ //         type: "POST",         
+ //         cache: false,
+ //         success: function (response) {
+             
+ //         }
+ //     });
+ giveSound();
+            switch(event.keyCode)
+            {
+              case 39:  next();  break;  //move right
+              case 37:  next1();  break;  // move left
+              case 8:  window.location="Home.html?val=21";      break;
+              case 13: window.location="showLangs.html?number="+(count+1); 
+                break;  // move left
+		default:
+			remote(event.keyCode);
+			break;
+            }
+
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+          function back_click()
+        {
+          debugger;
+              window.history.back();
+        }
+
+  </script>
+  
+
+</head>
+<body style="width:100%; height:100%;  background:black">
+
+
+
+<table style="width:100%; height:100%; ">
+  <tr style="height:30%; width:100%">
+    
+  </tr>
+  <tr style="height:40%; width:100%";>
+ <td><center><img  alt="Smiley face" id="i0"  style="width:40%;"><h1 style="color:cyan">LANGUAGE 1</h1> </center></td>
+ <td><center><img  alt="Smiley face" id="i1"  style="width:40%;"><h1 style="color:cyan">LANGUAGE 2</h1>  </center> </td>
+ <td><center><img  alt="Smiley face" id="i2"  style="width:40%;"><h1 style="color:cyan">LANGUAGE 3</h1> </center> </td>
+  </tr>
+  <tr style="height:30% ;width:100%">
+    
+  </tr>
+
+
+
+</table>
+
+
+<script type="text/javascript">
+
+
+     debugger;
+       var a=document.getElementById("i0"); 
+       a.src= "./langs/"+array[lang1][0]+".gif";
+
+       var b=document.getElementById("i1"); 
+       b.src=  "./langs/"+array[lang2][0]+".png";
+
+        var c=document.getElementById("i2"); 
+       c.src= "./langs/"+ array[lang3][0]+".png";
+
+
+
+</script>
+
+</body>
+
+</html>

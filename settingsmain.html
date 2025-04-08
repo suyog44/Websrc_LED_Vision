@@ -1,0 +1,216 @@
+<html>
+<head>
+
+
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+<style type="text/css">
+	
+	/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible; /* Show the snackbar */
+
+/* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+</style>
+<script type='text/javascript' src="scriptFile.js"></script>
+<script type="text/javascript">
+
+var codes =[ '#FFFFFF' ,     '#BEBEBE' ,   '#B8B8B8'  ,      '#B0B0B0',    '#A9A9A9' ,   '#A8A8A8',    '#A0A0A0' ,   '#989898'  ,      '#909090',        '#888888']
+
+function myFunction1() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar")
+
+    x.innerHTML = "Settings Values to Default...";
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+function myFunction() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+    x.innerHTML = "";
+    aa = x;
+
+if(parseInt(getSoundFlag()) == 1){
+  aa.innerHTML = "UnMuted...";
+}else{
+  aa.innerHTML = "Muted...";
+}
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+var current = 1;	
+var temp = 1;
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  giveSound();            debugger;
+		 // $.ajax({
+   //       url: "test1.php",
+   //       type: "POST",         
+   //       cache: false,
+   //       success: function (response) {
+             
+   //       }
+   //   });
+  // giveSound();
+
+            switch(event.keyCode)
+            {
+              case 39: right();  break;  //move right
+              case 37: left();  break;  // move left
+              case 13: entered();  break;  // enter
+              case 8:  window.location="Home.html?val=24";	break;
+		
+default:
+			remote(event.keyCode);
+			break;
+            }
+
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+ function back() {
+ 	// body...
+ 	window.history.back();
+ }
+
+function right() {
+	// body...
+	temp = current;
+	current++;
+	if (current > 5) {
+		current = 1
+	}
+	setVariable();
+}
+
+function left() {
+	// body...
+	temp = current;
+	current--;
+	if (current < 1){
+		current = 5
+	}
+	setVariable();
+}
+
+function setVariable() {
+	// body...
+	var1 = document.getElementById('img'+current);
+	var2 = document.getElementById('img'+temp);
+	var1.width = 200;
+	var1.height = 200;
+	var2.width	 = 100;
+	var2.height = 100;
+}
+
+function entered() {
+	// body...
+
+	switch(current){	
+		case 2:
+			window.location="contrast.php.html";
+			break;
+		case 1:
+			// window.location="pedFonts.html?data=hai";
+			debugger;
+			setDefault();
+			myFunction1();
+			break;
+		case 4:
+			window.location ="feet_metric_set.html";
+			break;		
+		case 3:
+			window.location="color.html";
+			break;		
+      case 5:
+        window.location="usb_import_export.html";
+      break;
+	}
+
+}
+
+</script>
+	<title></title>
+</head>
+<body width = "100%" height = "100%"  bgcolor="#000000" style="overflow:hidden;">
+
+<table width="100%", height="100%" bgcolor="#000000">
+	<tr>
+		<td align="center"><img id="img1" width="200", height="200" src="./settings/DEFAULT.png"></td>
+		<td align="center"><img id="img2" width="100", height="100" src="./settings/CONTRAST.png"></td>
+		<td align="center"><img id="img3" width="100", height="100" src="./settings/COLOR.png"></td>
+				<td align="center"><img id="img4" width="100", height="100" src="./settings/METRIC.png"></td>
+        <td align="center"><img id="img5" width="100", height="100" src="./settings/usb.png"></td>
+	</tr>
+
+</table>
+
+<div id="snackbar">Settings Values to Default...</div>
+
+</body>
+</html>

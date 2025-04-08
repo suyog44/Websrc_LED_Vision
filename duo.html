@@ -1,0 +1,24 @@
+<html>
+<head>
+<script>
+window.addEventListener('keydown',function(event){
+document.getElementById('frame1').contentWindow.keypress(event.keyCode);
+document.getElementById('frame2').contentWindow.keypress(event.keyCode);
+},true);
+</script>
+</head>
+<body style="margin:0px">
+<iframe id="frame1" frameBorder="0" src="duo_test.html?id=0&&bg=’#00ff00’" style="width:50%;height:100%;float:left" align=”left”></iframe>
+<iframe id="frame2" frameBorder="0" src="duo_test.html?id=0&&bg=’#ff0000’" style="width:50%;height:100%;" align=”right”></iframe>
+<script>
+debugger;
+window.onload = function () { 
+ document.getElementById('frame1').contentWindow.clr_right();
+document.getElementById('frame2').contentWindow.clr_left();
+document.getElementById('frame1').contentWindow.setbackground("#00FF00");
+document.getElementById('frame2').contentWindow.setbackground("#ff0000");
+}
+
+</script>
+</body>
+</html>

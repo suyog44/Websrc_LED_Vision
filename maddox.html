@@ -1,0 +1,214 @@
+<html>
+<head>
+
+
+<script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+ 
+
+</head>
+
+<body style="windth:100%; height:100%; overflow:hidden; "  bgcolor="black">
+
+<canvas id="myCanvas" 
+style="border:0px solid #0003c3; ">
+Your browser does not support the canvas element.
+</canvas>
+
+<script type='text/javascript'>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+var feetval=parseInt(getFeet());
+//alert(feetval);
+
+var a=0;
+var b=0;
+var page=0;
+var minus=0;
+var pages=0;
+
+ctx.canvas.width=window.innerWidth;
+
+ctx.canvas.height=window.innerHeight;
+
+ var x=(window.innerWidth)/2;
+ var y=(window.innerHeight)/2;
+
+
+var array={
+//round    width height
+'6' :[8, 10, 161],
+'7' :[8, 10, 161],
+
+'8' :[10, 12, 174],
+'9' :[10, 12, 174],
+'10':[10, 12, 187],
+'11':[10, 12, 187],
+'12':[12, 14, 205],
+'13':[14, 14, 205],
+'14':[14, 14, 220],
+'15':[14, 14, 220],
+'16':[16, 16, 236],
+'17':[16, 16, 236],
+'18':[16, 16, 249],
+'19':[16, 18, 249],
+'20':[17, 18, 265],
+};
+
+var diameter=array[feetval][0];
+var wid=array[feetval][1];
+var hite=(array[feetval][2])*2;
+
+
+
+function circle()
+{
+                ctx.beginPath();
+                ctx.arc(x, y, diameter+10, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath();
+
+                 ctx.beginPath();
+                ctx.arc(x, y, diameter-2, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath();
+}
+
+function line()
+{
+
+if(page==3){page=0;}
+
+if(page==-1){page=2;}
+     debugger;
+    switch(page)
+    {
+      case 0:{ clr();  circle();
+              ctx.fillStyle = "#FF0000";
+              ctx.fillRect(x+150,y-(hite/2),wid,hite);
+             }break;
+      
+      case 1:{ clr();  circle();
+              ctx.fillStyle = "#FF0000";
+              ctx.fillRect(x-150,y-(hite/2),wid,hite);
+             }break;
+
+
+  
+      case 2:{ clr();  circle();
+              ctx.fillStyle = "#FF0000";
+              ctx.fillRect(x-(wid/2),y-(hite/2 ),wid,hite);
+             }break;
+
+
+
+
+
+}
+}
+
+function line1()
+{
+	debugger;
+  if(pages==4){pages=1;}
+
+if(pages==-1){pages=3;}
+//alert(pages);
+  switch(pages)
+  {
+        case 3:{ clr();  circle();
+              ctx.fillStyle = "#FF0000";
+              ctx.fillRect(x-(hite/2),y-(wid/2),hite,wid);
+       
+             }break;
+
+      case 1:{ clr();  circle();
+              ctx.fillStyle = "#FF0000";
+              ctx.fillRect(x-(hite/2),y-150,hite,wid);
+              
+             }break;
+      
+      case 2:{ clr();  circle();
+              ctx.fillStyle = "#FF0000";
+              ctx.fillRect(x-(hite/2),y+150,hite,wid);
+           
+
+
+             }break;
+}
+
+}
+
+function clr()
+{
+ctx.fillStyle = "#000000";
+              ctx.fillRect(x-400,y-400,900,1300);
+}
+
+function back_click()
+        {
+              window.history.back();
+        }
+line();
+
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+ // giveSound();            debugger;
+            //alert(event.keyCode);
+		// $.ajax({
+  //        url: "test1.php",
+  //        type: "POST",         
+  //        cache: false,
+  //        success: function (response) {
+             
+  //        }
+  //    });
+
+
+  giveSound();
+
+            switch(event.keyCode)
+            {
+              case 39: page++; line();   break;  //move right
+              case 37: page--; line();   break;  // move left
+              case 38: pages++; line1();   break;  //move right
+              case 40: pages--;  line1();    break;  // move left
+
+              case 8:
+                      back_click();
+                      break; 
+default:
+			remote(event.keyCode);
+			break;
+
+            }
+//alert(page);
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+</script>
+
+</body>
+</html>
+
+<script>
+
+
+</script> 

@@ -1,0 +1,346 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script><style>
+div {
+  background-color: black;
+}
+
+</style>
+<script type="text/javascript">
+       var count=1;
+        var col=6;
+        var total=14;
+
+        var var1;
+
+function $_GET() {
+    try{
+var s =  window.location.search;
+    var re = s.split('?')[1];
+     var var1 = re.split('=')[1];
+    }catch(x){
+      var1 = 1
+    }
+    
+     return var1;
+}
+var1 = $_GET();
+count = parseInt(var1);
+
+        function right_click(){
+          debugger;
+          var temp=count;
+          if (count % col == 0){  
+              count = parseInt(count / col);
+              count=parseInt((((count-1)*col)+1));
+            }
+          else
+             count = count + 1;   
+          if (count > total){
+              var r1  = parseInt (count / col);
+              if(count % col ==0)
+                  r1=r1-1;
+              count=parseInt(((r1*col)+1));
+          }
+          if(temp!=count)
+          {
+            var name="i"+temp;
+            var name2="i"+count;
+            var img=document.getElementById(name);
+            var img2=document.getElementById(name2);
+            img2.src="./Anatomy_front/"+(count)+".gif";
+            img.src="./Anatomy_front/"+(temp)+".png";
+            // img2.src="./main_gifs/"+gif[count-1];
+            // img.src="./main_image/"+gif_img[temp-1]+".png";
+          }
+          
+        }
+        function left_click()
+        {
+          var temp=count;
+          count = count - 1;
+          if (count % col == 0) {
+            count=parseInt((count/col));
+            count=parseInt(((count+1)*col));
+          }
+          if (count > total){
+            count = total;
+          }
+          if(temp!=count)
+          {
+            var name="i"+temp;
+            var name2="i"+count;
+            var img=document.getElementById(name);
+            var img2=document.getElementById(name2);
+             img2.src="./Anatomy_front/"+(count)+".gif";
+            img.src="./Anatomy_front/"+(temp)+".png";
+            // img2.src="./main_gifs/"+gif[count-1];
+            // img.src="./main_image/"+gif_img[temp-1]+".png";
+          }
+        }
+        function up_click()
+        {
+          var temp=count;
+          var temp1=count-col;
+          if (temp1 < 1)
+          {
+            if (total % col==0)
+            {
+                count=total+temp1;
+            }          
+            else
+            {
+                var temp2=parseInt((total/col)+1);
+                var temp3=parseInt((temp2*col)+temp1);
+                if (temp3 > total){
+                    count=temp3-col;
+                }          
+                else{
+                    count=temp3;
+                }            
+            }        
+          }        
+          else
+          {
+            count=temp1;
+          }
+          if(temp!=count)
+          {
+            debugger;
+            var name="i"+temp;
+            var name2="i"+count;
+            var img=document.getElementById(name);
+            var img2=document.getElementById(name2);
+             img2.src="./Anatomy_front/"+(count)+".gif";
+            img.src="./Anatomy_front/"+(temp)+".png";
+          }
+        
+        }
+        function down_click()
+        {
+          var temp=count;
+          var temp1 = count + col; 
+          if (temp1 > total)
+          {
+            temp2 = count % col;
+            if (count % col ==0){
+              count = col; 
+            }
+            else
+            {
+              count = temp2;
+            }       
+          }
+          else{
+            count = temp1;
+          }
+          if(temp!=count)
+          {
+            debugger;
+            var name="i"+temp;
+            var name2="i"+count;
+            var img=document.getElementById(name);
+            var img2=document.getElementById(name2);
+             img2.src="./Anatomy_front/"+(count)+".gif";
+            img.src="./Anatomy_front/"+(temp)+".png";
+          }         
+        }
+        function enter_click()
+        {
+          debugger;
+          switch(count)
+          {
+                case 1:
+                      window.location="anatomyy.html";
+                      break;
+                case 2:
+                       window.location="astigmatism.html";
+                      break;
+                case 3:
+                       window.location="cataract.html";
+                      break;
+                case 4:
+                       window.location="contactlenses.html";
+                      break;
+                case 5:
+                       window.location="diabetic.html";
+                      break;
+                case 6:
+                       window.location="dry-eye.html";
+                      break;
+                case 7:
+                      window.location="general.html";
+                      break;
+                case 8://periodic
+                      window.location="glaucoma.html";
+                      break;
+                case 9:
+                      window.location="iol.html";
+                      break;
+                case 10:
+                      window.location="lasik.html";
+                      break;
+                case 11:
+                      window.location="macular.html";
+                      break;
+                case 12:
+                      window.location="myopia.html";
+                      break;
+                case 13:
+                      window.location="opticals.html";
+                      break;
+                case 14:
+                      window.location="retinal.html";
+                      break;
+                case 15:
+                window.location="prakamaya.html";
+                  break;
+               
+          }
+        }
+        function back_click()
+        {
+              window.history.back();
+        }
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  //giveSound();     //    $.ajax({
+     //     url: "test1.php",
+     //     type: "POST",         
+     //     cache: false,
+     //     success: function (response) {
+             
+     //     }
+     // });
+     giveSound();
+          switch(event.keyCode)
+          {
+              case 39:
+                      right_click();
+                      break;
+              case 37:
+                      left_click();
+                      break;
+              case 38:
+                      up_click();
+                      break;
+              case 40:
+                      down_click();
+                      break;
+              case 13:
+                      enter_click();
+                      break;
+              case 8:
+                       window.location="Home.html?val=15";
+                      break;
+		default:
+			remote(event.keyCode);
+			break;
+          }
+        }
+        },true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+      var count=1;
+      var total=14;
+      var current=0;
+      var row=14;
+
+
+
+      function right1(){
+        debugger;
+
+        var name="i"+count;  
+        count=count+1;
+        var name2="i"+count;
+        var img=document.getElementById(name);
+        var img2=document.getElementById(name2);
+        img2.src="./Anatomy_front/i"+(count)+".gif";
+        img.src="./Anatomy_front/i"+(count-1)+".png";
+      
+      }
+
+
+
+</script>
+</head>
+<body style="overflow:hidden;">
+<div class="container" style="margin:0px;width:100%;height: 100%">
+ 		
+
+<div class="row"  style="height: 33.3%;padding:0px">
+  <div class="col-sm-2" >
+    <img src="./Anatomy_front/1.png" id="i1"  style="margin:30px;width:100%;" border="0" alt="Null"   /></a>
+  </div>
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/2.png" id="i2" style='margin:30px;width:100%;' border="0" alt="Null"    />
+  </div>
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/3.png" id="i3" style='margin:30px;width:100%;' border="0" alt="Null" />
+  </div>
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/4.png" id="i4" style='margin:30px;width:100%;' border="0" alt="Null"  />
+  </div>
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/5.png" id="i5" style='margin:30px;width:100%;' border="0" alt="Null"   />
+  </div>
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/6.png" id="i6" style='margin:30px;width:100%;' border="0" alt="Null"    />
+  </div>
+  </div>
+  <div class="row" style="height: 33.3%" >
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/7.png" id="i7" style='margin:30px;width:100%;' border="0" alt="Null"    />
+  </div>
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/8.png" id="i8" style='margin:30px;width:100%;' border="0" alt="Null"    />
+  </div>
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/9.png" id="i9" style='margin:30px;width:100%;' border="0" alt="Null"    />
+  </div>
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/10.png" id="i10" style='margin:30px;width:100%;' border="0" alt="Null"   />
+  </div>
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/11.png" id="i11" style='margin:30px;width:100%;' border="0" alt="Null"   />
+  </div>
+<div class="col-sm-2" >
+     <img src="./Anatomy_front/12.png" id="i12" style='margin:30px;width:100%;' border="0" alt="Null"  />
+  </div>
+</div>
+ <div class="row" style="height: 33.3%" >
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/13.png" id="i13" style='margin:30px;width:100%;' border="0" alt="Null"  />
+  </div>
+  <div class="col-sm-2" >
+     <img src="./Anatomy_front/14.png" id="i14" style='margin:30px;width:100%;' border="0" alt="Null"  />
+  </div>
+ 
+  
+</div>
+
+
+
+</div>
+<script>
+var d = document.getElementById('i'+var1);
+d.src = "./Anatomy_front/"+var1+".gif";
+count = parseInt(var1);
+</script>
+</body>
+</html>

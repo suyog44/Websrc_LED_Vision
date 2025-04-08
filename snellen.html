@@ -1,0 +1,418 @@
+<html>
+<head>
+<link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+<style type="text/css">
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
+	.fonts{
+		font-family: Sloan;
+	}
+
+#font2{
+	margin-right: 3%;
+}
+#font3{
+	margin-left: 3%;
+}
+
+#font4{
+	margin-right: 6%;
+}
+
+#font6{
+	margin-left: 6%
+}
+
+
+</style>
+</head>
+<body id="mybody" style="overflow: hidden;" >
+<div id="testUp" style="height: 15%;"></div>
+<table width="100%" id="testMiddle">
+	<tr >
+			<td width="10%"><font     id="fl1"></font></td>
+		<td width="80%"><center>
+		<font class="fonts" id="font1"  style="font-size: 90mm;font-weight: bold; display: inline-block;"></font>
+		</center></td>
+		<td align="right" width="10%"><font id="fr1"></font></td>
+	</tr>
+		<tr width="10%">
+				<td><font id="fl2"></font></td>
+		<td><center>
+		<font class="fonts" id="font2"  style="font-size: 53mm;font-weight: bold;display: inline-block;"></font>
+		<font class="fonts" id="font2"  style="font-size: 10mm;font-weight: bold;display: inline-block;"></font>
+		<font class="fonts" id="font3" style="font-size: 53mm;font-weight: bold;display: inline-block;"></font>
+		</center></td>
+				<td align="right">  <font id="fr2"></font></td>
+	</tr>
+		<tr width="10%">
+		<td><font id="fl3"></font></td>
+		<td><center>
+		<font class="fonts" id="font4" style="font-size: 35mm;font-weight: bold; display: inline-block;"></font>
+		<font class="fonts" id="font5" style="font-size: 35mm;font-weight: bold; display: inline-block;"></font>
+		<font class="fonts" id="font6" style="font-size: 35mm;font-weight: bold; display: inline-block;"></font>
+		</center></td>
+		<td align="right"><font id="fr3"></font></td>
+	</tr>
+
+</table>
+<div id="testDown" style="height: 15%;"></div>
+<script type='text/javascript' src="scriptFile.js"></script>
+<script type="text/javascript">
+var blk_clr="#000000";
+var wht_clr="#ffffff";
+
+var datas = {
+    
+    "TAMIL"     : ['t','r','l','f','a','g','k'],
+    "ARABIC"    : ['a','x','h','P','k','V','X'],
+    "BENGALI"   : ['A','i','c','W','o','f','k'],
+    "GUJARATHI" : ['J','m','h','v','l','d','f'],
+    "HINDI"     : ['n','m','p','P','T','g','q'],
+    "KANNADA"   : ['M','L','C','t','J','Y','D'],
+    "MALAYALAM" : ['p','m','a','i','U','b','k'],
+    "ORIYA"     : ['W','n','O','M','b','e','N'],
+    "PROTOTYPE" : ['A','C','D','E','F','G','H'],
+    "PUNJABI"   : ['N','H','l','f','Z','o','E'],
+    "SLOAN"     : ['N','R','K','D','Z','H','S'],
+    "TELUGU"    : ['v','Y','L','E','n','d','K'],
+    "ASSAMESE"  : ['P','h','A','W','o','n','j'],
+    "NEPALI"    : ['B','q','p','H','K','S','Y'],
+    "URDU"      : ['x','m','t','q','a','f','k'] 
+  };
+
+
+var blk=parseInt(getBWFlag());
+	//blk=1; 
+	if(blk==1)
+	{
+	   var te=blk_clr;
+	   blk_clr=wht_clr;
+	   wht_clr=te;
+	}
+
+var angles = [90 , 270 , 180 , 360];
+var feetValue = parseInt(getFeet());
+var currentPage = 4;
+var data;
+function $_GET() {
+	try{
+    var s =  window.location.search;
+    var re = s.split('?')[1];
+    var data = re.split('=')[1];
+	}catch(e){
+		data = 1;
+	}
+
+    return data;
+}
+
+var dats = {
+	8 : 72,
+	9 : 72,
+	10: 72,
+	11 : 70,
+	12 : 70,
+	13 : 105,
+	14 : 103,
+	15: 100,
+	16 : 100 , 
+	17 : 98,
+	18 : 96,
+	19 : 92,
+	20 : 94
+};
+
+data = $_GET();
+
+if (data == null){
+	data = 1;
+}
+
+currentPage = data;
+
+var angles = [90 , 270 , 180 , 360];
+                var mminpt=2.47;
+        var feetarr=[8,9,10,11,12,13,14,15,16,17,18,19,20];
+        var feet_array=[[35,21,14,11,7,5,3.5,2.5,2],[40,24,16,12,8,6,4,3,2.5],[45,26,18,13,9,6.5,4.5,3.5,3],[50,30,20,4,15,10,7,5,4,3],[50,32,22,16,11,7.5,5,4,3],[55,34,23,17,12,8,5.5,4.5,3.5],[60,37,25,19,13,9,6,5,4],[65,40,27,20,13,10,7,5,4],[70,42,29,21,14,11,7,6,4],[75,45,30,23,15,11,7,6,5],[80,47,32,24,16,11.5,8,6,5],[85,50,34,25,17,12,9,7,6],[90,53,35,27,18,13,9,7,6]];
+                var feet_index = feetarr.indexOf(parseInt(feetValue));
+var letterArray = ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W']
+var mixed = {
+    '20' : [200, 120, 80, 60, 40, 30, 20, 16.6, 13.2],
+    '19' : [190, 114, 76, 57, 38, 28, 19, 15, 12.5 ],
+    '18' : [180, 108, 72, 54, 36, 27, 18, 14, 11.9 ],
+    '17' : [170, 102, 68, 51, 34, 25.5, 17, 14.1, 11.2 ],
+    '16' : [160, 96, 64, 48, 32, 24, 16, 13.3, 10.6 ],
+    '15' : [150, 90, 60, 45, 30, 22, 15, 12, 10 ],
+    '14' : [140, 84, 56, 42, 28, 21, 14, 11.6, 9.2 ],
+    '13' : [130, 78, 52, 39, 26, 19, 13, 10.8, 8.6 ],
+    '12' : [120, 74, 48, 36, 24, 18.5, 12, 10, 8 ],
+    '11' : [110, 66, 44, 33, 22, 16.6, 11, 9.1, 7.3 ],
+    '10' : [100, 60, 40, 30, 20, 15, 10, 8.3, 6.6 ],
+    '9' : [90, 54, 36, 27, 18, 13.5, 9, 7.5, 5.9 ],
+    '8' : [80, 48, 32, 24, 16, 12, 8, 6.6, 5.3 ]
+
+
+};
+
+//var currentPage = 1;
+         var mix = {
+    'TAMIL' : 'Bamini',
+    'ARABIC' : 'ArabicNaskhSSK',
+    'BENGALI':'BRH Bengali',
+    'CHINESE':'DFLiHeiMedium1B',
+    'GREEK':'Ismini',
+    'GUJARATHI':'Gopika',
+    'HINDI':'AmrHindi',
+    'HIRAGANA':'hiragana tfb',
+    'KANNADA':'BRH Kannada',
+    'KOREAN':'KoreanModernSSK',
+    'MALAYALAM': 'BRH Malayalam',
+    'ORIYA': 'BRH Oriya', 
+    'PROTOTYPE':'Prototype',
+    'PUNJABI':'BRH Gurumukhi RN',
+    'RUSSIAN':'Russian',
+    'SLOAN':'Sloan',
+    'SPANISH':'Bulgarian Italic',
+    'TELUGU':'BRH Telugu',
+    'URDU':'Urdu'
+};
+
+ var lang1=getLanguage1();
+
+ var lang2=getLanguage2();
+
+ var lang3=getLanguage3();
+
+var languages=['Sloan','Sloan','Sloan','Times New Roman','Bamini','AmrHindi','BRH Telugu'];
+
+        languages[4] = mix[lang1];
+        languages[5] = mix[lang2];
+        languages[6]= mix[lang3];
+
+var fFamily = languages[currentPage-1];
+
+var leftValues = ['6/60', '6/36','6/24', '6/18','6/12', '6/9','6/6'];
+// document.getElementById('font1').style.fontSize = mixed[feetValue][0]+'pt';
+// document.getElementById('font2').style.fontSize = mixed[feetValue][1]+'pt';
+// document.getElementById('font3').style.fontSize = mixed[feetValue][1]+'pt';
+// document.getElementById('font4').style.fontSize = mixed[feetValue][2]+'pt';
+// document.getElementById('font5').style.fontSize = mixed[feetValue][2]+'pt';
+// document.getElementById('font6').style.fontSize = mixed[feetValue][2]+'pt';
+
+var x1 = feet_array[feet_index][0] - (feet_array[feet_index][0] * 0.10) ;
+// if(currentPage == 4)
+// 	x1 = feet_array[feet_index][0] + (feet_array[feet_index][0] * 0.30); 
+document.getElementById('font1').style.fontSize = x1 +'mm';
+var x2 = feet_array[feet_index][1] - (feet_array[feet_index][1] * 0.10) ;
+document.getElementById('font2').style.fontSize = x2 + 'mm';
+var x3 = feet_array[feet_index][1] - (feet_array[feet_index][1] * 0.10) ;
+document.getElementById('font3').style.fontSize = x3 + 'mm' ;
+var x4 = feet_array[feet_index][2] - (feet_array[feet_index][2] * 0.10) ;
+document.getElementById('font4').style.fontSize = x4 + 'mm';
+var x5 = feet_array[feet_index][2] - (feet_array[feet_index][2] * 0.10) ;
+document.getElementById('font5').style.fontSize = x5 + 'mm';
+var x6 = feet_array[feet_index][2] - (feet_array[feet_index][2] * 0.10) ;
+document.getElementById('font6').style.fontSize = x6 + 'mm';
+document.getElementById('font1').style.fontFamily = fFamily;
+document.getElementById('font2').style.fontFamily = fFamily;
+document.getElementById('font3').style.fontFamily = fFamily;
+document.getElementById('font4').style.fontFamily = fFamily;
+document.getElementById('font5').style.fontFamily = fFamily;
+document.getElementById('font6').style.fontFamily = fFamily;
+
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+	key_pp=1;
+ // giveSound();            debugger;
+
+ // $.ajax({
+ //         url: "test1.php",
+ //         type: "POST",         
+ //         cache: false,
+ //         success: function (response) {
+             
+ //         }
+ //     });
+ giveSound();
+            switch(event.keyCode)
+            {
+              // case 38: up();  break;  //move right
+              // case 40: down();  break;  // move left
+               case 39: up();  break;  //move right
+              case 37: down();  break; 
+              case 8:window.location="Home.html?val=9"; break;
+		default:
+			remote(event.keyCode);
+			break;
+
+            }
+
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+          	key_pp=0;
+          //	setTimeout(function(){flag_key=true ; }, 100);
+          	},true);
+function back() {
+ 	// body...
+	//window.history.go(1);
+	debugger;
+ 	window.history.go(-(history.length - 2));
+ }
+
+	 function down(){
+	 	if (currentPage == 1){
+	 		return;
+	 	}
+	 	currentPage--;
+	 	document.location = "snellennext.html?data="+currentPage;
+
+	 }
+
+
+	 function up(){
+	 	document.location = "snellennext.html?data="+currentPage;
+	 }
+var temppp = [];
+lastData = -1;
+count = 1;
+	for (i = 1; i < 7;i++){
+		var d = document.getElementById('font'+count);
+		d.style.color=blk_clr;
+		if (currentPage <= 2){
+			if ( currentPage == 1) {
+				d.innerHTML  = 'C';
+			}
+			else{
+					d.innerHTML = 'E';
+			}
+			debugger;
+			var data = Math.floor((Math.random() * 4) + 1);
+		while(lastData == data){
+			var data = Math.floor((Math.random() * 4) + 1);
+		}
+		lastData = data;
+		// do{
+		// var data = Math.floor((Math.random() * 4) + 1);
+		// }while(lastData != data);
+		// lastData = data;
+		// var data = Math.floor((Math.random() * 4) + 1);
+		d.style.transform = 'rotate('+angles[data-1]+'deg)';
+		}else if ( currentPage == 4){
+				
+
+		// 				var data = Math.floor((Math.random() * 9) + 1);
+		// while(lastData == data){
+		// 	var data = Math.floor((Math.random() * 9) + 1);
+		// }
+		// lastData = data;
+						flagg = true;
+		 do{
+		 	debugger;
+                          random=Math.floor(Math.random() * 9) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+			d.innerHTML = random +'';
+		}else{
+		// 	var data = Math.floor((Math.random() * 9) + 1);
+		// while(lastData == data){
+		// 	var data = Math.floor((Math.random() * 9) + 1);
+		// }
+		// lastData = data;
+						flagg = true;
+		 do{
+		 	debugger;
+                          random=Math.floor(Math.random() * 6) ;
+				if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+				{
+					temppp[i]=random;
+					flagg=false;
+				}
+                      }while(flagg);
+			// var v= letterArray[random];
+			// d.innerHTML = v;
+			random1 = random;
+			if(currentPage == 5){
+              txt = datas[getLanguage1()][random1];
+            }
+            else if (currentPage == 3){
+              txt = letterArray[random1];
+            }
+            else if (currentPage== 6){
+              txt = datas[getLanguage2()][random1];
+            }
+            else{
+              txt = datas[getLanguage3()][random1];
+            }
+            d.innerHTML = txt;
+			d.style.color=blk_clr;
+		}
+
+		count++;
+	}
+
+	for(i = 1; i <=3; i ++){
+		var d1 = document.getElementById('fl'+i);
+		var d2= document.getElementById('fr'+i);
+		var str = feetValue+"/"+mixed[feetValue][i-1];
+		var str2 = leftValues[i-1];
+		d2.innerHTML =  "<font style='font-size:30px; color:gray;font-family:Arial; '>"+str+"</font>";
+		d1.innerHTML = "<font style='font-size:30px;color:gray;font-family:Arial; '>"+str2+"</font>";
+
+	}
+var reverse=getMainFlag();
+var b=document.getElementById('mybody');
+b.style.backgroundColor=wht_clr;
+
+if(reverse==1)
+{
+	
+	b.className='rev_dis';
+}
+
+var va = dats[feetValue];
+var y = va;
+var x = 0;
+debugger;
+if(va > 100){
+y = 100;
+}else{
+x = (100 - va ) /2;
+y = 100 - va;
+}
+document.getElementById('testUp').style.height = x +"%";
+document.getElementById('testDown').style.height = x +"%";
+document.getElementById('testMiddle').style.height = va + "%";
+
+for(i = 1; i <= 6; i++){
+	document.getElementById('font'+i).style.fontWeight = 'normal';
+}
+
+</script>
+
+</body>
+</html>

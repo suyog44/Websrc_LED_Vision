@@ -1,0 +1,277 @@
+<html>
+<head>
+ <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+<style>
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
+</style>
+  <script type='text/javascript' src="scriptFile.js"></script>
+<script type="text/javascript">
+feetvalue = getFeet();
+var leftValues = ['6/60', '6/36','6/24', '6/18','6/12', '6/9','6/6'];
+var blk_clr="#000000";
+var wht_clr="#ffffff";
+        var feetvalue= getFeet();
+var current = 1;
+var array={
+'1' :['C'],
+'2' :['A','D'],
+'3':['D','I','G' ],
+'4':['G','C','E','A'],
+'5':['I','D','A','E','G','C'],
+'6':['A','E','C','G','D','I'],
+};
+var mixed = {
+    '20' : [200, 120, 80, 60, 40, 30, 20, 16.6, 13.2],
+    '19' : [190, 114, 76, 57, 38, 28, 19, 15, 12.5 ],
+    '18' : [180, 108, 72, 54, 36, 27, 18, 14, 11.9 ],
+    '17' : [170, 102, 68, 51, 34, 25.5, 17, 14.1, 11.2 ],
+    '16' : [160, 96, 64, 48, 32, 24, 16, 13.3, 10.6 ],
+    '15' : [150, 90, 60, 45, 30, 22, 15, 12, 10 ],
+    '14' : [140, 84, 56, 42, 28, 21, 14, 11.6, 9.2 ],
+    '13' : [130, 78, 52, 39, 26, 19, 13, 10.8, 8.6 ],
+    '12' : [120, 74, 48, 36, 24, 18.5, 12, 10, 8 ],
+    '11' : [110, 66, 44, 33, 22, 16.6, 11, 9.1, 7.3 ],
+    '10' : [100, 60, 40, 30, 20, 15, 10, 8.3, 6.6 ],
+    '9' : [90, 54, 36, 27, 18, 13.5, 9, 7.5, 5.9 ],
+    '8' : [80, 48, 32, 24, 16, 12, 8, 6.6, 5.3 ],
+    '7' : [70, 42, 28, 21, 14, 10.5, 7, 5.8, 4.6],
+    '6' : [60, 37, 24, 18, 12, 9.25, 6, 5, 4]
+};
+var blk_clr="#000000";
+var wht_clr="#ffffff";
+
+        var mminpt=2.47;
+        var feetarr=[6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+        var feet_array=[[25,16,11,8,5.5,3.75,2.5,2,1.5],[27.5,17,11.5,8.5,6,4,2.75,2.25,1.75 ],[35,21,14,11,7,5,3.5,2.5,2],[40,24,16,12,8,6,4,3,2.5],[45,26,18,13,9,6.5,4.5,3.5,3],[50,30,20,4,15,10,7,5,4,3],[50,32,22,16,11,7.5,5,4,3],[55,34,23,17,12,8,5.5,4.5,3.5],[60,37,25,19,13,9,6,5,4],[65,40,27,20,13,10,7,5,4],[70,42,29,21,14,11,7,6,4],[75,45,30,23,15,11,7,6,5],[80,47,32,24,16,11.5,8,6,5],[85,50,34,25,17,12,9,7,6],[90,53,35,27,18,13,9,7,6]];
+debugger;
+        var feet_index = feetarr.indexOf(parseInt(feetvalue));
+
+var letterArray = ['A','C','D','E','F','G','I'];
+var blk=parseInt(getBWFlag());
+	//blk=1; 
+	if(blk==1)
+	{
+	   var te=blk_clr;
+	   blk_clr=wht_clr;
+	   wht_clr=te;
+	}
+
+
+
+
+
+
+
+
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+	key_pp=1;
+  giveSound();            debugger;
+		// $.ajax({
+  //        url: "test1.php",
+  //        type: "POST",         
+  //        cache: false,
+  //        success: function (response) {
+             
+  //        }
+  //    });
+ // giveSound();
+            switch(event.keyCode)
+            {
+              case 38: down();  break;  //move right
+              case 40: up();  break;  // move left
+              case 8:  window.location="ped.html?";
+		default:
+			remote(event.keyCode);
+			break;
+
+            }
+
+        }
+    }, true);
+          document.addEventListener('keyup',function(event){
+          	key_pp=0;
+          //	setTimeout(function(){flag_key=true ; }, 100);
+          	},true);
+
+
+function back() {
+ 	// body...
+ 	window.history.back();
+ } 
+
+function up() {
+	// body...
+
+	if (current == 6){
+		return;
+	}
+	current ++;
+//	document.getElementById('fon34').innerHTML = (feetvalue/parseInt(mixed[feetvalue][current-1])).toFixed(2);
+
+if (ddecimal == 1){
+document.getElementById('fon34').innerHTML = (feetvalue/parseInt(mixed[feetvalue][current-1])).toFixed(2);
+}else{
+	document.getElementById('fon34').innerHTML="";
+}
+
+	setText();
+
+}
+
+function down() {
+	// body...
+
+	if (current == 1){
+		return;
+	}
+
+	current --;
+	setText();
+//document.getElementById('fon34').innerHTML = (feetvalue/parseInt(mixed[feetvalue][current-1])).toFixed(2);
+
+if (ddecimal == 1){
+document.getElementById('fon34').innerHTML = (feetvalue/parseInt(mixed[feetvalue][current-1])).toFixed(2);
+}else{
+	document.getElementById('fon34').innerHTML="";
+}
+
+
+}
+
+
+
+
+function setText(){
+	var row = document.getElementById('trid');
+	str =  "";
+	for( i = 0 ; i < current; i ++){
+		// var v= letterArray[Math.floor((Math.random() * 7) + 1)];
+		var v = array[current][i];
+		str +="<td style='color:blk_clr"+blk_clr+"; font-family: prototype;font-size: "+mixed[feetvalue][current-1]+"pt' ><center style='color:"+blk_clr+";'>"+v+"</center></td>";
+	}
+	row.innerHTML = str;
+
+// document.getElementById('fon1').innerHTML = leftValues[current-1];
+// document.getElementById('fon2').innerHTML = feetvalue+"/"+mixed[feetvalue][current-1];
+
+
+var d1 = document.getElementById('fon1');
+var d2 = document.getElementById('fon2');
+
+
+if(ffeet == 1){
+d2.innerHTML = feetvalue+"/"+feet_array[feet_index][current-1];
+}else{
+	d2.innerHTML = "";
+}
+
+if (uunits == 1) {
+d1.innerHTML = leftValues[current-1];
+}
+	else{
+	d1.innerHTML = "";
+}
+
+
+
+}	
+</script>
+	<title></title>
+</head>
+<body id="mybody" style="overflow:hidden">
+
+<div style="width: 100%; height: 10%" ></div>
+<table width="100%" height = "82%">
+	<tr id="trid">
+		<td style="font-family: prototype;font-size: 190pt" id="id1" ><center id="d1">C</center></td>
+	</tr>
+</table>
+<table width="100%" height = "10%">
+	<tr>
+		<td width="2%" ></td>
+		<td  width="43%" >
+			<font id="fon1" style="font-size: 30px;font-family: Arial;color: gray;"></font>
+		</td>
+
+		<td width="10%" style="vertical-align: middle;text-align: -webkit-center">
+			<font id="fon34" style="font-size: 30px;font-family: Arial;color: gray;"></font>
+		</td>
+
+		<td width="43%" style="text-align: right;">
+			<font id="fon2" style="font-size: 30px;font-family: Arial;color: gray;"	></font>
+		</td>
+		<td width="2%"></td>
+	</tr>
+
+</table>
+<script type="text/javascript">
+
+
+
+	document.getElementById('id1').style.fontSize = mixed[feetvalue][0]+'pt';
+
+	document.getElementById("d1").style.color=blk_clr;
+
+var reverse=getMainFlag();
+var b=document.getElementById('mybody');
+b.style.backgroundColor=wht_clr;
+// document.getElementById('fon1').innerHTML = leftValues[current-1];
+// document.getElementById('fon2').innerHTML = feetvalue+"/"+mixed[feetvalue][0];
+// document.getElementById('fon34').innerHTML = feetvalue/parseInt(mixed[feetvalue][0]).toFixed(2);
+
+var d1 = document.getElementById('fon1');
+var d2 = document.getElementById('fon2');
+
+
+var ffeet=getFeetFlag();
+var ddecimal=getDecimalFlag();
+var uunits=getUnitFlag();
+
+
+if(ffeet == 1){
+d2.innerHTML = feetvalue+"/"+feet_array[feet_index][current-1];
+}else{
+	d2.innerHTML = "";
+}
+if (ddecimal == 1){
+document.getElementById('fon34').innerHTML = (feetvalue/parseInt(mixed[feetvalue][0])).toFixed(2);
+}else{
+	document.getElementById('fon34').innerHTML="";
+}
+if (uunits == 1) {
+d1.innerHTML = leftValues[current-1];
+}
+	else{
+	d1.innerHTML = "";
+}
+
+
+if(reverse==1)
+{
+	
+	b.className='rev_dis';
+}
+</script>
+</body>
+</html>

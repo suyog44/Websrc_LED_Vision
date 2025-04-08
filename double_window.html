@@ -1,0 +1,874 @@
+<html>
+<head>
+<link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script><script type="text/javascript">
+
+  <style>
+
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}  
+  </style>
+  <script src="remote.js"></script>
+  <script type='text/javascript' src="scriptFile.js"></script>
+  <script type="text/javascript">
+
+  debugger;
+
+var datas = {
+    
+    "TAMIL"     : ['t','r','l','f','a','g','k'],
+    "ARABIC"    : ['a','x','h','P','k','V','X'],
+    "BENGALI"   : ['A','i','c','W','o','f','k'],
+    "GUJARATHI" : ['J','m','h','v','l','d','f'],
+    "HINDI"     : ['n','m','p','P','T','g','q'],
+    "KANNADA"   : ['M','L','C','t','J','Y','D'],
+    "MALAYALAM" : ['p','m','a','i','U','b','k'],
+    "ORIYA"     : ['W','n','O','M','b','e','N'],
+    "PROTOTYPE" : ['A','C','D','E','F','G','H'],
+    "PUNJABI"   : ['N','H','l','f','Z','o','E'],
+    "SLOAN"     : ['N','R','K','D','Z','H','S'],
+    "TELUGU"    : ['v','Y','L','E','n','d','K'],
+    "ASSAMESE"  : ['P','h','A','W','o','n','j'],
+    "NEPALI"    : ['B','q','p','H','K','S','Y'],
+    "URDU"      : ['x','m','t','q','a','f','k'] 
+  };
+
+var mul_val  = {
+    'Bamini' : 5.666,
+    'ArabicNaskhSSK' : 3.6111111111,
+    'BRH Bengali': 4.0,        
+    'Gopika':4.55555555555556,
+    'AmrHindi':4.22222222,    
+    'BRH Kannada':5.55555555556,    
+    'BRH Malayalam': 5.16666666666666667,
+    'BRH Oriya': 4.33333333333333, 
+    'Prototype':2.5,
+    'BRH Gurumukhi RN':4.1333333333333,    
+    'SLOAN':2.5,
+    'BRH Telugu':4.94444444444,        
+    'Urdu':4.1666666666667,
+    'AMAA NETWORK CONSULTANT' : 2.5,
+	'FreeSans':3.5
+};
+
+  var lColor = getLeftColor() ;
+  var rColor = getRightColor() ;
+        var feet=parseInt(getFeet());
+        var count=0;
+        // var text_size=[[35,21,14,11,7,5,3.5,2.5,2]];
+        var angle=[0,90,180,270];
+                var mminpt=2.47;
+        var feetarr=[8,9,10,11,12,13,14,15,16,17,18,19,20];
+        var feet_array=[[35,21,14,11,7,5,3.5,2.5,2],[40,24,16,12,8,6,4,3,2.5],[45,26,18,13,9,6.5,4.5,3.5,3],[50,30,20,4,15,10,7,5,4,3],[50,32,22,16,11,7.5,5,4,3],[55,34,23,17,12,8,5.5,4.5,3.5],[60,37,25,19,13,9,6,5,4],[65,40,27,20,13,10,7,5,4],[70,42,29,21,14,11,7,6,4],[75,45,30,23,15,11,7,6,5],[80,47,32,24,16,11.5,8,6,5],[85,50,34,25,17,12,9,7,6],[90,53,35,27,18,13,9,7,6]];
+        var feet_index = feetarr.indexOf(feet);
+        var currentPage = 1;
+                var mix = {
+    'TAMIL' : 'Bamini',
+    'ARABIC' : 'ArabicNaskhSSK',
+    'BENGALI':'BRH Bengali',
+    'CHINESE':'DFLiHeiMedium1B',
+    'GREEK':'Ismini',
+    'GUJARATHI':'Gopika',
+    'HINDI':'AmrHindi',
+    'HIRAGANA':'hiragana tfb',
+    'KANNADA':'BRH Kannada',
+    'KOREAN':'KoreanModernSSK',
+    'MALAYALAM': 'BRH Malayalam',
+    'ORIYA': 'BRH Oriya', 
+    'PROTOTYPE':'Prototype',
+    'PUNJABI':'BRH Gurumukhi RN',
+    'RUSSIAN':'Russian',
+    'SLOAN':'Sloan',
+    'SPANISH':'Bulgarian Italic',
+    'TELUGU':'BRH Telugu',
+    'URDU':'Urdu'
+};
+ var lang1=getLanguage1();
+
+ var lang2=getLanguage2();
+
+ var lang3=getLanguage3();
+var letterArray = ['R', 'X', 'Y', 'A', 'B' , 'C', 'D', 'E', 'F', 'G', 'H','I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'S', 'T','U','V','W']
+var languages=['Sloan','Sloan','Sloan','FreeSans','Bamini','AmrHindi','BRH Telugu'];
+
+        languages[4] = mix[lang1];
+        languages[5] = mix[lang2];
+        languages[6]= mix[lang3];
+var temppp = []
+var fFamily = languages[currentPage-1];
+
+
+
+
+
+
+var flagg = true;
+        function up_click()
+        {
+          debugger;
+        ff = languages[currentPage-1];
+        
+              var str="C";
+              if(currentPage == 2)
+                str = "E";
+              else if (currentPage == 4)
+                str = "4";
+
+            
+            if(count<feet_array[0].length)
+            {
+                if(count<7)
+                {
+                var table1 = document.getElementById("table1");
+                var table2 = document.getElementById("table2");
+                var row1=table1.rows[0];
+                var row2=table2.rows[0];
+                var cell1 = row1.insertCell(count);
+                var cell2 = row2.insertCell(count);
+                cell1.innerHTML = "<center><h1 id='txt1"+count+"' style='font-family: "+ff+";font-size: 3.5cm;'>C</h1></center>";
+                cell2.innerHTML = "<center><h1 id='txt2"+count+"' style='font-family: "+ff+";font-size: 3.5cm;'>C</h1></center>";
+                
+                
+              }
+              var str="C";
+              var temp_ran=0;
+              var random=0;
+              temppp = [];
+                for(i=0;i<=count&&i<7;i++)
+                {
+                  do{
+                      random=Math.floor(Math.random() * 4) + 1 ;  
+                  }while(random==temp_ran);
+                  var h=document.getElementById('txt1'+i);
+                  var hh1 = document.getElementById('iddd'+i);
+//                  h.innerHTML=str;
+//                  h.style.transform='rotate('+angle[random-1]+'deg)';
+
+ if(currentPage <= 2){
+                   if (currentPage == 1)
+                    h.innerHTML = "C";
+                  else
+                    h.innerHTML= "E";
+                  }else if(currentPage == 4){
+            flagg = true;
+     do{
+                          random=Math.floor(Math.random() * 9) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      h.innerHTML = random;
+                  }
+                  else{
+            flagg = true;
+     do{
+
+                          random=Math.floor(Math.random() * 7) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      h.innerHTML=letterArray[random];
+                  }
+
+                    if(currentPage<=2){
+                      
+                  hh1.style.transform='rotate('+angle[random-1]+'deg)';
+                }
+                  else
+                    hh1.style.transform='rotate(0deg)';
+
+                  h.style.fontSize=feet_array[feet_index][count]+'mm';
+;
+                  temp_ran=random;
+                }
+                temppp = [];
+                for(i=0;i<=count&&i<7;i++)
+                {
+                  do{
+                      random=Math.floor(Math.random() * 4) + 1 ;  
+                  }while(random==temp_ran);
+                  var h=document.getElementById('txt2'+i);
+                  hh1 = document.getElementById('rddd'+i);
+                  //h.innerHTML=str;
+                  //h.style.transform='rotate('+angle[random-1]+'deg)';
+ if(currentPage <= 2){
+                   if (currentPage == 1)
+                    h.innerHTML = "C";
+                  else
+                    h.innerHTML= "E";
+                  }else if(currentPage == 4){
+            flagg = true;
+     do{
+
+                          random=Math.floor(Math.random() * 9) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      h.innerHTML = random;
+                  }
+                  else{
+            flagg = true;
+     do{
+
+                          random=Math.floor(Math.random() * 7) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      debugger;
+                      var vv ;
+                      if(currentPage == 5){
+                        vv = datas[getLanguage1()][random];
+                      }else if (currentPage == 6){
+                        vv = datas[getLanguage2()][random];
+                      }
+                      else if (currentPage == 3){
+                        vv= letterArray[random];
+                      }
+                      else {
+                        vv = datas[getLanguage3()][random];
+                      }
+                      h.innerHTML=vv;
+                  }
+
+                                    if(currentPage<=2)
+                  hh1.style.transform='rotate('+angle[random-1]+'deg)';
+                  else
+                    hh1.style.transform='rotate(0deg)';
+
+                  h.style.fontSize=feet_array[feet_index][count]+'mm';
+                  temp_ran=random;
+                }
+
+                count=count+1;
+              
+          }
+                   setText(count);
+        }
+
+        function rightClick() {
+          // body...
+          if(currentPage == 7)
+            return;
+          currentPage++;
+
+          debugger;
+          ff = languages[currentPage-1];
+              var str="C";
+              if(currentPage == 2)
+                str = "E";
+              else if (currentPage == 4)
+                str = "4";
+              var temp_ran=0;
+              var random=0;
+              temppp = [];
+                for(i=0;i<count&&i<7;i++)
+                {
+                  do{
+                      random=Math.floor(Math.random() * 4) + 1 ;  
+                  }while(random==temp_ran);
+                  var h=document.getElementById('txt1'+i);
+                  var hh1 = document.getElementById('iddd'+i);
+
+                  if(currentPage <= 2){
+                    h.innerHTML = str;
+                  }else if(currentPage == 4){
+            flagg = true;
+     do{
+                          random=Math.floor(Math.random() * 9) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      h.innerHTML = random;
+                  }
+                  else{
+            flagg = true;
+     do{
+
+                          random=Math.floor(Math.random() * 7) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                     
+var vv ;
+                      if(currentPage == 5){
+                        vv = datas[getLanguage1()][random];
+                      }else if (currentPage == 6){
+                        vv = datas[getLanguage2()][random];
+                      }
+                      else if (currentPage == 3){
+                        vv= letterArray[random];
+                      }
+                      else {
+                        vv = datas[getLanguage3()][random];
+                      }
+                      h.innerHTML=vv;
+
+//                      h.innerHTML=letterArray[random];
+                  }
+
+                  //h.innerHTML=str;
+                  if(currentPage<=2)
+                  hh1.style.transform='rotate('+angle[random-1]+'deg)';
+                  else
+                    hh1.style.transform='rotate(0deg)';
+                  h.style.fontSize=feet_array[feet_index][count-1]+'mm';
+                  h.style.fontFamily = ff; 
+                  temp_ran=random;
+                }
+
+                temppp  = [];
+
+                for(i=0;i<count&&i<7;i++)
+                {
+                  do{
+                      random1=Math.floor(Math.random() * 4) + 1 ;  
+                  }while(random1==temp_ran);
+                  temp_ran= random1;
+                  var h=document.getElementById('txt2'+i);
+                  var hh1 = document.getElementById('rddd'+i);
+
+                  // h.innerHTML=str;
+                  if(currentPage <= 2){
+                    h.innerHTML = str;
+                  }else if(currentPage == 4){
+            flagg = true;
+     do{
+
+                          random=Math.floor(Math.random() * 9) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      h.innerHTML = random; 
+                 }
+                  else{
+            flagg = true;
+     do{
+
+                          random=Math.floor(Math.random() * 7) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      var vv ;
+                      if(currentPage == 5){
+                        vv = datas[getLanguage1()][random];
+                      }else if (currentPage == 6){
+                        vv = datas[getLanguage2()][random];
+                      }
+                    else if (currentPage == 3){
+                        vv= letterArray[random];
+                      }
+                      else {
+                        vv = datas[getLanguage3()][random];
+                      }
+                      h.innerHTML=vv;
+ 
+ //                     h.innerHTML=letterArray[random];
+                  }
+                  h.style.fontFamily = ff; 
+                  if(currentPage<=2)
+                  hh1.style.transform='rotate('+angle[random-1]+'deg)';
+                  else
+                    hh1.style.transform='rotate(0deg)';
+                  h.style.fontSize=feet_array[feet_index][count-1]+'mm';
+                  temp_ran=random;
+                }
+
+                      
+          
+        }
+        function leftClick() {
+          // body..
+          if(currentPage == 1)
+            return;
+
+          currentPage--;
+
+ff = languages[currentPage-1];
+ 
+var str="C";
+              if(currentPage == 2)
+                str = "E";
+              else if (currentPage == 4)
+                str = "4";
+              var temp_ran=0;
+              var random=0;
+              temppp = [];
+                for(i=0;i<count&&i<7;i++)
+                {
+                  do{
+                      random=Math.floor(Math.random() * 4) + 1 ;  
+                  }while(random==temp_ran);
+                  var h=document.getElementById('txt1'+i);
+                  var hh1 = document.getElementById(''+i);
+
+                  if(currentPage <= 2){
+                    h.innerHTML = str;
+                  }else if(currentPage == 4){
+            flagg = true;
+     do{
+ 
+                          random=Math.floor(Math.random() * 9) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      h.innerHTML = random;
+                  }
+                  else{
+            flagg = true;
+     do{
+
+                          random=Math.floor(Math.random() * 7) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      //h.innerHTML=letterArray[random];
+                                        var vv ;
+                      if(currentPage == 5){
+                        vv = datas[getLanguage1()][random];
+                      }else if (currentPage == 6){
+                        vv = datas[getLanguage2()][random];
+                      }
+                    else if (currentPage == 3){
+                        vv= letterArray[random];
+                      }
+                      else {
+                        vv = datas[getLanguage3()][random];
+                      }
+                      h.innerHTML=vv;
+                  }
+
+                  //h.innerHTML=str;
+                  if(currentPage<=2)
+                  hh1.style.transform='rotate('+angle[random-1]+'deg)';
+                  else
+                    hh1.style.transform='rotate(0deg)';
+                  h.style.fontSize=Math.round(feet_array[feetarr.indexOf(feet)][count-1]*mul_val[languages[currentPage]]);
+                  h.style.fontFamily = ff; 
+                  temp_ran=random;
+                }
+                temppp = [];
+                for(i=0;i<count&&i<7;i++)
+                {
+                  do{
+                      random=Math.floor(Math.random() * 4) + 1 ;  
+                  }while(random==temp_ran);
+                  var h=document.getElementById('txt2'+i);
+                  var hh1= document.getElementById('rddd'+i);
+                  // h.innerHTML=str;
+                                    if(currentPage <= 2){
+                      h.innerHTML = str;
+                  }else if(currentPage == 4){
+            flagg = true;
+     do{
+      
+                          random=Math.floor(Math.random() * 9) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      h.innerHTML = random
+                  }
+                  else{
+            flagg = true;
+     do{
+      
+                          random=Math.floor(Math.random() * 7) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                    //  h.innerHTML=letterArray[random];
+                                        var vv ;
+                      if(currentPage == 5){
+                        vv = datas[getLanguage1()][random];
+                      }else if (currentPage == 6){
+                        vv = datas[getLanguage2()][random];
+                      }
+                    else if (currentPage == 3){
+                        vv= letterArray[random];
+                      }
+                      else {
+                        vv = datas[getLanguage3()][random];
+                      }
+                      h.innerHTML=vv;
+                  }
+                  h.style.fontFamily = ff; 
+                  if(currentPage<=2)
+                  hh1.style.transform='rotate('+angle[random-1]+'deg)';
+                  else
+                    hh1.style.transform='rotate(0deg)';
+                  h.style.fontSize=feet_array[feet_index][count-1]+'mm';;
+                  temp_ran=random;
+                }
+        }
+
+        function down_click()
+        {
+
+
+            
+            if (count == 1)
+              return;
+
+
+            if(count>1)
+            {
+
+                count=count-1;
+                          setText(count);
+                
+
+             if(count<7)
+                {
+                  var table1 = document.getElementById("table1");
+                var table2 = document.getElementById("table2");
+                var row1=table1.rows[0];
+                var row2=table2.rows[0];                
+                row1.deleteCell(count);
+                row2.deleteCell(count);                 
+                
+              }
+
+                            var str="C";
+                             if(currentPage == 2)
+                str = "E";
+              else if (currentPage == 4)
+                str = "4";
+              var temp_ran=0;
+              var random=0;
+              temppp=[]
+                for(i=0;i<count&&i<7;i++)
+                {
+                  do{
+                      random=Math.floor(Math.random() * 4) + 1 ;  
+                  }while(random==temp_ran);
+                  var h=document.getElementById('txt1'+i);
+                  var hh1 = document.getElementById('iddd'+i);
+                  if(currentPage <= 2){
+                    h.innerHTML = str;
+                  }else if(currentPage == 4){
+            flagg = true;
+     do{
+ 
+                          random=Math.floor(Math.random() * 9) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      h.innerHTML = random;
+                  }
+                  else{
+            flagg = true;
+     do{
+
+                          random=Math.floor(Math.random() * 7) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      //h.innerHTML=letterArray[random];
+                                        var vv ;
+                      if(currentPage == 5){
+                        vv = datas[getLanguage1()][random];
+                      }else if (currentPage == 6){
+                        vv = datas[getLanguage2()][random];
+                      }
+                    else if (currentPage == 3){
+                        vv= letterArray[random];
+                      }
+                      else {
+                        vv = datas[getLanguage3()][random];
+                      }
+                      h.innerHTML=vv;
+                  }
+
+                  // h.innerHTML=str;
+                  if(currentPage<=2)
+                  hh1.style.transform='rotate('+angle[random-1]+'deg)';
+                  else
+                    hh1.style.transform='rotate(0deg)';
+                  // h.style.transform='rotate('+angle[random-1]+'deg)';
+                  h.style.fontSize=feet_array[feet_index][count-1]+'mm';
+                  temp_ran=random;
+                }
+temppp = [];
+                for(i=0;i<count&&i<7;i++)
+                {
+                  do{
+                      random=Math.floor(Math.random() * 4) + 1 ;  
+                  }while(random==temp_ran);
+                  var h=document.getElementById('txt2'+i);
+                  var hh1 = document.getElementById('rddd'+i);
+                  if(currentPage <= 2){
+                    h.innerHTML = str;
+                  }else if(currentPage == 4){
+            flagg = true;
+     do{
+ 
+                          random=Math.floor(Math.random() * 9) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      h.innerHTML = random;
+                  }
+                  else{
+            flagg = true;
+     do{
+
+                          random=Math.floor(Math.random() * 7) ;
+        if(temppp.length==0 ||(temppp.indexOf(random)==-1)) 
+        {
+          temppp[i]=random;
+          flagg=false;
+        }
+                      }while(flagg);
+                      //h.innerHTML=letterArray[random];
+                                        var vv ;
+                      if(currentPage == 5){
+                        vv = datas[getLanguage1()][random];
+                      }else if (currentPage == 6){
+                        vv = datas[getLanguage2()][random];
+                      }
+                    else if (currentPage == 3){
+                        vv= letterArray[random];
+                      }
+                      else {
+                        vv = datas[getLanguage3()][random];
+                      }
+                      h.innerHTML=vv;
+                  }
+
+//                  h.innerHTML=str;
+                  if(currentPage<=2)
+                  hh1.style.transform='rotate('+angle[random-1]+'deg)';
+                  else
+                    hh1.style.transform='rotate(0deg)';
+                  //h.style.transform='rotate('+angle[random-1]+'deg)';
+                  h.style.fontSize=feet_array[feet_index][count-1]+'mm';
+                  temp_ran=random;
+                }
+                
+                }
+        }
+       
+  
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  //giveSound();     //   $.ajax({
+     //     url: "test1.php",
+     //     type: "POST",         
+     //     cache: false,
+     //     success: function (response) {
+             
+     //     }
+     // });
+     giveSound();
+
+          switch(event.keyCode)
+          {
+              case 38:
+                      up_click();
+                      break;
+              case 40:
+                      down_click();
+                      break;
+              case 39:
+                      rightClick();
+                      break;
+              case 37:
+                      leftClick();
+                      break;
+              case 8:
+                     window.location="Home.html?val=18";
+                      break;
+
+                      default:
+      remote(event.keyCode);
+      break;
+          }
+        }
+        },true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+   
+
+
+  </script>
+</head>
+<body style="overflow:hidden;margin:0px" id="mybody">
+    <table cellspacing="0" cellpadding="0" border="0" height="18%" width="100%"><tr><td id="tt2" width= "50%" bgcolor="#FF0000"></td><td width= "50%" bgcolor="#00FF00" id="zz2"></td></tr></table>
+    <table width="100%" height=72% id="samp" cellspacing="0" cellpadding="0" border="0">   
+      <tr width= "100%" height="100%">
+        <td width= "50%" bgcolor="#FF0000" id="tt1">
+          <table width="100%" height=90% id="table1">
+            <tr id="row1" width=100% height=100% >
+            </tr>
+          </table>
+    <!-- <center><h1 id="txt1" style="font-family: sloan;font-size: 3.5cm;">C</h1></center> -->
+        </td>
+        <td width= "50%" id="zz1" bgcolor="#00FF00">
+          <table  width="100%" height=100% id="table2">
+            <tr id="row2" width=100% height=100% >
+             </tr>
+          </table>
+    <!-- <center><h1 id="txt2" style="font-family: sloan;font-size: 131px;">C</h1></center> -->
+        </td>
+      </tr>
+    </table>
+<script type="text/javascript">
+  
+   var reverse=getMainFlag();
+var b=document.getElementById('mybody');
+
+if(reverse==1)
+{
+  
+  b.className='rev_dis';
+}
+
+
+
+  function setText(data) {
+
+  debugger;
+      var leftValues = ['6/60', '6/36','6/24', '6/18','6/12', '6/9','6/6' , '6/5'];
+    var d1 = document.getElementById('lef');
+    var d2 = document.getElementById('rig');
+    if(data >= 7){
+      if(uunits == 1){
+        d1.innerHTML = leftValues[6];
+      }else{
+        d1.innerHTML = "";
+      }
+      if(ffeet){
+    d2.innerHTML = feet+"/"+feet_array[feet_index][6];    
+      }else{
+        d2.innerHTML = "";
+      }
+    }else{
+      if (uunits == 1) {
+    d1.innerHTML = leftValues[data-1];    
+      }else{
+        d1.innerHTML = "";
+      }
+      if(ffeet == 1){
+    d2.innerHTML = feet+"/"+feet_array[feet_index][data-1];
+      }else{
+        d2.innerHTML = "";
+      }
+  }
+
+}
+</script>
+
+    <table cellspacing="0" cellpadding="0" border="0" height="12%" width="100%"><tr><td width="2%" id="temp2" bgcolor="#FF0000"></td><td style="font-family: Arial;font-size: 30px;color: gray;" id="lef" width= "48%" bgcolor="#FF0000"></td><td width= "48%" bgcolor="#00FF00" id="rig" style="font-family: Arial; font-size: 30px; color: gray; margin-right: 40px; text-align: right;"></td><td width="2%" id="temp1" bgcolor="#00FF00"> </td></tr></table>
+
+<script type="text/javascript">
+    up_click();
+
+
+var ffeet=getFeetFlag();
+var uunits=getUnitFlag();
+   var leftValues = ['6/60', '6/36','6/24', '6/18','6/12', '6/9','6/6' , '6/5'];
+   
+    var d1 = document.getElementById('lef');
+    var d2 = document.getElementById('rig');
+      if (uunits == 1) {
+    d1.innerHTML = leftValues[0];    
+      }else{
+        d1.innerHTML = "";
+      }
+      if(ffeet == 1){
+    d2.innerHTML = feet+"/"+feet_array[feet_index][0];
+      }else{
+        d2.innerHTML = "";
+      }
+
+
+    var l = getLeftColor();
+    var r = getRightColor();
+var l1 = document.getElementById('temp2');
+var l2 = document.getElementById('lef');
+var l3 = document.getElementById('tt1');
+var l4 = document.getElementById('tt2');
+debugger;
+l4.bgColor = l;
+l2.bgColor = l;
+l1.bgColor= l;
+l3.bgColor = l;
+
+var r1 = document.getElementById('rig');
+var r2= document.getElementById('temp1');
+var r3 = document.getElementById('zz1');
+var r4 = document.getElementById('zz2');
+
+r1.bgColor = r;
+r2.bgColor = r;
+r3.bgColor = r;
+r4.bgColor = r;
+
+</script>
+
+
+</body>
+</html>

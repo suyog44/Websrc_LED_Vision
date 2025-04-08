@@ -1,0 +1,180 @@
+<html>
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+ <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>  <style>
+ .rotate180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+#container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#navi
+{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#infoi 
+{
+  width: 100%;
+  height: 5%;
+  position: absolute;
+  top:1%;
+  left: 0;
+}
+#infoi {
+  z-index: 10;
+}
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+
+        
+}
+  </style>
+  <script type="text/javascript">
+        var feet=getFeet();
+        var count=1;
+        var a=true;
+        var feetval=getFeet();
+        function next(a){
+          debugger;
+          if(a==0)  {count=count+1;}
+          else      {count=count-1;}
+          
+          if(count>=20){count=20;}
+          if(count<=1){count=1;}
+          //var name="i"+count;
+          var img=document.getElementById("i1");
+          //var img2=document.getElementById(name2);
+         // img2.src="./main_gifs/C.gif";
+         if(count!=20)
+          {
+            img.src="./img1pack/"+count+".jpg";
+          }
+          else
+          {
+             img.src="./img1pack/"+"x"+feetval+".jpg";
+          }
+		arrow();
+     }
+  
+  function back_click()
+        {
+              window.history.back();
+        }
+   
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  giveSound();
+            debugger;
+
+
+ // $.ajax({
+ //         url: "test1.php",
+ //         type: "POST",         
+ //         cache: false,
+ //         success: function (response) {
+             
+ //         }
+ //     });
+// giveSound();
+
+            //alert(event.keyCode);
+
+            switch(event.keyCode)
+            {
+              case 37: next(0);  break;  //move right
+              case 39: next(1);  break;  // move left
+              
+              case 8:
+                      window.location="Home.html?val=13";
+                      break; 
+		default:
+			remote(event.keyCode);
+			break;
+
+            }
+}
+        
+    }, true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+  </script>
+</head>
+<body id="mybody" style="overflow:hidden;">
+	<div id="container">
+  <div id="navi">
+   
+      <img src="./img1pack/1.jpg" id="i1"  style='width:100%;' border="0" alt="Null"/></a>
+   </div>
+ <div id="infoi" style="padding-left: 1%;padding-right: 1%">
+<img id="rit" src="arr.png" class="rotate180" width="50" height="50"/>
+<img id="left" src="arr.png" width="50" height="50"/>
+
+
+
+</div>
+</div>
+<script>
+var reverse=getMainFlag();
+var b=document.getElementById('mybody');
+
+if(reverse==1)
+{
+	
+	b.className='rev_dis';
+}
+var lef=document.getElementById("left");
+var rit=document.getElementById("rit");
+arrow();
+function arrow()
+{
+	if(count>1)
+		lef.style.display="inline";
+	else
+		lef.style.display="none";
+	if(count<20)
+		rit.style.display="inline";
+	else
+		rit.style.display="none";
+
+
+}
+
+</script>
+</body>
+</html>
+
+
+

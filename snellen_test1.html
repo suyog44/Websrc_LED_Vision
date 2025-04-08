@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<body id="mybody"style="windth:100%; height:100%; overflow:hidden; "  bgcolor="white">
+
+<canvas id="myCanvas" 
+style="border:0px solid #0003c3; ">
+Your browser does not support the canvas element.
+</canvas>
+
+ <style>
+
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+  </style>
+
+ <script type='text/javascript' src="scriptFile.js"></script>
+<script type='text/javascript'>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+
+var a=0;
+var b=0;
+var page=0;
+var minus=0;
+
+//alert("feet_val");
+var feet_val=parseInt(getFeet());
+//alert(feet_val);
+
+var array={
+'8' :[25], //25
+'9' :[25],
+'10':[25],
+'11':[25],
+'12':[27], //27
+'13':[27],
+'14':[29], //29
+'15':[29],
+'16':[29],
+'17':[31], //31
+'18':[31],
+'19':[31],
+'20':[33], //33
+
+
+};
+
+
+ctx.canvas.width=window.innerWidth;
+
+ctx.canvas.height=window.innerHeight;
+
+ var x=(window.innerWidth)/2;
+ var y=(window.innerHeight)/2;
+
+
+var reverse=getMainFlag();
+var b=document.getElementById('mybody');
+
+if(reverse==1)
+{
+  
+  b.className='rev_dis';
+}
+
+
+
+function line()
+{
+
+     debugger;
+    switch(page)
+    {
+      case 0:{ 
+
+               ctx.beginPath();
+             ctx.font = "90mm x 90mm FreeSans";
+             ctx.fillText("7",x-150,300);
+                ctx.closePath();
+              }break;
+              
+
+}
+}
+
+ line();
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  giveSound();            debugger;
+            //alert(event.keyCode);
+
+            switch(event.keyCode)
+            {
+              case 38: page--; line();   break;  //move right
+              case 40: page++; line();   break;  // move left
+              case 8:  window.location="Home.html?val=17";
+            }
+//alert(page);
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+</script>
+
+</body>
+</html>
+
+<script>
+
+
+</script>

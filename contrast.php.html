@@ -1,0 +1,207 @@
+<html>
+<head>
+<script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+  <style type="text/css">
+    #snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible; /* Show the snackbar */
+
+/* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+  </style>
+</head>
+<body  id="bg1">
+<div style="height: 43%;    "></div>
+	<center><h1><font style="font-size: 70px; ">CONTRAST SETTINGS</font></h1></center>
+<center><progress id="pg" value = "5" max = "10" ></progress></center>
+
+<div id="snackbar">Contrast Updated...</div>
+<script type='text/javascript' src="scriptFile.js"></script>
+<script type="text/javascript">
+
+
+function myFunction() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+     aa = x;
+
+if(parseInt(getSoundFlag()) == 1){
+  aa.innerHTML = "UnMuted...";
+}else{
+  aa.innerHTML = "Muted...";
+}
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+var codes =[ '1','#FFFFFF' ,     '#BEBEBE' ,   '#B8B8B8'  ,      '#B0B0B0',    '#A9A9A9' ,   '#A8A8A8',    '#A0A0A0' ,   '#989898'  ,      '#909090',        '#888888']
+
+debugger;
+
+//alert(progress.value);
+function myFunction1() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar")
+    x.innerHTML = "Contrast Updated...";
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+  key_pp=1;
+  //giveSound();
+ // $.ajax({
+ //         url: "test1.php",
+ //         type: "POST",         
+ //         cache: false,
+ //         success: function (response) {
+             
+ //         }
+ //     });
+ giveSound();
+       
+          switch(event.keyCode)
+          {
+              case 39:
+                      right_click();
+                      break;
+              case 37:
+                      left_click();
+                      break;
+              case 38:
+                      up_click();
+                      break;
+              case 40:
+                      down_click();
+                      break;
+              case 13:
+                      enter_click();
+                      break;
+              case 8:
+                     window.location="settingsmain.html";
+                      break;
+		
+default:
+			remote(event.keyCode);
+			break;
+
+          }
+        }
+        },true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //  setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+
+function back_click () {
+  // body...
+  window.history.back();
+}
+
+//if((progress.value)>=9){(progress.value)=9;}
+
+function background()
+{
+//if((progress.value)==10){(progress.value)=progress.value-1;}
+  document.getElementById("bg1").style.background = codes[(progress.value)];
+}
+
+var progress = document.getElementById("pg");
+
+       function right_click () {
+       	// body...
+
+       	progress.value = progress.value + 1;
+        background();
+        // setContrastValue(progress.value);
+       }
+
+
+       function left_click () {
+       	// body...
+        //alert(progress.value);
+        
+       	progress.value = progress.value - 1;
+        
+
+        background();
+
+       }
+ background();
+function enter_click () {
+	// body...\
+	// alert("value setted"+getContrastValue());
+          setContrastValue(progress.value);
+myFunction1();
+
+}
+
+document.getElementById("bg1").style.background = codes[(parseInt(getContrastValue()))];
+document.getElementById("pg").value = parseInt(getContrastValue());
+//alert(codes[parseInt(getContrastValue())]);
+
+document.getElementById("pg").style.height = 50;
+document.getElementById("pg").style.width = 300;
+
+
+</script>
+</body>
+</html>

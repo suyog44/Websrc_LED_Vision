@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+ <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+<script src="remote.js"></script>
+ <script type='text/javascript' src="scriptFile.js"></script>
+<style type="text/css">
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+
+#container {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+#navi,
+#infoi {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#infoi {
+  z-index: 10;
+}
+</style>
+</head>
+
+<body style="windth:100%; height:100%; overflow:hidden; "  bgcolor="white" id="mybody">
+<script src="remote.js"></script>
+<div id="container">
+  <div id="navi">
+<canvas id="myCanvas" 
+style="border:0px solid #0003c3; ">
+Your browser does not support the canvas element.
+</canvas>
+</div>
+ <div id="infoi" style="padding-left: 1%;padding-right: 1%">
+
+<img id="rit" src="arrup.png" class="rotate180" width="50" height="50"/>
+<img id="left" src="arrup.png" width="50" height="50"/>
+
+
+</div>
+</div>
+
+<style>
+ .rotate180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+#container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#navi
+{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#infoi 
+{
+  width: 100%;
+  height: 5%;
+  position: absolute;
+  top:1%;
+  left: 0;
+}
+#infoi {
+  z-index: 10;
+}
+.rev_dis
+{
+  margin: 0 auto;
+        width: 100%;
+        /-moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        filter: FlipH;
+        -ms-filter: "FlipH";
+}
+  </style>
+  <script src="remote.js"></script>
+<script type='text/javascript' src="scriptFile.js"></script> 
+<script type='text/javascript'>
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+var feetval=parseInt(getFeet());
+
+//
+//
+//alert(feetval);
+
+
+
+var a=0;
+var b=0;
+var page=0;
+var minus=0;
+
+
+var inx=3;
+//------------------------------------------------------------------------
+
+//8-10  3
+//
+//alert(feetval);
+
+var grid={
+
+//length    space      big  
+'6' :[90.5,   4.6,       5,          ],
+'7' :[102,   4.6,       5,          ], 
+'8' :[110,   5.6,       6,          ],
+'9' :[110,   5.6,       6,          ],
+'10':[118,   5.95,         7,          ],
+'11':[118,   5.95,         7,          ],
+'12':[127,   6.53,     6.5,          ],
+'13':[127,   6.53,     6.5,          ],
+'14':[135,   6.80,         8,          ],
+'15':[134.5,   6.80,         8,          ],
+'16':[143,   7.07,        10,          ],
+'17':[143,   7.07,      10.5,          ],
+'18':[150,   7.4,    10.5,          ],
+'19':[150,   7.4,    10.5,          ],
+'20':[158,   7.97,       9.5,          ],
+
+
+};
+
+
+
+var line_len=grid[feetval][0];
+var line_cali=1.66666667;
+var space=(grid[feetval][1])*3.25;
+var space_cali=space;
+var big=grid[feetval][2]*3.125;
+
+
+//alert(big);
+
+//-----------------------page 1 and 2
+var array={
+//round    width height
+'6' :[8, 10, 168],
+'7' :[8, 10, 168],
+
+'8' :[10, 12, 174],
+'9' :[10, 12, 174],
+'10':[10, 12, 187],
+'11':[10, 12, 187],
+'12':[12, 14, 205],
+'13':[14, 14, 205],
+'14':[14, 14, 220],
+'15':[14, 14, 220],
+'16':[16, 16, 236],
+'17':[16, 16, 236],
+'18':[16, 16, 249],
+'19':[16, 18, 249],
+'20':[17, 18, 265],
+};
+
+var diamter=array[feetval][0];
+var wid=array[feetval][1];
+var hite=array[feetval][2];
+//--------------------------------------------
+
+// -------------------------------page 3 
+
+var box_array={
+
+//black    white  wid   left_h     top_h    dis
+'6' :[17,   10,    4.5,    100,       47,     97        ],
+'7' :[17,   10,    4.5,    100,       47,     97        ],
+
+'8' :[18,   11,    5,    113,       52,     105        ],
+'9' :[18,   11,    5,    113,       52,     114        ],
+'10':[19,   11,    5,    121,       51,     112        ],
+'11':[19,   11,    5,    121,       50.5,   112        ],
+'12':[20,   12,    5.5,  130,       60,     120        ],
+'13':[20,   12,    5.5,  130,       60,     120        ],
+'14':[20,   12,    5.5,  130,       60,     120        ],
+'15':[21.5, 13,    6,    138,       63.5,   128        ],
+'16':[23,   13,    6,    146,       67,     135        ],
+'17':[23,   14,    6,    146,       67,     135        ],
+'18':[24,   14,    6,    153,       70,     143        ],
+'19':[24,   14,    6,    154,       71,     143        ],
+'20':[25,   15,    6.5,  162,       74.5,   151        ],
+
+
+};
+
+var black=box_array[feetval][0];
+var white=box_array[feetval][1];
+
+var black_cali=1.55555556
+var white_cali=1.63636364
+var thick_cali=2.92307692
+var dis_cali=1.71523179
+var hite_cali=3.30246914
+var wid_cali=3.30201342
+
+var box_left =box_array[feetval][3];
+var box_top =box_array[feetval][4];
+var box_wid =box_array[feetval][2];
+var box_dis =box_array[feetval][5];
+
+//---------------------------------------------------------------------------------------------
+
+ctx.canvas.width=window.innerWidth;
+
+ctx.canvas.height=window.innerHeight;
+
+ var x=(window.innerWidth)/2;
+ var y=(window.innerHeight)/2;
+
+var reverse=getMainFlag();
+var b=document.getElementById('mybody');
+
+if(reverse==1)
+{
+    
+    b.className='rev_dis';
+}
+
+
+
+function $_GET() {
+    try{
+var s =  window.location.search;
+    var re = s.split('?')[1];
+     var var1 = re.split('=')[1];
+    }catch(x){
+      var1 = 1
+    }
+    
+     return var1;
+}
+var1 = $_GET();
+count = parseInt(var1);
+//alert(count);
+
+page=count;
+ line();
+
+
+
+function line()
+{
+     debugger;
+
+     if(page>=4){page=4;}
+
+if(page<=0){page=0;}
+
+    switch(page)
+    {
+      case 0:{ 
+                 ctx.beginPath();
+                 ctx.fillStyle = "#FFFFFF";
+                 ctx.fillRect(x-600,y-600,1400,1400);
+                 ctx.stroke();
+                 ctx.closePath();
+                  
+                ctx.beginPath();
+                ctx.arc(x, y, 9, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath();
+                //alert((line_len*line_cali));
+     
+                ctx.beginPath();  
+                ctx.moveTo(x-(line_len*line_cali), y);
+                ctx.lineTo(x+(line_len*line_cali), y);
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = '#000000';
+                ctx.stroke();
+                ctx.closePath();
+
+                ctx.beginPath();
+                ctx.moveTo(x, y-(line_len*line_cali));
+                ctx.lineTo(x, y+(line_len*line_cali));
+                ctx.lineWidth = 4;
+                ctx.strokeStyle = '#000000';
+                ctx.stroke();
+                ctx.closePath();
+
+            
+
+                for (var i = 1; i <= 10; i=i+1 ) 
+                {
+                    
+
+                ctx.beginPath();
+                ctx.moveTo(x-(space),y-(line_len*line_cali)); 
+                ctx.lineTo(x-(space),y+(line_len*line_cali));
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#000000';
+                ctx.stroke();
+                ctx.closePath();
+
+                ctx.beginPath();
+                ctx.moveTo(x-(line_len*line_cali), y-(space));
+                ctx.lineTo(x+(line_len*line_cali), y-(space));
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#000000';
+                ctx.stroke();
+                ctx.closePath();
+
+            
+
+                ctx.beginPath();
+                ctx.moveTo(x+(space),y-(line_len*line_cali)); 
+                ctx.lineTo(x+(space),y+(line_len*line_cali));
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#000000';
+                ctx.stroke();
+                ctx.closePath();
+
+                ctx.beginPath();
+                ctx.moveTo(x-(line_len*line_cali), y+(space));
+                ctx.lineTo(x+(line_len*line_cali), y+(space));
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = '#000000';
+                ctx.stroke();
+                ctx.closePath();
+
+                if(i<9)
+                {
+                 space=space+space_cali;
+                }
+                else
+                {
+                   space=space+big; 
+                }
+
+                }
+
+
+
+
+              }break;
+              
+
+       case 1:{ 
+                  ctx.beginPath();
+                 ctx.fillStyle = "#FFFFFF";
+                 ctx.fillRect(x-600,y-600,1400,1400);
+                 ctx.stroke();
+                 ctx.closePath();
+
+                 
+                ctx.beginPath();
+                 ctx.fillStyle = "#00FF00";
+                 ctx.fillRect(x-(wid/2),y+(2*diamter)-4,wid,hite);
+                 ctx.fill();
+                 ctx.closePath();
+
+                 ctx.beginPath();
+                 ctx.fillStyle = "#00FF00";
+                 ctx.fillRect(x-(wid/2),y-(2*diamter)+4-hite,wid,hite);
+                 ctx.fill();
+                 ctx.closePath();
+
+                  ctx.beginPath();
+                 ctx.fillStyle = "#FF0000";
+                 ctx.fillRect(x+(2*diamter)-4,y-(wid/2),hite,wid);
+                 ctx.fill();
+                 ctx.closePath();
+                  ctx.beginPath();
+
+                 ctx.fillStyle = "#FF0000";
+                 ctx.fillRect(x-(2*diamter)+4-hite,y-(wid/2),hite,wid);
+                 ctx.fill();
+                 ctx.closePath();
+
+              }break;
+              
+
+        case 2:{
+
+               ctx.beginPath();
+                 ctx.fillStyle = "#FFFFFF";
+                 ctx.fillRect(x-600,y-600,1400,1400);
+                 ctx.stroke();
+                 ctx.closePath();
+
+                   ctx.beginPath();
+                ctx.arc(x, y, diamter, 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath();
+                 
+                ctx.beginPath();
+                 ctx.fillStyle = "#00FF00";
+                 ctx.fillRect(x-(wid/2),y+(2*diamter)-4,wid,hite);
+                 ctx.fill();
+                 ctx.closePath();
+
+                 ctx.beginPath();
+                 ctx.fillStyle = "#FF0000";
+                 ctx.fillRect(x-(wid/2),y-(2*diamter)+4-hite,wid,hite);
+                 ctx.fill();
+                 ctx.closePath();
+
+                  ctx.beginPath();
+                 ctx.fillStyle = "#FF0000";
+                 ctx.fillRect(x+(2*diamter)-4,y-(wid/2),hite,wid);
+                 ctx.fill();
+                 ctx.closePath();
+                  ctx.beginPath();
+
+                 ctx.fillStyle = "#00FF00";
+                 ctx.fillRect(x-(2*diamter)+4-hite,y-(wid/2),hite,wid);
+                 ctx.fill();
+                 ctx.closePath();
+
+               }break;
+
+        case 3:{
+
+                 ctx.beginPath();
+                 ctx.fillStyle = "#FFFFFF";
+                 ctx.fillRect(x-600,y-600,1400,1400);
+                 ctx.stroke();
+                 ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(x, y, (black*black_cali), 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath(); 
+                
+                  ctx.beginPath();
+                ctx.arc(x, y, (white*white_cali), 0, 2 * Math.PI, false);  
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fill();
+//                ctx.stroke(); 
+//alert( (thick_cali*box_wid) ); (box_dis*1.70860927) 
+                ctx.closePath(); 
+                ctx.beginPath();
+                 ctx.fillStyle = "#FF0000";
+                 ctx.fillRect(x-(box_dis*dis_cali),  y-((box_left*hite_cali)/2) ,  thick_cali*box_wid  ,   (box_left*hite_cali)   );       //left line
+                 ctx.fill();
+                 ctx.closePath();
+
+                 ctx.closePath(); 
+                 ctx.beginPath();
+                 ctx.fillStyle = "#00FF00";
+                 ctx.fillRect(x+(box_dis*dis_cali)   ,    y-((box_left*hite_cali)/2)   ,    thick_cali*box_wid   , (box_left*hite_cali));        //right line
+                 ctx.fill();
+                 ctx.closePath();
+
+                 ctx.closePath(); 
+                 ctx.beginPath();
+                 ctx.fillStyle = "#FF0000";
+                 ctx.fillRect(  x-(box_dis*dis_cali) ,  y-((box_left*hite_cali)/2)  ,   (box_top*wid_cali)  ,thick_cali*box_wid  );
+                 ctx.fill();
+                 ctx.closePath(); 
+
+                   ctx.closePath(); 
+                 ctx.beginPath();
+                 ctx.fillStyle = "#FF0000";
+                 ctx.fillRect(  x-(box_dis*dis_cali) ,  y+((box_left*hite_cali)/2)  ,   (box_top*wid_cali)  ,thick_cali*box_wid  );
+                 ctx.fill();
+                 ctx.closePath(); 
+
+
+
+
+
+
+                 ctx.closePath(); 
+                 ctx.beginPath();
+                 ctx.fillStyle = "#00FF00";
+                 ctx.fillRect( x+(box_dis*dis_cali)-(box_top*wid_cali)+thick_cali*box_wid   ,  y-((box_left*hite_cali)/2)  ,   (box_top*wid_cali)  ,thick_cali*box_wid  );
+                 ctx.fill();
+                 ctx.closePath(); 
+
+                   ctx.closePath(); 
+                 ctx.beginPath();
+                 ctx.fillStyle = "#00FF00";
+                 ctx.fillRect(  x+(box_dis*dis_cali)-(box_top*wid_cali)+thick_cali*box_wid  ,  y+((box_left*hite_cali)/2)  ,   (box_top*wid_cali)  ,thick_cali*box_wid  );
+                 ctx.fill();
+                 ctx.closePath(); 
+
+
+
+
+        } break;     
+
+        case 4:{
+
+                
+                 ctx.beginPath();
+                 ctx.fillStyle = "#FFFFFF";
+                 ctx.fillRect(x-600,y-600,1400,1400);
+                 ctx.stroke();
+                 ctx.closePath();
+
+                ctx.beginPath();
+                ctx.arc(x, y, (black*black_cali), 0, 2 * Math.PI, false);
+                ctx.fillStyle = "#000000";
+                ctx.fill();
+                ctx.stroke();
+                ctx.closePath(); 
+                
+                  ctx.beginPath();
+                ctx.arc(x, y, (white*white_cali), 0, 2 * Math.PI, false);  
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fill();
+                ctx.closePath(); 
+                
+                 ctx.beginPath();
+                 ctx.fillStyle = "#00FF00";
+                 ctx.fillRect(x-((box_left*hite_cali)/2) ,  y-(box_dis*dis_cali) ,      (box_left*hite_cali)  ,  thick_cali*box_wid   );       //left line
+                 ctx.fill();
+                 ctx.closePath();
+
+
+            
+ 
+                     
+                 ctx.beginPath();
+                 ctx.fillStyle = "#FF0000";
+                 ctx.fillRect(x-((box_left*hite_cali)/2) ,  y+(box_dis*dis_cali) ,      (box_left*hite_cali)  ,  thick_cali*box_wid   );       //left line
+                 ctx.fill();
+                 ctx.closePath();
+
+
+
+
+                 ctx.closePath(); 
+                 ctx.beginPath();
+                 ctx.fillStyle = "#00FF00";
+                 ctx.fillRect (x-((box_left*hite_cali)/2) ,  y-(box_dis*dis_cali)  ,    thick_cali*box_wid ,(box_top*wid_cali) );
+                 ctx.fill();
+                 ctx.closePath();
+
+
+                  
+                 ctx.beginPath();
+                 ctx.fillStyle = "#00FF00";
+                 ctx.fillRect (x+((box_left*hite_cali)/2)-thick_cali*box_wid  ,  y-(box_dis*dis_cali)  ,    thick_cali*box_wid ,(box_top*wid_cali) );
+                 ctx.fill();
+                 ctx.closePath();
+
+
+                   
+                 ctx.beginPath();
+                 ctx.fillStyle = "#FF0000";
+                 ctx.fillRect (x-((box_left*hite_cali)/2) ,  y+(box_dis*dis_cali)-(box_top*wid_cali)+thick_cali*box_wid   ,    thick_cali*box_wid ,(box_top*wid_cali) );
+                 ctx.fill();
+                 ctx.closePath();
+
+                  ctx.beginPath();
+                 ctx.fillStyle = "#FF0000";
+                 ctx.fillRect (x+((box_left*hite_cali)/2)-thick_cali*box_wid  ,  y+(box_dis*dis_cali)-(box_top*wid_cali)+thick_cali*box_wid   ,    thick_cali*box_wid ,(box_top*wid_cali) );
+                 ctx.fill();
+                 ctx.closePath();
+
+              
+
+
+
+ 
+
+
+
+                 
+        }break;
+
+}
+}
+
+
+
+var key_p=0;
+var key_pp=0;
+        document.addEventListener('keydown',function(event){
+
+    
+if(key_pp == 0)
+{
+    key_pp=1;
+  //giveSound();            debugger;
+            //alert(event.keyCode);
+// $.ajax({
+//          url: "test1.php",
+//          type: "POST",         
+//          cache: false,
+//          success: function (response) {
+             
+//          }
+//      });
+giveSound();
+
+            switch(event.keyCode)
+            {
+              case 40: page++; line();  space=(grid[feetval][1])*3.25; space_cali=space; arrow();break;  //move right
+              case 38: if(page!=0){page--; line();  space=(grid[feetval][1])*3.25; space_cali=space; } arrow();break;  // move left
+              case 8: window.location="Home.html?val=20"; break;
+              default:
+            remote(event.keyCode);
+            break;
+            }
+
+
+
+
+//alert(page);
+        }
+    }, true);
+                  document.addEventListener('keyup',function(event){
+            key_pp=0;
+          //    setTimeout(function(){flag_key=true ; }, 100);
+            },true);
+var lef=document.getElementById("left");
+var rit=document.getElementById("rit");
+arrow();
+function arrow()
+{
+	if(page>0)
+		lef.style.display="inline";
+	else
+		lef.style.display="none";
+	if(page<4)
+		rit.style.display="inline";
+	else
+		rit.style.display="none";
+
+
+}
+
+</script>
+
+</body>
+</html>
+
+<script>
+
+
+</script>
